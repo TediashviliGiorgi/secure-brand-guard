@@ -6,14 +6,35 @@ export const GEORGIAN_REGIONS = [
   'Kartli',
   'Imereti',
   'Racha-Lechkhumi',
-  'Samegrelo',
   'Adjara',
-  'Guria',
-  'Samtskhe-Javakheti',
-  'Kvemo Kartli',
-  'Mtskheta-Mtianeti',
-  'Shida Kartli',
-  'Tbilisi'
+  'Other'
+] as const;
+
+// Industries
+export const INDUSTRIES = [
+  'Wine',
+  'Spirits',
+  'Cheese',
+  'Olive Oil',
+  'Honey',
+  'Craft Products',
+  'Other'
+] as const;
+
+// Industry focus for consortiums
+export const INDUSTRY_FOCUS = [
+  'Wine',
+  'Food & Beverages',
+  'Mixed Products',
+  'Other'
+] as const;
+
+// Region coverage
+export const REGION_COVERAGE = [
+  'Single Region',
+  'Multiple Regions',
+  'Nationwide',
+  'International'
 ] as const;
 
 // Login validation schema
@@ -29,11 +50,18 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 });
 
-// Registration Step 1 validation schema
+// Registration Step 1: Account Type
 export const registerStep1Schema = z.object({
+  accountType: z.enum(['producer', 'consortium'], {
+    required_error: 'Please select an account type',
+  }),
+});
+
+// Registration Step 2A: Producer Info
+export const registerProducerStep2Schema = z.object({
   companyName: z
     .string()
-    .min(1, 'Company name is required')
+    .min(2, 'Company name is required')
     .max(100, 'Company name must be less than 100 characters'),
   businessEmail: z
     .string()
@@ -41,32 +69,60 @@ export const registerStep1Schema = z.object({
     .email('Please enter a valid email address'),
   phone: z
     .string()
-    .min(1, 'Phone number is required')
-    .regex(/^\+995\s\d{3}\s\d{3}\s\d{3}$/, 'Phone must be in format: +995 XXX XXX XXX'),
+    .optional(),
   region: z
     .string()
     .min(1, 'Region is required'),
+  industry: z
+    .string()
+    .min(1, 'Industry is required'),
 });
 
-// Registration Step 2 validation schema
-export const registerStep2Schema = z.object({
+// Registration Step 2B: Consortium Info
+export const registerConsortiumStep2Schema = z.object({
+  consortiumName: z
+    .string()
+    .min(2, 'Consortium name is required')
+    .max(100, 'Consortium name must be less than 100 characters'),
+  email: z
+    .string()
+    .min(1, 'Official email is required')
+    .email('Please enter a valid email address'),
+  phone: z
+    .string()
+    .optional(),
+  memberCount: z
+    .number()
+    .optional(),
+  industryFocus: z
+    .string()
+    .min(1, 'Industry focus is required'),
+  regionCoverage: z
+    .string()
+    .optional(),
+});
+
+// Registration Step 3: Personal/Admin Info
+export const registerStep3Schema = z.object({
   fullName: z
     .string()
-    .min(1, 'Full name is required')
+    .min(2, 'Full name is required')
     .max(100, 'Full name must be less than 100 characters'),
   password: z
     .string()
-    .min(1, 'Password is required')
     .min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .regex(/[0-9]/, 'Password must contain at least one number'),
+    .regex(/[A-Z]/, 'Must contain uppercase letter')
+    .regex(/[0-9]/, 'Must contain number')
+    .regex(/[^A-Za-z0-9]/, 'Must contain special character'),
   confirmPassword: z
     .string()
     .min(1, 'Please confirm your password'),
   agreeToTerms: z
     .boolean()
-    .refine((val) => val === true, 'You must agree to the terms and conditions'),
+    .refine((val) => val === true, 'You must agree to terms and conditions'),
+  marketingEmails: z
+    .boolean()
+    .optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ['confirmPassword'],

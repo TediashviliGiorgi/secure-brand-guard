@@ -29,7 +29,14 @@ export const useAuth = () => {
         description: `Logged in as ${response.user.email}`,
       });
       
-      navigate('/dashboard');
+      // Redirect based on role
+      if (response.user.role === 'producer') {
+        navigate('/dashboard');
+      } else if (response.user.role === 'consortium') {
+        navigate('/consortium/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       toast({
         title: 'Login failed',
@@ -56,7 +63,14 @@ export const useAuth = () => {
         description: 'Welcome to AuthIt',
       });
       
-      navigate('/dashboard');
+      // Redirect based on role
+      if (response.user.role === 'producer') {
+        navigate('/dashboard');
+      } else if (response.user.role === 'consortium') {
+        navigate('/consortium/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       toast({
         title: 'Registration failed',

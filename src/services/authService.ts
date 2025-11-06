@@ -14,16 +14,40 @@ export const authService = {
     // Mock implementation
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (credentials.email === 'demo@authit.com' && credentials.password === 'password') {
+        // Mock producer user
+        if (credentials.email === 'producer@winery.ge' && credentials.password === 'password') {
           const mockResponse: AuthResponse = {
             token: 'mock-jwt-token-' + Date.now(),
             user: {
-              id: '1',
+              id: 'prod-001',
               email: credentials.email,
-              fullName: 'Demo User',
-              companyName: 'Demo Company',
-              phone: '+995 555 123 456',
-              region: 'Kakheti'
+              name: 'Giorgi Meladze',
+              role: 'producer',
+              companyName: 'Saperavi Winery',
+              region: 'Kakheti',
+              industry: 'Wine',
+              phone: '+995 555 123 456'
+            }
+          };
+          
+          if (credentials.rememberMe) {
+            localStorage.setItem('rememberMe', 'true');
+          }
+          
+          resolve(mockResponse);
+        }
+        // Mock consortium user
+        else if (credentials.email === 'admin@consortium.ge' && credentials.password === 'password') {
+          const mockResponse: AuthResponse = {
+            token: 'mock-jwt-token-' + Date.now(),
+            user: {
+              id: 'cons-001',
+              email: credentials.email,
+              name: 'Nino Beridze',
+              role: 'consortium',
+              consortiumName: 'Kakheti Wine Consortium',
+              memberCount: 24,
+              phone: '+995 555 987 654'
             }
           };
           
@@ -51,11 +75,15 @@ export const authService = {
           token: 'mock-jwt-token-' + Date.now(),
           user: {
             id: Date.now().toString(),
-            email: data.businessEmail,
-            fullName: data.fullName,
+            email: data.email,
+            name: data.fullName,
+            role: data.accountType,
             companyName: data.companyName,
+            consortiumName: data.consortiumName,
+            region: data.region,
+            industry: data.industry,
             phone: data.phone,
-            region: data.region
+            memberCount: data.memberCount
           }
         };
         resolve(mockResponse);
