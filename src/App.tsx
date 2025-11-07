@@ -10,6 +10,8 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 import CreateBatchPage from "./pages/batches/CreateBatchPage";
+import BatchDetailPage from "./pages/batches/BatchDetailPage";
+import ProductStoryPage from "./pages/product/ProductStoryPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,15 @@ const App = () => (
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/dashboard/batches/:id" 
+            element={
+              <ProtectedRoute>
+                <BatchDetailPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/product/:batchId" element={<ProductStoryPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

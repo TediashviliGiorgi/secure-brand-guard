@@ -1,10 +1,12 @@
 import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, LogOut, QrCode, Package } from 'lucide-react';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-muted">
@@ -65,8 +67,8 @@ export default function DashboardPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Create and manage your product authentication QR codes. Each product gets two codes: one for marketing and one for security verification.
               </p>
-              <Button className="w-full">
-                Create QR Codes
+              <Button className="w-full" onClick={() => navigate('/dashboard/batches/create')}>
+                Create New Batch
               </Button>
             </CardContent>
           </Card>
@@ -89,8 +91,8 @@ export default function DashboardPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Add and manage your products, create brand stories, and track authentication statistics across your inventory.
               </p>
-              <Button variant="outline" className="w-full">
-                View Products
+              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/batches/AUTH-2024-001')}>
+                View Batch Example
               </Button>
             </CardContent>
           </Card>
