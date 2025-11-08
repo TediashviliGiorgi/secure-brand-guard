@@ -1,167 +1,395 @@
 import { Link } from 'react-router-dom';
-import { Shield, QrCode, Lock, TrendingUp, ArrowRight } from 'lucide-react';
+import { Shield, QrCode, Lock, BarChart3, Globe, DollarSign, ArrowRight, Play, CheckCircle2, Users, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
+  const features = [
+    {
+      icon: QrCode,
+      title: 'Brand Storytelling',
+      description: 'Create beautiful product pages that engage customers and tell your brand story'
+    },
+    {
+      icon: BarChart3,
+      title: 'Real-time Analytics',
+      description: 'Track scans, verify authenticity, and understand customer engagement instantly'
+    },
+    {
+      icon: Shield,
+      title: 'Security Monitoring',
+      description: 'Advanced fraud detection alerts you to potential counterfeiting attempts'
+    },
+    {
+      icon: Globe,
+      title: 'Multi-language',
+      description: 'Support for Georgian, English, and Russian to reach global markets'
+    },
+    {
+      icon: CheckCircle2,
+      title: 'One-time Verification',
+      description: 'Each security code works once - impossible to duplicate or counterfeit'
+    },
+    {
+      icon: DollarSign,
+      title: 'Cost-effective',
+      description: 'Affordable pricing per unit with no setup fees or monthly minimums'
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-muted">
-      {/* Header */}
-      <header className="border-b border-border/40 bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 border-b border-border/40 bg-card/95 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
                 <Shield className="w-6 h-6 text-primary-foreground" />
               </div>
-              <div>
-                <h1 className="text-xl font-semibold tracking-tight text-foreground">
-                  AuthIt
-                </h1>
-                <p className="text-xs text-muted-foreground">
-                  Brand Authentication Platform
-                </p>
+              <span className="text-xl font-semibold">AuthIt</span>
+            </div>
+            
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Features
+              </a>
+              <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Pricing
+              </a>
+              <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                About
+              </a>
+              <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Contact
+              </a>
+              <div className="flex items-center gap-2 text-xs">
+                <Globe className="w-4 h-4" />
+                <span className="text-muted-foreground">GEO | ENG | RUS</span>
               </div>
             </div>
+            
             <div className="flex items-center gap-3">
               <Link to="/login">
-                <Button variant="outline">Sign In</Button>
+                <Button variant="outline" size="sm">Sign In</Button>
               </Link>
               <Link to="/register">
-                <Button>Get Started</Button>
+                <Button size="sm">Get Started</Button>
               </Link>
             </div>
           </div>
         </div>
-      </header>
+      </nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground">
-            Protect Your Brand with{' '}
-            <span className="text-primary">Dual QR Authentication</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            AuthIt helps producers combat counterfeiting while sharing their brand story. 
-            One QR for marketing, one for security — trust built into every product.
-          </p>
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <Link to="/register">
-              <Button size="lg" className="text-base">
-                Start Free Trial
-                <ArrowRight className="w-4 h-4 ml-2" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+        <div className="container mx-auto px-4 py-20 md:py-32 relative">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+              Protect Your Brand from <span className="text-primary">Counterfeiting</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Digital authentication & marketing platform with dual QR system. 
+              Build trust, engage customers, and eliminate fake products.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Link to="/register">
+                <Button size="lg" className="text-base w-full sm:w-auto">
+                  Start Free Trial
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Button size="lg" variant="outline" className="text-base w-full sm:w-auto">
+                <Play className="w-4 h-4 mr-2" />
+                Watch Demo
               </Button>
-            </Link>
-            <Link to="/login">
-              <Button size="lg" variant="outline" className="text-base">
-                Sign In
-              </Button>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <Card className="border-border/50 shadow-lg">
+      {/* Problem Statement */}
+      <section className="bg-muted/30 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
+            Global brands lose €2.3B annually to counterfeiting
+          </p>
+          <p className="text-muted-foreground">Don't let this happen to your business</p>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Simple three-step system to protect and promote your brand
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <Card className="text-center">
             <CardHeader>
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <QrCode className="w-6 h-6 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <QrCode className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Dual QR System</CardTitle>
-              <CardDescription>
-                Marketing QR on the label, security QR under the seal
-              </CardDescription>
+              <CardTitle>QR #1: Marketing</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Share your brand story publicly while keeping authentication secure. 
-                The hidden QR can only be scanned once for verification.
+              <p className="text-muted-foreground">
+                Share your brand story with beautiful, engaging product pages that customers love to explore
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-border/50 shadow-lg">
+          <Card className="text-center">
             <CardHeader>
-              <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center mb-4">
-                <Lock className="w-6 h-6 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Anti-Counterfeiting</CardTitle>
-              <CardDescription>
-                One-time verification prevents fraud
-              </CardDescription>
+              <CardTitle>QR #2: Security</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Each security QR code can only be verified once. If it's been scanned 
-                before, you know it's a counterfeit product.
+              <p className="text-muted-foreground">
+                One-time verification hidden under the seal prevents counterfeiting and builds consumer trust
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-border/50 shadow-lg">
+          <Card className="text-center">
             <CardHeader>
-              <div className="w-12 h-12 rounded-lg bg-success/10 flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-success" />
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <BarChart3 className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Marketing Tools</CardTitle>
-              <CardDescription>
-                Tell your story, engage customers
-              </CardDescription>
+              <CardTitle>Dashboard</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Beautiful landing pages for each product with your brand story, 
-                history, and product details to connect with consumers.
+              <p className="text-muted-foreground">
+                Real-time analytics show where products are scanned, verified, and potential fraud detected
               </p>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="container mx-auto px-4 py-16">
-        <Card className="border-border/50 bg-gradient-to-r from-primary/5 to-accent/5 max-w-4xl mx-auto">
-          <CardHeader className="text-center space-y-4 pb-8">
-            <CardTitle className="text-3xl">
-              Ready to Protect Your Brand?
-            </CardTitle>
-            <CardDescription className="text-base">
-              Join producers across Georgia who trust AuthIt to authenticate their products
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center gap-4">
+      {/* Key Features */}
+      <section id="features" className="bg-muted/30 py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Everything you need to protect and promote your brand in one platform
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <Card key={feature.title} className="border-border/50">
+                  <CardHeader>
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Preview */}
+      <section id="pricing" className="container mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Pay only for what you use. No setup fees, no monthly minimums.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <Card className="border-border/50">
+            <CardHeader>
+              <CardTitle>Starter</CardTitle>
+              <CardDescription>Perfect for small producers</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">10 ₾</span>
+                <span className="text-muted-foreground">/unit</span>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Dual QR system</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Product story pages</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Basic analytics</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary shadow-lg relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                Most Popular
+              </span>
+            </div>
+            <CardHeader>
+              <CardTitle>Professional</CardTitle>
+              <CardDescription>For growing brands</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">8 ₾</span>
+                <span className="text-muted-foreground">/unit</span>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Everything in Starter</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Advanced analytics</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Security monitoring</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Priority support</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50">
+            <CardHeader>
+              <CardTitle>Enterprise</CardTitle>
+              <CardDescription>For large operations</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold">6 ₾</span>
+                <span className="text-muted-foreground">/unit</span>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Everything in Professional</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Custom branding</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>API access</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>Dedicated account manager</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
+        <div className="text-center mt-8">
+          <Button variant="link">View Full Pricing →</Button>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="bg-muted/30 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-lg text-muted-foreground mb-8">Trusted by brands worldwide</p>
+          <div className="flex flex-wrap items-center justify-center gap-12 opacity-50">
+            <div className="text-2xl font-semibold">Brand Logo 1</div>
+            <div className="text-2xl font-semibold">Brand Logo 2</div>
+            <div className="text-2xl font-semibold">Brand Logo 3</div>
+            <div className="text-2xl font-semibold">Brand Logo 4</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10" />
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-2xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold">Ready to Protect Your Brand?</h2>
+            <p className="text-xl text-muted-foreground">
+              Start your free trial today. No credit card required.
+            </p>
             <Link to="/register">
               <Button size="lg" className="text-base">
-                Create Your Account
+                Get Started Now
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
-            <p className="text-sm text-muted-foreground">
-              No credit card required • Free trial available
-            </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 bg-card/30 backdrop-blur-sm mt-20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} AuthIt. All rights reserved.</p>
-            <div className="flex items-center justify-center gap-4 mt-2">
-              <a href="#" className="hover:text-foreground transition-colors">
-                Privacy Policy
+      <footer id="contact" className="border-t border-border/40 bg-muted/20">
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#about" className="hover:text-foreground transition-colors">About</a></li>
+                <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Product</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#features" className="hover:text-foreground transition-colors">Features</a></li>
+                <li><a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Resources</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">FAQ</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-border/40 pt-8 text-center">
+            <p className="text-sm text-muted-foreground mb-4">
+              &copy; {new Date().getFullYear()} AuthIt. All rights reserved.
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Users className="w-5 h-5" />
               </a>
-              <span className="text-border">•</span>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Terms of Service
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Mail className="w-5 h-5" />
               </a>
-              <span className="text-border">•</span>
-              <a href="#" className="hover:text-foreground transition-colors">
-                Contact
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Phone className="w-5 h-5" />
               </a>
             </div>
           </div>

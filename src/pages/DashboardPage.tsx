@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, LogOut, QrCode, Package } from 'lucide-react';
+import { Shield, LogOut, QrCode, Package, BarChart3 } from 'lucide-react';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -117,6 +117,30 @@ export default function DashboardPage() {
               </p>
               <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
                 View Security Dashboard
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50 shadow-lg">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle>Analytics</CardTitle>
+                  <CardDescription>
+                    Track performance metrics
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                View detailed analytics, track scan patterns, geographic distribution, and consumer engagement across all products.
+              </p>
+              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics')}>
+                View Analytics Dashboard
               </Button>
             </CardContent>
           </Card>

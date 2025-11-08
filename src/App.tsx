@@ -14,6 +14,7 @@ import BatchDetailPage from "./pages/batches/BatchDetailPage";
 import ProductStoryPage from "./pages/product/ProductStoryPage";
 import VerifyPage from "./pages/product/VerifyPage";
 import SecurityMonitoringPage from "./pages/security/SecurityMonitoringPage";
+import DashboardAnalyticsPage from "./pages/DashboardAnalyticsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <SecurityMonitoringPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/analytics" 
+            element={
+              <ProtectedRoute>
+                <DashboardAnalyticsPage />
               </ProtectedRoute>
             } 
           />
