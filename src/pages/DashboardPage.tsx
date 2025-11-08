@@ -48,7 +48,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Dashboard Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="border-border/50 shadow-lg">
             <CardHeader>
               <div className="flex items-center gap-3">
@@ -93,6 +93,30 @@ export default function DashboardPage() {
               </p>
               <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/batches/AUTH-2024-001')}>
                 View Batch Example
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50 shadow-lg">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-red-500" />
+                </div>
+                <div>
+                  <CardTitle>Security</CardTitle>
+                  <CardDescription>
+                    Monitor security alerts
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Real-time security monitoring, alert management, and verification tracking to protect your brand from counterfeiting.
+              </p>
+              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
+                View Security Dashboard
               </Button>
             </CardContent>
           </Card>
