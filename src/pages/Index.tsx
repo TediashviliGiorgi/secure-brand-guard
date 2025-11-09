@@ -51,18 +51,18 @@ const Index = () => {
             </div>
             
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
-              </a>
-              <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Pricing
-              </a>
-              <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 About
-              </a>
-              <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Contact
-              </a>
+              </Link>
               <div className="flex items-center gap-2 text-xs">
                 <Globe className="w-4 h-4" />
                 <span className="text-muted-foreground">GEO | ENG | RUS</span>
@@ -304,7 +304,9 @@ const Index = () => {
         </div>
         
         <div className="text-center mt-8">
-          <Button variant="link">View Full Pricing →</Button>
+          <Link to="/pricing">
+            <Button variant="link">View Full Pricing →</Button>
+          </Link>
         </div>
       </section>
 
@@ -347,16 +349,16 @@ const Index = () => {
             <div>
               <h3 className="font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#about" className="hover:text-foreground transition-colors">About</a></li>
-                <li><a href="#contact" className="hover:text-foreground transition-colors">Contact</a></li>
+                <li><Link to="/about" className="hover:text-foreground transition-colors">About</Link></li>
+                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
               </ul>
             </div>
             
             <div>
               <h3 className="font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#features" className="hover:text-foreground transition-colors">Features</a></li>
-                <li><a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a></li>
+                <li><Link to="/features" className="hover:text-foreground transition-colors">Features</Link></li>
+                <li><Link to="/pricing" className="hover:text-foreground transition-colors">Pricing</Link></li>
               </ul>
             </div>
             
