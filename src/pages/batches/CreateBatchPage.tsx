@@ -26,6 +26,7 @@ import {
 } from '@/lib/batchValidators';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const TOTAL_STEPS = 7;
 
@@ -138,14 +139,16 @@ export default function CreateBatchPage() {
   return (
     <div className="min-h-screen bg-muted/30">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/dashboard/batches')}
-          className="mb-6"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Batches
-        </Button>
+        <div className="flex items-center justify-between mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/dashboard/batches')}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Batches
+          </Button>
+          <LanguageSelector />
+        </div>
 
         <Card className="shadow-md">
           <CardHeader className="border-b">

@@ -9,6 +9,7 @@ import {
   MapPin, Calendar, Clock, Smartphone, Upload 
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 type VerificationStatus = 'authentic' | 'suspicious' | 'invalid';
 
@@ -105,6 +106,9 @@ export default function VerifyPage() {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-2xl">
+          <div className="flex justify-end mb-4">
+            <LanguageSelector />
+          </div>
           <div className="text-center space-y-6 animate-fade-in">
             <div className="inline-block p-4 rounded-full bg-green-100 dark:bg-green-950">
               <CheckCircle2 className="h-20 w-20 text-green-600 dark:text-green-400 animate-scale-in" />

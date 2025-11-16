@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Link } from 'react-router-dom';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 interface Alert {
   id: string;
@@ -143,10 +145,18 @@ export default function SecurityMonitoringPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+                <span>/</span>
+                <span>Security</span>
+              </div>
               <h1 className="text-2xl font-bold">Security Monitoring</h1>
               <p className="text-sm text-muted-foreground">Real-time security alerts and verification tracking</p>
             </div>
-            {getStatusBadge()}
+            <div className="flex items-center gap-3">
+              {getStatusBadge()}
+              <LanguageSelector />
+            </div>
           </div>
         </div>
       </div>

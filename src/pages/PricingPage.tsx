@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Check, X } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 
 const PricingPage = () => {
@@ -43,12 +44,13 @@ const PricingPage = () => {
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map(link => (
               <Link key={link.href} to={link.href} className="text-sm font-medium hover:text-primary">
                 {link.label}
               </Link>
             ))}
+            <LanguageSelector />
           </div>
           <div className="flex items-center gap-3">
             <Link to="/login">

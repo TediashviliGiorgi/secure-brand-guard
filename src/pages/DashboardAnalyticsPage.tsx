@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Download, FileText, TrendingUp, TrendingDown, Users, Eye, MousePointerClick, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const DashboardAnalyticsPage = () => {
   const [dateRange, setDateRange] = useState('30d');
