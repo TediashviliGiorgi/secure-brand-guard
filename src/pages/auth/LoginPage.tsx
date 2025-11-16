@@ -147,11 +147,10 @@ export default function LoginPage() {
         <CardFooter className="flex flex-col space-y-4 border-t pt-6">
           <p className="text-sm text-muted-foreground text-center">
             Don't have an account?{' '}
-            <Link
-              to="/register"
-              className="text-primary hover:text-primary/80 font-medium transition-colors"
-            >
-              Register now
+            <Link to="/register">
+              <Button variant="link" className="px-0 h-auto font-medium">
+                Sign up
+              </Button>
             </Link>
           </p>
         </CardFooter>

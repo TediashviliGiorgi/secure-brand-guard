@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Target, Lightbulb, Handshake, Award } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
-import { MobileNav } from "@/components/ui/mobile-nav";
+
 
 const AboutPage = () => {
   const navLinks = [
@@ -32,10 +32,9 @@ const AboutPage = () => {
               </Link>
             ))}
           </div>
-          <div className="flex items-center gap-2">
-            <MobileNav links={navLinks} />
-            <Link to="/login" className="hidden sm:block">
-              <Button variant="ghost" size="sm">Sign In</Button>
+          <div className="flex items-center gap-3">
+            <Link to="/login">
+              <Button variant="outline" size="sm">Sign In</Button>
             </Link>
             <Link to="/register">
               <Button size="sm">Get Started</Button>
