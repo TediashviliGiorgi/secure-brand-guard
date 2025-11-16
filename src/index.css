@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Institutional blue-gray theme for AuthIt */
+    /* Modern blue color scheme for AuthIt */
     --background: 0 0% 100%;
     --foreground: 215 25% 27%;
 
@@ -18,47 +18,54 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 27%;
 
-    /* Primary: Professional slate-blue */
-    --primary: 215 28% 17%;
+    /* Primary: Modern blue #3B82F6 */
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
+    
+    /* Primary hover state */
+    --primary-hover: 217 91% 55%;
 
-    /* Secondary: Light neutral gray */
-    --secondary: 210 20% 98%;
-    --secondary-foreground: 215 25% 27%;
+    /* Secondary: Cyan #0EA5E9 */
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 0 0% 100%;
 
-    /* Muted: Soft gray backgrounds */
-    --muted: 214 20% 96%;
+    /* Muted: Light blue backgrounds */
+    --muted: 214 32% 91%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent: Light cyan for CTAs */
-    --accent: 189 75% 75%;
-    --accent-foreground: 215 28% 17%;
+    /* Accent: Light blue accent #DBEAFE */
+    --accent: 214 100% 92%;
+    --accent-foreground: 217 91% 60%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 88%;
-    --input: 214 20% 88%;
-    --ring: 215 28% 17%;
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 217 91% 60%;
 
     --radius: 0.5rem;
 
-    /* Success state */
+    /* Success state: Green #10B981 */
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Warning state */
+    /* Warning state: Orange #F59E0B */
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
+    /* Light blue background: #E0F2FE */
+    --info-bg: 199 95% 93%;
+    --info-foreground: 199 89% 48%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 215 25% 27%;
-    --sidebar-primary: 215 28% 17%;
+    --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 214 20% 96%;
-    --sidebar-accent-foreground: 215 25% 27%;
-    --sidebar-border: 214 20% 88%;
-    --sidebar-ring: 215 28% 17%;
+    --sidebar-accent: 214 100% 92%;
+    --sidebar-accent-foreground: 217 91% 60%;
+    --sidebar-border: 214 32% 85%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   .dark {
@@ -71,24 +78,26 @@ All colors MUST be HSL.
     --popover: 215 25% 20%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 189 75% 75%;
-    --primary-foreground: 215 28% 17%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-hover: 217 91% 55%;
 
-    --secondary: 215 20% 25%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 215 20% 25%;
     --muted-foreground: 215 16% 65%;
 
-    --accent: 189 75% 75%;
-    --accent-foreground: 215 28% 17%;
+    --accent: 214 100% 92%;
+    --accent-foreground: 217 91% 60%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 215 20% 25%;
     --input: 215 20% 25%;
-    --ring: 189 75% 75%;
+    --ring: 217 91% 60%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
@@ -96,14 +105,17 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
+    --info-bg: 199 95% 20%;
+    --info-foreground: 199 89% 70%;
+
     --sidebar-background: 215 28% 17%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 189 75% 75%;
-    --sidebar-primary-foreground: 215 28% 17%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 215 20% 25%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 215 20% 25%;
-    --sidebar-ring: 189 75% 75%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 

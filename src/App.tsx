@@ -16,12 +16,15 @@ import ProductStoryPage from "./pages/product/ProductStoryPage";
 import VerifyPage from "./pages/product/VerifyPage";
 import SecurityMonitoringPage from "./pages/security/SecurityMonitoringPage";
 import DashboardAnalyticsPage from "./pages/DashboardAnalyticsPage";
+import BatchesListPage from "./pages/batches/BatchesListPage";
 import FeaturesPage from "./pages/FeaturesPage";
 import PricingPage from "./pages/PricingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
+import OrganizationProfilePage from "./pages/organization/OrganizationProfilePage";
 import NotFound from "./pages/NotFound";
+import './i18n/config';
 
 const queryClient = new QueryClient();
 
@@ -46,7 +49,15 @@ const App = () => (
             } 
           />
           <Route 
-            path="/dashboard/batches/create" 
+            path="/dashboard/batches" 
+            element={
+              <ProtectedRoute>
+                <BatchesListPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/batches/create"
             element={
               <ProtectedRoute>
                 <CreateBatchPage />
@@ -88,6 +99,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <SettingsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/organization/profile" 
+            element={
+              <ProtectedRoute>
+                <OrganizationProfilePage />
               </ProtectedRoute>
             } 
           />
