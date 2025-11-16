@@ -1,17 +1,15 @@
-export type AccountType = 'producer';
-export type UserRole = 'producer';
+// Single company model - no roles or account types
 
 export interface User {
   id: string;
   email: string;
-  name: string;
-  role: UserRole;
-  companyName?: string;
-  consortiumName?: string;
+  companyName: string;
   region?: string;
   industry?: string;
   phone?: string;
-  memberCount?: number;
+  logoUrl?: string;
+  website?: string;
+  address?: string;
 }
 
 export interface LoginCredentials {
@@ -33,7 +31,6 @@ export interface RegisterStep1 {
 }
 
 export interface RegisterStep2 {
-  fullName: string;
   password: string;
   confirmPassword: string;
   agreeToTerms: boolean;
@@ -41,7 +38,6 @@ export interface RegisterStep2 {
 }
 
 export interface RegisterData {
-  accountType: AccountType;
   companyName: string;
   email: string;
   phone?: string;
@@ -51,7 +47,6 @@ export interface RegisterData {
   facebook?: string;
   region?: string;
   industry?: string;
-  fullName: string;
   password: string;
 }
 

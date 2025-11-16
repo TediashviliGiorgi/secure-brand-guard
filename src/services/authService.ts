@@ -13,16 +13,14 @@ export const authService = {
         if (credentials.email === 'producer@winery.ge' && credentials.password === 'password') {
           const mockResponse: AuthResponse = {
             token: 'mock-jwt-token-' + Date.now(),
-            user: {
-              id: 'prod-001',
-              email: credentials.email,
-              name: 'Giorgi Meladze',
-              role: 'producer',
-              companyName: 'Saperavi Winery',
-              region: 'Kakheti',
-              industry: 'Wine',
-              phone: '+995 555 123 456'
-            }
+          user: {
+            id: 'comp-001',
+            email: credentials.email,
+            companyName: 'Saperavi Winery',
+            region: 'Kakheti',
+            industry: 'Wine',
+            phone: '+995 555 123 456'
+          }
           };
           if (credentials.rememberMe) {
             localStorage.setItem('rememberMe', 'true');
@@ -43,12 +41,12 @@ export const authService = {
           user: {
             id: Date.now().toString(),
             email: data.email,
-            name: data.fullName,
-            role: 'producer',
             companyName: data.companyName,
             region: data.region,
             industry: data.industry,
             phone: data.phone,
+            website: data.website,
+            address: data.address
           }
         };
         resolve(mockResponse);

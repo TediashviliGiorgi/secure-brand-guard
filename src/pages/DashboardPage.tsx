@@ -58,10 +58,10 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
-            Welcome back, {user?.name || 'User'}!
+            Welcome, {user?.companyName || 'Company'}!
           </h2>
           <p className="text-muted-foreground">
-            {user?.companyName || user?.consortiumName} • {user?.region || 'All Regions'}
+            {user?.region || 'All Regions'} • {user?.industry || 'Premium Products'}
           </p>
         </div>
 
