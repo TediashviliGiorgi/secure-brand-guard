@@ -3,7 +3,7 @@ import { Shield, QrCode, Lock, BarChart3, Globe, DollarSign, ArrowRight, Play, C
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { SEO } from '@/components/ui/seo';
-import { MobileNav } from '@/components/ui/mobile-nav';
+
 import { LanguageSelector } from '@/components/LanguageSelector';
 
 const Index = () => {
@@ -65,7 +65,7 @@ const Index = () => {
               <span className="text-xl font-semibold">AuthIt</span>
             </div>
             
-      <div className="hidden md:flex items-center gap-8">
+      <div className="flex items-center gap-8">
         {navLinks.map(link => (
           <Link 
             key={link.href}
@@ -76,17 +76,13 @@ const Index = () => {
           </Link>
         ))}
         <LanguageSelector />
+        <Link to="/login">
+          <Button variant="outline" size="sm">Sign In</Button>
+        </Link>
+        <Link to="/register">
+          <Button size="sm">Get Started</Button>
+        </Link>
       </div>
-            
-            <div className="flex items-center gap-3">
-              <MobileNav links={navLinks} />
-              <Link to="/login" className="hidden sm:block">
-                <Button variant="outline" size="sm">Sign In</Button>
-              </Link>
-              <Link to="/register">
-                <Button size="sm">Get Started</Button>
-              </Link>
-            </div>
           </div>
         </div>
       </nav>
