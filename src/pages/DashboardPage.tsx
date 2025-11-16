@@ -3,13 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, LogOut, QrCode, Package, BarChart3, Settings } from 'lucide-react';
+import { SEO } from '@/components/ui/seo';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-muted">
+      <SEO 
+        title="Dashboard - AuthIt"
+        description="Manage your brand authentication and product verification"
+      />
+      
       {/* Header */}
       <header className="border-b border-border/40 bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
@@ -22,19 +30,21 @@ export default function DashboardPage() {
                 <h1 className="text-xl font-semibold tracking-tight text-foreground">
                   AuthIt
                 </h1>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground hidden sm:block">
                   Brand Authentication Platform
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/settings')}>
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </Button>
-              <Button variant="outline" onClick={logout}>
+              {!isMobile && (
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/settings')}>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Settings
+                </Button>
+              )}
+              <Button variant="outline" size={isMobile ? "sm" : "default"} onClick={logout}>
                 <LogOut className="w-4 h-4 mr-2" />
-                Logout
+                {!isMobile && "Logout"}
               </Button>
             </div>
           </div>
@@ -54,17 +64,17 @@ export default function DashboardPage() {
         </div>
 
         {/* Dashboard Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="border-border/50 shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <Card className="border-border/50 shadow-lg hover-lift">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <QrCode className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <CardTitle>QR Code System</CardTitle>
+                  <CardTitle className="text-lg">QR Code System</CardTitle>
                   <CardDescription>
-                    Dual QR code authentication
+                    Dual QR authentication
                   </CardDescription>
                 </div>
               </div>

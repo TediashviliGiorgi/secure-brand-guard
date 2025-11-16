@@ -6,11 +6,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Check, X } from "lucide-react";
+import { SEO } from "@/components/ui/seo";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 const PricingPage = () => {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [production, setProduction] = useState([25000]);
   const [pricePerUnit, setPricePerUnit] = useState([50]);
+
+  const navLinks = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
 
   // Calculate ROI
   const annualProduction = production[0];
@@ -24,18 +33,26 @@ const PricingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Pricing - AuthIt Brand Authentication"
+        description="Affordable brand authentication starting at 6 tetri per unit. Transparent pricing with no hidden fees. Free 3-month trial available."
+        keywords="authentication pricing, QR code cost, brand protection pricing, anti-counterfeiting cost"
+      />
+      
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
           <div className="hidden md:flex gap-6">
-            <Link to="/features" className="text-sm font-medium hover:text-primary">Features</Link>
-            <Link to="/pricing" className="text-sm font-medium hover:text-primary">Pricing</Link>
-            <Link to="/about" className="text-sm font-medium hover:text-primary">About</Link>
-            <Link to="/contact" className="text-sm font-medium hover:text-primary">Contact</Link>
+            {navLinks.map(link => (
+              <Link key={link.href} to={link.href} className="text-sm font-medium hover:text-primary">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div className="flex gap-2">
-            <Link to="/login">
+          <div className="flex items-center gap-2">
+            <MobileNav links={navLinks} />
+            <Link to="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">Sign In</Button>
             </Link>
             <Link to="/register">

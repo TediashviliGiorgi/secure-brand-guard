@@ -2,8 +2,16 @@ import { Link } from 'react-router-dom';
 import { Shield, QrCode, Lock, BarChart3, Globe, DollarSign, ArrowRight, Play, CheckCircle2, Users, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { SEO } from '@/components/ui/seo';
+import { MobileNav } from '@/components/ui/mobile-nav';
 
 const Index = () => {
+  const navLinks = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
   const features = [
     {
       icon: QrCode,
@@ -39,6 +47,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="AuthIt - Brand Authentication Platform"
+        description="Protect your brand with dual QR authentication. Combat counterfeiting while sharing your brand story."
+        keywords="brand authentication, anti-counterfeiting, QR codes, product verification, brand protection, Georgia"
+      />
+      
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b border-border/40 bg-card/95 backdrop-blur-sm">
         <div className="container mx-auto px-4">
@@ -51,18 +65,15 @@ const Index = () => {
             </div>
             
             <div className="hidden md:flex items-center gap-8">
-              <Link to="/features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Features
-              </Link>
-              <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Pricing
-              </Link>
-              <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                About
-              </Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Contact
-              </Link>
+              {navLinks.map(link => (
+                <Link 
+                  key={link.href}
+                  to={link.href} 
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <div className="flex items-center gap-2 text-xs">
                 <Globe className="w-4 h-4" />
                 <span className="text-muted-foreground">GEO | ENG | RUS</span>
@@ -70,7 +81,8 @@ const Index = () => {
             </div>
             
             <div className="flex items-center gap-3">
-              <Link to="/login">
+              <MobileNav links={navLinks} />
+              <Link to="/login" className="hidden sm:block">
                 <Button variant="outline" size="sm">Sign In</Button>
               </Link>
               <Link to="/register">
