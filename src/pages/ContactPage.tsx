@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Linkedin } from "lucide-react";
+import { SEO } from "@/components/ui/seo";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 const ContactPage = () => {
   const { toast } = useToast();
@@ -15,6 +17,13 @@ const ContactPage = () => {
     company: "",
     message: "",
   });
+
+  const navLinks = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,18 +46,26 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Contact AuthIt - Get in Touch"
+        description="Contact AuthIt for brand authentication solutions. We're here to help protect your brand from counterfeiting."
+        keywords="contact AuthIt, brand authentication support, anti-counterfeiting consultation, Georgia"
+      />
+      
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
           <div className="hidden md:flex gap-6">
-            <Link to="/features" className="text-sm font-medium hover:text-primary">Features</Link>
-            <Link to="/pricing" className="text-sm font-medium hover:text-primary">Pricing</Link>
-            <Link to="/about" className="text-sm font-medium hover:text-primary">About</Link>
-            <Link to="/contact" className="text-sm font-medium hover:text-primary">Contact</Link>
+            {navLinks.map(link => (
+              <Link key={link.href} to={link.href} className="text-sm font-medium hover:text-primary">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div className="flex gap-2">
-            <Link to="/login">
+          <div className="flex items-center gap-2">
+            <MobileNav links={navLinks} />
+            <Link to="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">Sign In</Button>
             </Link>
             <Link to="/register">

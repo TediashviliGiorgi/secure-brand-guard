@@ -9,22 +9,39 @@ import {
   Check,
   X
 } from "lucide-react";
+import { SEO } from "@/components/ui/seo";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 const FeaturesPage = () => {
+  const navLinks = [
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Features - AuthIt Brand Authentication Platform"
+        description="Discover AuthIt's powerful features: brand storytelling, security authentication, real-time analytics, and multi-brand management."
+        keywords="QR authentication features, brand protection, product verification, anti-counterfeiting technology"
+      />
+      
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
           <div className="hidden md:flex gap-6">
-            <Link to="/features" className="text-sm font-medium hover:text-primary">Features</Link>
-            <Link to="/pricing" className="text-sm font-medium hover:text-primary">Pricing</Link>
-            <Link to="/about" className="text-sm font-medium hover:text-primary">About</Link>
-            <Link to="/contact" className="text-sm font-medium hover:text-primary">Contact</Link>
+            {navLinks.map(link => (
+              <Link key={link.href} to={link.href} className="text-sm font-medium hover:text-primary">
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div className="flex gap-2">
-            <Link to="/login">
+          <div className="flex items-center gap-2">
+            <MobileNav links={navLinks} />
+            <Link to="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">Sign In</Button>
             </Link>
             <Link to="/register">
