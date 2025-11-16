@@ -16,6 +16,7 @@ import {
   Package, Plus, Search, TrendingUp, Shield, ArrowLeft,
   Eye, AlertTriangle
 } from 'lucide-react';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 interface BatchItem {
   id: string;
@@ -97,14 +98,16 @@ export default function BatchesListPage() {
   return (
     <div className="min-h-screen bg-muted/30">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/dashboard')}
-          className="mb-4"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Dashboard
-        </Button>
+        <div className="flex items-center justify-between mb-4">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/dashboard')}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Dashboard
+          </Button>
+          <LanguageSelector />
+        </div>
 
         <div className="mb-6 flex items-start justify-between flex-wrap gap-4">
           <div>
