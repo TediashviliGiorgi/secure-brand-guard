@@ -63,14 +63,8 @@ export const useAuth = () => {
         description: 'Welcome to AuthIt',
       });
       
-      // Redirect based on role
-      if (response.user.role === 'producer') {
-        navigate('/dashboard');
-      } else if (response.user.role === 'consortium') {
-        navigate('/consortium/dashboard');
-      } else {
-        navigate('/dashboard');
-      }
+      // Redirect to organization profile with welcome message
+      navigate('/organization/profile?welcome=true');
     } catch (error) {
       toast({
         title: 'Registration failed',
