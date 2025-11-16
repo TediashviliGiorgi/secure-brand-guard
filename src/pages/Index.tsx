@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { SEO } from '@/components/ui/seo';
 import { MobileNav } from '@/components/ui/mobile-nav';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const Index = () => {
   const navLinks = [
@@ -64,21 +65,18 @@ const Index = () => {
               <span className="text-xl font-semibold">AuthIt</span>
             </div>
             
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map(link => (
-                <Link 
-                  key={link.href}
-                  to={link.href} 
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="flex items-center gap-2 text-xs">
-                <Globe className="w-4 h-4" />
-                <span className="text-muted-foreground">GEO | ENG | RUS</span>
-              </div>
-            </div>
+      <div className="hidden md:flex items-center gap-8">
+        {navLinks.map(link => (
+          <Link 
+            key={link.href}
+            to={link.href} 
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {link.label}
+          </Link>
+        ))}
+        <LanguageSelector />
+      </div>
             
             <div className="flex items-center gap-3">
               <MobileNav links={navLinks} />

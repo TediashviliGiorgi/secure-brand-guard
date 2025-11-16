@@ -1,5 +1,5 @@
-export type AccountType = 'producer' | 'consortium';
-export type UserRole = 'producer' | 'consortium';
+export type AccountType = 'producer';
+export type UserRole = 'producer';
 
 export interface User {
   id: string;
@@ -20,28 +20,19 @@ export interface LoginCredentials {
   rememberMe?: boolean;
 }
 
-export interface RegisterStepOne {
-  accountType: AccountType;
-}
-
-export interface RegisterProducerStep2 {
+export interface RegisterStep1 {
   companyName: string;
-  businessEmail: string;
-  phone: string;
-  region: string;
-  industry: string;
-}
-
-export interface RegisterConsortiumStep2 {
-  consortiumName: string;
   email: string;
-  phone: string;
-  memberCount?: number;
-  industryFocus: string;
-  regionCoverage?: string;
+  phone?: string;
+  address?: string;
+  website?: string;
+  instagram?: string;
+  facebook?: string;
+  region?: string;
+  industry?: string;
 }
 
-export interface RegisterStep3 {
+export interface RegisterStep2 {
   fullName: string;
   password: string;
   confirmPassword: string;
@@ -51,18 +42,15 @@ export interface RegisterStep3 {
 
 export interface RegisterData {
   accountType: AccountType;
-  // Producer fields
-  companyName?: string;
-  region?: string;
-  industry?: string;
-  // Consortium fields
-  consortiumName?: string;
-  memberCount?: number;
-  industryFocus?: string;
-  regionCoverage?: string;
-  // Common fields
+  companyName: string;
   email: string;
   phone?: string;
+  address?: string;
+  website?: string;
+  instagram?: string;
+  facebook?: string;
+  region?: string;
+  industry?: string;
   fullName: string;
   password: string;
 }
