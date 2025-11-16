@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Shield, LogOut, QrCode, Package, BarChart3, Settings } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -36,6 +37,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <LanguageSelector />
               {!isMobile && (
                 <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/settings')}>
                   <Settings className="w-4 h-4 mr-2" />

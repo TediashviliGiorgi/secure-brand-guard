@@ -50,60 +50,43 @@ export const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 });
 
-// Registration Step 1: Account Type
+// Registration Step 1: Company Information
 export const registerStep1Schema = z.object({
-  accountType: z.enum(['producer', 'consortium'], {
-    required_error: 'Please select an account type',
-  }),
-});
-
-// Registration Step 2A: Producer Info
-export const registerProducerStep2Schema = z.object({
   companyName: z
     .string()
     .min(2, 'Company name is required')
     .max(100, 'Company name must be less than 100 characters'),
-  businessEmail: z
+  email: z
     .string()
-    .min(1, 'Business email is required')
+    .min(1, 'Email is required')
     .email('Please enter a valid email address'),
   phone: z
+    .string()
+    .optional(),
+  address: z
+    .string()
+    .optional(),
+  website: z
+    .string()
+    .url('Please enter a valid URL')
+    .optional()
+    .or(z.literal('')),
+  instagram: z
+    .string()
+    .optional(),
+  facebook: z
     .string()
     .optional(),
   region: z
     .string()
-    .min(1, 'Region is required'),
+    .optional(),
   industry: z
     .string()
-    .min(1, 'Industry is required'),
-});
-
-// Registration Step 2B: Consortium Info
-export const registerConsortiumStep2Schema = z.object({
-  consortiumName: z
-    .string()
-    .min(2, 'Consortium name is required')
-    .max(100, 'Consortium name must be less than 100 characters'),
-  email: z
-    .string()
-    .min(1, 'Official email is required')
-    .email('Please enter a valid email address'),
-  phone: z
-    .string()
-    .optional(),
-  memberCount: z
-    .number()
-    .optional(),
-  industryFocus: z
-    .string()
-    .min(1, 'Industry focus is required'),
-  regionCoverage: z
-    .string()
     .optional(),
 });
 
-// Registration Step 3: Personal/Admin Info
-export const registerStep3Schema = z.object({
+// Registration Step 2: Personal/Admin Info
+export const registerStep2Schema = z.object({
   fullName: z
     .string()
     .min(2, 'Full name is required')
