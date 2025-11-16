@@ -22,7 +22,6 @@ import PricingPage from "./pages/PricingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
-import OrganizationProfilePage from "./pages/organization/OrganizationProfilePage";
 import NotFound from "./pages/NotFound";
 import './i18n/config';
 
@@ -102,14 +101,7 @@ const App = () => (
               </ProtectedRoute>
             } 
           />
-          <Route 
-            path="/organization/profile" 
-            element={
-              <ProtectedRoute>
-                <OrganizationProfilePage />
-              </ProtectedRoute>
-            } 
-          />
+          {/* Organization profile removed - redirects handled in navigation */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

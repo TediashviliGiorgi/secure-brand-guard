@@ -87,10 +87,6 @@ export const registerStep1Schema = z.object({
 
 // Registration Step 2: Personal/Admin Info
 export const registerStep2Schema = z.object({
-  fullName: z
-    .string()
-    .min(2, 'Full name is required')
-    .max(100, 'Full name must be less than 100 characters'),
   password: z
     .string()
     .min(8, 'Password must be at least 8 characters')

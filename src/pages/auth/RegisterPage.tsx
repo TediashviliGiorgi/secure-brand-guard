@@ -217,18 +217,6 @@ export default function RegisterPage() {
           <form onSubmit={step2Form.handleSubmit(handleStep2Submit)}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="fullName">{t('auth.fullName')} *</Label>
-                <Input
-                  id="fullName"
-                  placeholder={t('auth.fullNamePlaceholder')}
-                  {...step2Form.register('fullName')}
-                />
-                {step2Form.formState.errors.fullName && (
-                  <p className="text-sm text-destructive">{step2Form.formState.errors.fullName.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
                 <Label htmlFor="password">{t('auth.password')} *</Label>
                 <div className="relative">
                   <Input
