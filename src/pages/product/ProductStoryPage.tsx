@@ -1,19 +1,24 @@
 import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { 
   ArrowLeft, Share2, MapPin, Award, ChevronDown, 
-  Phone, Mail, Globe, ExternalLink, Star, CheckCircle2 
+  Phone, Mail, Globe, ExternalLink, Star, CheckCircle2, Shield 
 } from 'lucide-react';
 import { mockBatch, mockReviews, mockSimilarProducts } from '@/lib/mockBatchData';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export default function ProductStoryPage() {
   const { batchId } = useParams();
   const product = mockBatch;
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const { t } = useTranslation();
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -26,13 +31,11 @@ export default function ProductStoryPage() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
+            {t('common.back')}
           </Button>
           
           <div className="flex gap-2">
-            <Button variant="ghost" size="sm">
-              🌐 ENG
-            </Button>
+            <LanguageSelector />
             <Button variant="ghost" size="icon">
               <Share2 className="h-4 w-4" />
             </Button>
@@ -88,6 +91,91 @@ export default function ProductStoryPage() {
       </div>
 
       <div className="container mx-auto px-4 py-8 max-w-4xl space-y-12">
+        {/* Verify Authenticity Section - PROMINENT */}
+        <section className="relative overflow-hidden">
+          <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background shadow-lg">
+            <CardContent className="p-8 space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-full bg-primary/10 animate-pulse">
+                  <Shield className="h-8 w-8 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-foreground">{t('verification.verifyAuthenticity')}</h2>
+                  <p className="text-muted-foreground mt-2">
+                    {t('verification.confirmAuthentic')}
+                  </p>
+                </div>
+              </div>
+
+              <Button 
+                size="lg" 
+                className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all"
+                onClick={() => window.open(`/verify?token=${batchId}`, '_blank')}
+              >
+                <Shield className="mr-2 h-5 w-5" />
+                {t('verification.scan')}
+              </Button>
+
+              {/* Collapsible Instructions */}
+              <Collapsible open={showInstructions} onOpenChange={setShowInstructions}>
+                <CollapsibleTrigger asChild>
+                  <Button variant="outline" className="w-full justify-between">
+                    {t('verification.howToFindIt')}
+                    <ChevronDown className={`h-4 w-4 transition-transform ${showInstructions ? 'rotate-180' : ''}`} />
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-4 space-y-6 pt-4 border-t">
+                  <div>
+                    <h3 className="font-semibold text-lg mb-3">{t('verification.qrInstructions')}</h3>
+                    
+                    {/* QR Code #1 */}
+                    <div className="flex gap-4 p-4 rounded-lg bg-muted/50 mb-3">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-xl">
+                        1
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-1">{t('verification.step1')}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{t('verification.qr1Location')}</p>
+                        <p className="text-sm text-muted-foreground italic">{t('verification.qr1Purpose')}</p>
+                      </div>
+                    </div>
+
+                    {/* QR Code #2 */}
+                    <div className="flex gap-4 p-4 rounded-lg bg-muted/50">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-xl">
+                        2
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-1">{t('verification.step2')}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{t('verification.qr2Location')}</p>
+                        <p className="text-sm text-muted-foreground italic">{t('verification.qr2Purpose')}</p>
+                      </div>
+                    </div>
+
+                    {/* Why Two QR Codes */}
+                    <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                      <h4 className="font-semibold mb-3 flex items-center gap-2">
+                        <span className="text-2xl">💡</span>
+                        {t('verification.whyTwoQR')}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                          <span>{t('verification.qr1Description')}</span>
+                        </li>
+                        <li className="flex gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
+                          <span>{t('verification.qr2Description')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* Story Section */}
         <section className="space-y-4">
           <div className="flex items-center gap-3 mb-4">
