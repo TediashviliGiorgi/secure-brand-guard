@@ -2,10 +2,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Nfc } from 'lucide-react';
+import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Nfc, Radio } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { Separator } from '@/components/ui/separator';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -65,128 +66,198 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <Card className="border-border/50 shadow-lg hover-lift">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <QrCode className="w-6 h-6 text-primary" />
+        {/* QR Code Authentication Section */}
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+              <QrCode className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-foreground">QR Code Authentication</h3>
+              <p className="text-sm text-muted-foreground">Dual QR code system for marketing and security</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <Card className="border-border/50 shadow-lg hover-lift">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <QrCode className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">QR Code System</CardTitle>
+                    <CardDescription>
+                      Dual QR authentication
+                    </CardDescription>
+                  </div>
                 </div>
-                <div>
-                  <CardTitle className="text-lg">QR Code System</CardTitle>
-                  <CardDescription>
-                    Dual QR authentication
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Create and manage your product authentication QR codes. Each product gets two codes: one for marketing and one for security verification.
-              </p>
-              <Button className="w-full" onClick={() => navigate('/dashboard/batches/create')}>
-                Create New Batch
-              </Button>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Create and manage your product authentication QR codes. Each product gets two codes: one for marketing and one for security verification.
+                </p>
+                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create')}>
+                  Create New Batch
+                </Button>
+              </CardContent>
+            </Card>
 
-          <Card className="border-border/50 shadow-lg">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
-                  <Package className="w-6 h-6 text-primary" />
+            <Card className="border-border/50 shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
+                    <Package className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle>Products</CardTitle>
+                    <CardDescription>
+                      Manage your product catalog
+                    </CardDescription>
+                  </div>
                 </div>
-                <div>
-                  <CardTitle>Products</CardTitle>
-                  <CardDescription>
-                    Manage your product catalog
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Add and manage your products, create brand stories, and track authentication statistics across your inventory.
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/batches/AUTH-2024-001')}>
-                View Batch Example
-              </Button>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Add and manage your products, create brand stories, and track authentication statistics across your inventory.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/batches/AUTH-2024-001')}>
+                  View Batch Example
+                </Button>
+              </CardContent>
+            </Card>
 
-          <Card className="border-border/50 shadow-lg">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-red-500" />
+            <Card className="border-border/50 shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle>QR Analytics</CardTitle>
+                    <CardDescription>
+                      Track QR code performance
+                    </CardDescription>
+                  </div>
                 </div>
-                <div>
-                  <CardTitle>Security</CardTitle>
-                  <CardDescription>
-                    Monitor security alerts
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Real-time security monitoring, alert management, and verification tracking to protect your brand from counterfeiting.
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
-                View Security Dashboard
-              </Button>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  View detailed QR scan analytics, track patterns, geographic distribution, and consumer engagement.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics')}>
+                  View Analytics Dashboard
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
 
-          <Card className="border-border/50 shadow-lg">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <CardTitle>Analytics</CardTitle>
-                  <CardDescription>
-                    Track performance metrics
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                View detailed analytics, track scan patterns, geographic distribution, and consumer engagement across all products.
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics')}>
-                View Analytics Dashboard
-              </Button>
-            </CardContent>
-          </Card>
+        <Separator className="my-8" />
 
-          <Card className="border-border/50 shadow-lg">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                  <Nfc className="w-6 h-6 text-blue-500" />
+        {/* NFC Authentication Section */}
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+              <Radio className="w-5 h-5 text-blue-500" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-foreground">NFC Authentication</h3>
+              <p className="text-sm text-muted-foreground">Near-field communication tag management and monitoring</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                    <Nfc className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle>NFC Tags</CardTitle>
+                    <CardDescription>
+                      Manage NFC authentication
+                    </CardDescription>
+                  </div>
                 </div>
-                <div>
-                  <CardTitle>NFC Tags</CardTitle>
-                  <CardDescription>
-                    Manage NFC authentication
-                  </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Monitor active NFC tags, track scan history, and manage tag status across your product authentication system.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc')}>
+                  Manage NFC Tags
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle>NFC Analytics</CardTitle>
+                    <CardDescription>
+                      Track NFC scan metrics
+                    </CardDescription>
+                  </div>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Monitor active NFC tags, track scan history, and manage tag status across your product authentication system.
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc')}>
-                View NFC Dashboard
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  View NFC scan trends, geographic heat maps, peak scan times, and device distribution analytics.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc-analytics')}>
+                  View NFC Analytics
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <Separator className="my-8" />
+
+        {/* Security & General Tools Section */}
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
+              <Shield className="w-5 h-5 text-red-500" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-foreground">Security & Monitoring</h3>
+              <p className="text-sm text-muted-foreground">Cross-platform security and threat detection</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <Card className="border-border/50 shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-red-500" />
+                  </div>
+                  <div>
+                    <CardTitle>Security</CardTitle>
+                    <CardDescription>
+                      Monitor security alerts
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Real-time security monitoring, alert management, and verification tracking to protect your brand from counterfeiting.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
+                  View Security Dashboard
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
 
         {/* Info Section */}
         <Card className="mt-8 border-border/50 bg-card/50">
