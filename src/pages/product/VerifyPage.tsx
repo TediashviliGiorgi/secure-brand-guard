@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { 
   CheckCircle2, AlertTriangle, XCircle, Share2, 
-  MapPin, Calendar, Clock, Smartphone, Upload 
+  MapPin, Calendar, Clock, Smartphone, Upload, Nfc, QrCode 
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -19,15 +19,18 @@ interface VerificationResult {
   batchId: string;
   producerName: string;
   productionDate: string;
+  verificationMethod: 'qr' | 'nfc';
   firstScan?: {
     date: string;
     location: string;
     device: string;
+    method: 'qr' | 'nfc';
   };
   currentScan: {
     timestamp: string;
     location: string;
     distance?: string;
+    method: 'qr' | 'nfc';
   };
 }
 
@@ -53,21 +56,27 @@ export default function VerifyPage() {
         status = 'invalid';
       }
 
+      // Determine verification method from URL or randomly
+      const method = searchParams.get('method') as 'qr' | 'nfc' || (Math.random() > 0.5 ? 'nfc' : 'qr');
+
       const mockResult: VerificationResult = {
         status,
         productName: 'Saperavi Reserve 2021',
         batchId: 'AUTH-2024-001',
         producerName: 'Kakheti Wine Estate',
         productionDate: 'September 15, 2021',
+        verificationMethod: method,
         firstScan: status === 'suspicious' ? {
           date: 'January 10, 2024, 14:30',
           location: 'Batumi, Georgia',
           device: 'iPhone 13 Pro',
+          method: method,
         } : undefined,
         currentScan: {
           timestamp: new Date().toLocaleString(),
           location: status === 'suspicious' ? 'Tbilisi, Georgia' : 'Kakheti, Georgia',
           distance: status === 'suspicious' ? '350 km' : undefined,
+          method: method,
         },
       };
 
@@ -157,6 +166,17 @@ export default function VerifyPage() {
               <h3 className="font-semibold mb-3">Verification Details</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2">
+                  {result.verificationMethod === 'nfc' ? (
+                    <Nfc className="h-4 w-4 text-primary" />
+                  ) : (
+                    <QrCode className="h-4 w-4 text-primary" />
+                  )}
+                  <span className="text-muted-foreground">Method:</span>
+                  <Badge variant="outline" className="font-medium">
+                    {result.verificationMethod === 'nfc' ? 'NFC Tag' : 'QR Code'}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
                   <span className="text-muted-foreground">Verified at:</span>
                   <span className="font-medium">{result.currentScan.timestamp}</span>
@@ -220,6 +240,16 @@ export default function VerifyPage() {
                 </h3>
                 <div className="space-y-2 text-sm bg-muted/50 p-3 rounded-md">
                   <div className="flex justify-between">
+                    <span className="text-muted-foreground">Method:</span>
+                    <span className="font-medium flex items-center gap-1">
+                      {result.firstScan?.method === 'nfc' ? (
+                        <><Nfc className="h-3 w-3" /> NFC Tag</>
+                      ) : (
+                        <><QrCode className="h-3 w-3" /> QR Code</>
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-muted-foreground">Date:</span>
                     <span className="font-medium">{result.firstScan?.date}</span>
                   </div>
@@ -242,6 +272,16 @@ export default function VerifyPage() {
                   Current Scan
                 </h3>
                 <div className="space-y-2 text-sm bg-amber-50 dark:bg-amber-950/30 p-3 rounded-md border border-amber-200 dark:border-amber-800">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Method:</span>
+                    <span className="font-medium flex items-center gap-1">
+                      {result.currentScan.method === 'nfc' ? (
+                        <><Nfc className="h-3 w-3" /> NFC Tag</>
+                      ) : (
+                        <><QrCode className="h-3 w-3" /> QR Code</>
+                      )}
+                    </span>
+                  </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Now:</span>
                     <span className="font-medium">{result.currentScan.timestamp}</span>

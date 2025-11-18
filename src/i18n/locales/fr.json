@@ -86,6 +86,16 @@
     "settings": "Paramètres",
     "logout": "Se déconnecter"
   },
+  "protection": {
+    "qr_only": "Code QR uniquement",
+    "nfc_only": "Tag NFC uniquement",
+    "qr_nfc_both": "QR + NFC",
+    "qr_description": "Scan traditionnel du code QR. Parfait pour la plupart des produits.",
+    "nfc_description": "Tags de communication en champ proche. Expérience d'authentification premium.",
+    "both_description": "Sécurité maximale avec codes QR et tags NFC.",
+    "method": "Méthode de protection",
+    "choose_method": "Choisissez comment vous souhaitez protéger vos produits"
+  },
   "dashboard": {
     "welcome": "Bienvenue sur AuthIt",
     "overview": "Aperçu",

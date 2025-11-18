@@ -16,8 +16,8 @@ const Index = () => {
   const features = [
     {
       icon: QrCode,
-      title: 'Brand Storytelling',
-      description: 'Create beautiful product pages that engage customers and tell your brand story'
+      title: 'QR & NFC Protection',
+      description: 'Dual authentication with QR codes and NFC tags for maximum security and flexibility'
     },
     {
       icon: BarChart3,
@@ -96,7 +96,7 @@ const Index = () => {
               Protect Your Brand from <span className="text-primary">Counterfeiting</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Digital authentication & marketing platform with dual QR system. 
+              Digital authentication & marketing platform with QR codes and NFC tags. 
               Build trust, engage customers, and eliminate fake products.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">

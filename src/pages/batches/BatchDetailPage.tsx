@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Edit, Download, ExternalLink, MoreVertical, Package, BarChart3, Shield, Wine } from 'lucide-react';
+import { ArrowLeft, Edit, Download, ExternalLink, MoreVertical, Package, BarChart3, Shield, Wine, QrCode, Nfc } from 'lucide-react';
 import { mockBatch } from '@/lib/mockBatchData';
 import {
   DropdownMenu,
@@ -58,13 +58,23 @@ export default function BatchDetailPage() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline">
                     <Download className="mr-2 h-4 w-4" />
-                    Download QR
+                    Download Codes
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem disabled>A4 PDF</DropdownMenuItem>
-                  <DropdownMenuItem disabled>Roll PDF</DropdownMenuItem>
-                  <DropdownMenuItem disabled>ZIP</DropdownMenuItem>
+                  <DropdownMenuItem disabled>
+                    <QrCode className="mr-2 h-4 w-4" />
+                    QR Codes (A4 PDF)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem disabled>
+                    <QrCode className="mr-2 h-4 w-4" />
+                    QR Codes (Roll PDF)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem disabled>
+                    <Nfc className="mr-2 h-4 w-4" />
+                    NFC Tag IDs (CSV)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem disabled>All Files (ZIP)</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
