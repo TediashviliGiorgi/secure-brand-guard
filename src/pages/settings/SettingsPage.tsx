@@ -120,306 +120,310 @@ const SettingsPage = () => {
             </TabsTrigger>
           </TabsList>
 
-          {/* Company Profile Tab */}
-          <TabsContent value="company">
+          {/* Company Tab */}
+          <TabsContent value="company" className="space-y-6 mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Company Profile</CardTitle>
-                <CardDescription>
-                  Manage your company information and branding
-                </CardDescription>
+                <CardTitle>Company Information</CardTitle>
+                <CardDescription>Update your company details and logo</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Company Logo */}
-                <div className="space-y-2">
-                  <Label>Company Logo</Label>
-                  <div className="flex items-center gap-4">
-                    <div className="w-24 h-24 rounded-lg border-2 border-dashed flex items-center justify-center bg-muted">
-                      <Upload className="w-8 h-8 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <Button variant="outline" size="sm">
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload Logo
-                      </Button>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        PNG, JPG up to 2MB. Recommended: 512x512px
-                      </p>
-                    </div>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-24 h-24 rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted">
+                    <Upload className="w-8 h-8 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <Button variant="outline" size="sm">Upload Logo</Button>
+                    <p className="text-xs text-muted-foreground mt-1">PNG, JPG up to 2MB</p>
                   </div>
                 </div>
 
-                {/* Company Name */}
-                <div className="space-y-2">
-                  <Label htmlFor="companyName">{t('auth.companyName')}</Label>
-                  <Input id="companyName" defaultValue="Saperavi Winery" />
-                </div>
-
-                {/* Contact Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">{t('auth.email')}</Label>
-                    <Input id="email" type="email" defaultValue="info@saperavi.ge" />
+                    <Label htmlFor="company-name">Company Name</Label>
+                    <Input id="company-name" placeholder="Enter company name" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">{t('auth.phone')}</Label>
-                    <Input id="phone" defaultValue="+995 555 123 456" />
+                    <Label htmlFor="tax-id">Tax ID</Label>
+                    <Input id="tax-id" placeholder="Enter tax ID" />
                   </div>
-                </div>
-
-                {/* Region & Industry */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="region">{t('auth.region')}</Label>
-                    <Select defaultValue="kakheti">
-                      <SelectTrigger>
-                        <SelectValue />
+                    <Label htmlFor="region">Region</Label>
+                    <Select>
+                      <SelectTrigger id="region">
+                        <SelectValue placeholder="Select region" />
                       </SelectTrigger>
                       <SelectContent>
                         {GEORGIAN_REGIONS.map((region) => (
-                          <SelectItem key={region} value={region.toLowerCase()}>
-                            {region}
-                          </SelectItem>
+                          <SelectItem key={region} value={region}>{region}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="industry">{t('auth.industry')}</Label>
-                    <Select defaultValue="wine">
-                      <SelectTrigger>
-                        <SelectValue />
+                    <Label htmlFor="industry">Industry</Label>
+                    <Select>
+                      <SelectTrigger id="industry">
+                        <SelectValue placeholder="Select industry" />
                       </SelectTrigger>
                       <SelectContent>
                         {INDUSTRIES.map((industry) => (
-                          <SelectItem key={industry} value={industry.toLowerCase()}>
-                            {industry}
-                          </SelectItem>
+                          <SelectItem key={industry} value={industry}>{industry}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
-                </div>
-
-                {/* Address */}
-                <div className="space-y-2">
-                  <Label htmlFor="address">{t('auth.address')}</Label>
-                  <Input id="address" defaultValue="Tsinandali Village, Telavi" />
-                </div>
-
-                {/* Website & Social */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="website">{t('auth.website')}</Label>
-                    <Input id="website" placeholder="https://yourwebsite.com" />
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="address">Address</Label>
+                    <Input id="address" placeholder="Enter company address" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="instagram">{t('auth.instagram')}</Label>
-                    <Input id="instagram" placeholder="@yourcompany" />
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input id="phone" placeholder="+995 XXX XXX XXX" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="company@example.com" />
                   </div>
                 </div>
 
-                <Button onClick={handleSaveCompany}>{t('common.save')}</Button>
+                <Button onClick={handleSaveCompany}>Save Changes</Button>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Account Security Tab */}
-          <TabsContent value="security">
+          {/* Security Tab */}
+          <TabsContent value="security" className="space-y-6 mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Account Security</CardTitle>
-                <CardDescription>
-                  Manage your password and security settings
-                </CardDescription>
+                <CardTitle>Change Password</CardTitle>
+                <CardDescription>Update your password regularly for security</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="currentPassword">Current Password</Label>
-                    <Input id="currentPassword" type="password" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="newPassword">New Password</Label>
-                    <Input 
-                      id="newPassword" 
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                    {newPassword && <PasswordStrengthIndicator password={newPassword} />}
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                    <Input id="confirmPassword" type="password" />
-                  </div>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="current-password">Current Password</Label>
+                  <Input id="current-password" type="password" />
                 </div>
-
+                <div className="space-y-2">
+                  <Label htmlFor="new-password">New Password</Label>
+                  <Input 
+                    id="new-password" 
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <PasswordStrengthIndicator password={newPassword} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password">Confirm New Password</Label>
+                  <Input id="confirm-password" type="password" />
+                </div>
                 <Button onClick={handleChangePassword}>Update Password</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Two-Factor Authentication</CardTitle>
+                <CardDescription>Add an extra layer of security to your account</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Enable 2FA</p>
+                    <p className="text-sm text-muted-foreground">Use an authenticator app for login verification</p>
+                  </div>
+                  <Button variant="outline">Setup</Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Active Sessions</CardTitle>
+                <CardDescription>Manage your logged in devices</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-4 border rounded-lg">
+                  <div>
+                    <p className="font-medium">Current Device</p>
+                    <p className="text-sm text-muted-foreground">Chrome on Windows • Tbilisi, Georgia</p>
+                  </div>
+                  <Button variant="ghost" size="sm" disabled>Current</Button>
+                </div>
+                <Button variant="outline" className="w-full">Log Out All Other Sessions</Button>
               </CardContent>
             </Card>
           </TabsContent>
 
           {/* Notifications Tab */}
-          <TabsContent value="notifications">
+          <TabsContent value="notifications" className="space-y-6 mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Notification Preferences</CardTitle>
-                <CardDescription>
-                  Choose what notifications you want to receive
-                </CardDescription>
+                <CardTitle>Email Notifications</CardTitle>
+                <CardDescription>Choose what updates you want to receive</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="emailNotifications">Email Notifications</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Receive updates about your products and security alerts
-                      </p>
-                    </div>
-                    <Checkbox id="emailNotifications" defaultChecked />
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label htmlFor="batch-alerts">Batch Status Updates</Label>
+                    <p className="text-sm text-muted-foreground">Get notified about batch creation and status changes</p>
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="securityAlerts">Security Alerts</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Get notified of suspicious activity immediately
-                      </p>
-                    </div>
-                    <Checkbox id="securityAlerts" defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="weeklyReports">Weekly Reports</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Receive weekly analytics summary
-                      </p>
-                    </div>
-                    <Checkbox id="weeklyReports" defaultChecked />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="productUpdates">Product Updates</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Get notified when new features are available
-                      </p>
-                    </div>
-                    <Checkbox id="productUpdates" />
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="marketingEmails">Marketing Emails</Label>
-                      <p className="text-sm text-muted-foreground">
-                        Receive tips, best practices, and special offers
-                      </p>
-                    </div>
-                    <Checkbox id="marketingEmails" />
-                  </div>
+                  <Checkbox id="batch-alerts" defaultChecked />
                 </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label htmlFor="security-alerts">Security Alerts</Label>
+                    <p className="text-sm text-muted-foreground">Receive alerts about suspicious verification attempts</p>
+                  </div>
+                  <Checkbox id="security-alerts" defaultChecked />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label htmlFor="weekly-reports">Weekly Reports</Label>
+                    <p className="text-sm text-muted-foreground">Get weekly analytics summaries via email</p>
+                  </div>
+                  <Checkbox id="weekly-reports" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label htmlFor="marketing">Marketing Emails</Label>
+                    <p className="text-sm text-muted-foreground">Receive product updates and news</p>
+                  </div>
+                  <Checkbox id="marketing" />
+                </div>
+                <Button onClick={handleSaveNotifications}>Save Preferences</Button>
+              </CardContent>
+            </Card>
 
-                <Button onClick={handleSaveNotifications}>{t('common.save')}</Button>
+            <Card>
+              <CardHeader>
+                <CardTitle>SMS Notifications</CardTitle>
+                <CardDescription>Receive important alerts via SMS</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="sms-phone">Phone Number</Label>
+                  <Input id="sms-phone" placeholder="+995 XXX XXX XXX" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label htmlFor="critical-sms">Critical Alerts Only</Label>
+                    <p className="text-sm text-muted-foreground">Only receive SMS for critical security events</p>
+                  </div>
+                  <Checkbox id="critical-sms" defaultChecked />
+                </div>
+                <Button>Update Phone</Button>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Subscription & Billing Tab */}
-          <TabsContent value="billing">
-            <div className="space-y-6">
-              {/* Current Plan */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Current Plan</CardTitle>
-                  <CardDescription>Manage your subscription and billing</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold text-lg">Professional Plan</h3>
-                      <p className="text-sm text-muted-foreground">$49/month • Unlimited batches</p>
-                    </div>
-                    <Button variant="outline">Change Plan</Button>
+          {/* Billing Tab */}
+          <TabsContent value="billing" className="space-y-6 mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Current Plan</CardTitle>
+                <CardDescription>You are currently on the Professional plan</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-4 border rounded-lg">
+                  <div>
+                    <p className="font-medium text-lg">Professional Plan</p>
+                    <p className="text-sm text-muted-foreground">Up to 10,000 products per month</p>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t">
-                    <div>
-                      <p className="text-sm text-muted-foreground">Batches Created</p>
-                      <p className="text-2xl font-bold">12 / Unlimited</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">QR Codes Generated</p>
-                      <p className="text-2xl font-bold">1,234</p>
-                    </div>
+                  <div className="text-right">
+                    <p className="font-bold text-xl">$99/mo</p>
+                    <p className="text-sm text-muted-foreground">Billed monthly</p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+                <Button variant="outline">Upgrade Plan</Button>
+              </CardContent>
+            </Card>
 
-              {/* Billing History */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Billing History</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between py-2 border-b">
+            <Card>
+              <CardHeader>
+                <CardTitle>Payment Method</CardTitle>
+                <CardDescription>Manage your payment information</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-4 border rounded-lg">
+                  <div className="flex items-center gap-4">
+                    <CreditCard className="w-8 h-8" />
+                    <div>
+                      <p className="font-medium">•••• •••• •••• 4242</p>
+                      <p className="text-sm text-muted-foreground">Expires 12/25</p>
+                    </div>
+                  </div>
+                  <Button variant="outline" size="sm">Update</Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Billing History</CardTitle>
+                <CardDescription>Download your past invoices</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
-                        <p className="font-medium">Jan 2025</p>
-                        <p className="text-sm text-muted-foreground">Professional Plan</p>
+                        <p className="font-medium">Invoice #{1000 + i}</p>
+                        <p className="text-sm text-muted-foreground">January {i}, 2025 • $99.00</p>
                       </div>
-                      <div className="text-right">
-                        <p className="font-semibold">$49.00</p>
-                        <Button variant="link" size="sm">Download</Button>
-                      </div>
+                      <Button variant="ghost" size="sm">Download</Button>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* Data Export */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Export Your Data</CardTitle>
-                  <CardDescription>Download all your company data</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => handleExportData('json')}>
-                      Export as JSON
-                    </Button>
-                    <Button variant="outline" onClick={() => handleExportData('csv')}>
-                      Export as CSV
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Data Export</CardTitle>
+                <CardDescription>Download all your data in various formats</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Export your complete data including batches, products, and analytics.
+                </p>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => handleExportData("json")}>
+                    Export as JSON
+                  </Button>
+                  <Button variant="outline" onClick={() => handleExportData("csv")}>
+                    Export as CSV
+                  </Button>
+                  <Button variant="outline" onClick={() => handleExportData("pdf")}>
+                    Export as PDF
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-              {/* Danger Zone */}
+            {/* Danger Zone */}
+            <div className="border-2 border-destructive rounded-lg p-6 space-y-4">
+              <div className="flex items-center gap-2 text-destructive">
+                <AlertTriangle className="w-5 h-5" />
+                <h3 className="font-bold text-lg">Danger Zone</h3>
+              </div>
+              
               <Card className="border-destructive">
                 <CardHeader>
-                  <CardTitle className="text-destructive flex items-center gap-2">
-                    <AlertTriangle className="w-5 h-5" />
-                    Danger Zone
-                  </CardTitle>
+                  <CardTitle className="text-destructive">Delete Account</CardTitle>
                   <CardDescription>
-                    Permanently delete your account and all associated data
+                    Permanently delete your account and all associated data. This action cannot be undone.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="deleteConfirmation">
-                      Type <strong>DELETE</strong> to confirm
-                    </Label>
-                    <Input
-                      id="deleteConfirmation"
+                    <Label htmlFor="delete-confirm">Type DELETE to confirm</Label>
+                    <Input 
+                      id="delete-confirm" 
+                      placeholder="DELETE"
                       value={deleteConfirmation}
                       onChange={(e) => setDeleteConfirmation(e.target.value)}
-                      placeholder="DELETE"
                     />
                   </div>
                   <Button 
