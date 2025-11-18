@@ -4,7 +4,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, X, FileText } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Card } from '@/components/ui/card';
+import { Plus, X, FileText, QrCode, Nfc, Shield } from 'lucide-react';
 
 interface BatchStep6Props {
   form: UseFormReturn<any>;
@@ -43,6 +45,85 @@ export const BatchStep6 = ({ form }: BatchStep6Props) => {
 
   return (
     <div className="space-y-6">
+      {/* Protection Method Selection */}
+      <FormField
+        control={form.control}
+        name="protectionMethod"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Protection Method *</FormLabel>
+            <FormDescription>
+              Choose how you want to protect your products
+            </FormDescription>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value || 'qr'}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4"
+              >
+                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'qr' ? 'border-primary bg-primary/5' : ''}`}>
+                  <FormItem className="flex items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="qr" />
+                    </FormControl>
+                    <div className="space-y-1 leading-none flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <QrCode className="h-5 w-5 text-primary" />
+                        <FormLabel className="font-semibold cursor-pointer">
+                          QR Code Only
+                        </FormLabel>
+                      </div>
+                      <FormDescription className="text-xs">
+                        Traditional QR code scanning. Perfect for most products.
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                </Card>
+
+                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'nfc' ? 'border-primary bg-primary/5' : ''}`}>
+                  <FormItem className="flex items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="nfc" />
+                    </FormControl>
+                    <div className="space-y-1 leading-none flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Nfc className="h-5 w-5 text-primary" />
+                        <FormLabel className="font-semibold cursor-pointer">
+                          NFC Tag Only
+                        </FormLabel>
+                      </div>
+                      <FormDescription className="text-xs">
+                        Near Field Communication tags. Premium authentication experience.
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                </Card>
+
+                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'both' ? 'border-primary bg-primary/5' : ''}`}>
+                  <FormItem className="flex items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="both" />
+                    </FormControl>
+                    <div className="space-y-1 leading-none flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield className="h-5 w-5 text-primary" />
+                        <FormLabel className="font-semibold cursor-pointer">
+                          QR + NFC
+                        </FormLabel>
+                      </div>
+                      <FormDescription className="text-xs">
+                        Maximum security with both QR codes and NFC tags.
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                </Card>
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       <FormField
         control={form.control}
         name="companyHistory"
