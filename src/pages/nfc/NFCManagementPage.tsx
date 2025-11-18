@@ -36,6 +36,7 @@ import {
   MapPin,
   Clock,
   Eye,
+  Bell,
 } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -230,7 +231,17 @@ export default function NFCManagementPage() {
                 </div>
               </div>
             </div>
-            <LanguageSelector />
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/dashboard/nfc-analytics')}
+              >
+                <TrendingUp className="mr-2 h-4 w-4" />
+                Analytics
+              </Button>
+              <LanguageSelector />
+            </div>
           </div>
         </div>
       </header>
@@ -302,6 +313,10 @@ export default function NFCManagementPage() {
             <TabsTrigger value="history">
               <Clock className="mr-2 h-4 w-4" />
               Scan History
+            </TabsTrigger>
+            <TabsTrigger value="alerts">
+              <Bell className="mr-2 h-4 w-4" />
+              Alerts
             </TabsTrigger>
           </TabsList>
 
@@ -406,7 +421,7 @@ export default function NFCManagementPage() {
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                  <DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => navigate(`/dashboard/nfc/${tag.id}`)}>
                                     <Eye className="mr-2 h-4 w-4" />
                                     View Details
                                   </DropdownMenuItem>
@@ -488,6 +503,173 @@ export default function NFCManagementPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Alerts Tab */}
+          <TabsContent value="alerts" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <CardTitle>Security Alerts</CardTitle>
+                    <CardDescription>
+                      Real-time notifications for suspicious activity
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    <Download className="mr-2 h-4 w-4" />
+                    Export Alerts
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Critical Alert */}
+                  <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 bg-red-50 dark:bg-red-950/30">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
+                          <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-semibold text-red-900 dark:text-red-100">
+                              Multiple Scans from Different Locations
+                            </h4>
+                            <p className="text-sm text-red-700 dark:text-red-300 mt-1">
+                              Tag E004010011112222 scanned in Tbilisi and Batumi within 2 hours (350km apart)
+                            </p>
+                          </div>
+                          <Badge className="bg-red-600 text-white hover:bg-red-600">Critical</Badge>
+                        </div>
+                        <div className="mt-3 flex items-center gap-4 text-sm text-red-600 dark:text-red-400">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>2 hours ago</span>
+                          </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="h-7"
+                            onClick={() => navigate('/dashboard/nfc/NFC-2024-003')}
+                          >
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Warning Alert */}
+                  <div className="border border-amber-200 dark:border-amber-800 rounded-lg p-4 bg-amber-50 dark:bg-amber-950/30">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
+                          <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-semibold text-amber-900 dark:text-amber-100">
+                              Unusual Scan Pattern Detected
+                            </h4>
+                            <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                              Tag E004010012345678 scanned 5 times in 10 minutes from same location
+                            </p>
+                          </div>
+                          <Badge className="bg-amber-600 text-white hover:bg-amber-600">Warning</Badge>
+                        </div>
+                        <div className="mt-3 flex items-center gap-4 text-sm text-amber-600 dark:text-amber-400">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>5 hours ago</span>
+                          </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="h-7"
+                            onClick={() => navigate('/dashboard/nfc/NFC-2024-001')}
+                          >
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Info Alert */}
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                          <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-semibold">
+                              High Activity Batch Detected
+                            </h4>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              Batch AUTH-2024-002 has seen 45 scans today, 180% above average
+                            </p>
+                          </div>
+                          <Badge variant="outline">Info</Badge>
+                        </div>
+                        <div className="mt-3 flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>1 day ago</span>
+                          </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="h-7"
+                            onClick={() => navigate('/dashboard/batches/AUTH-2024-002')}
+                          >
+                            View Batch
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Resolved Alert */}
+                  <div className="border rounded-lg p-4 opacity-60">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                          <XCircle className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-semibold line-through">
+                              Tag Deactivated After Suspicious Activity
+                            </h4>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              Tag E004010033334444 was deactivated after multiple suspicious scans
+                            </p>
+                          </div>
+                          <Badge variant="outline">Resolved</Badge>
+                        </div>
+                        <div className="mt-3 flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>3 days ago</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
