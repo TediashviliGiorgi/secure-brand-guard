@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, LogOut, QrCode, Package, BarChart3, Settings } from 'lucide-react';
+import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Nfc } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -159,6 +159,30 @@ export default function DashboardPage() {
               </p>
               <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics')}>
                 View Analytics Dashboard
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border/50 shadow-lg">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                  <Nfc className="w-6 h-6 text-blue-500" />
+                </div>
+                <div>
+                  <CardTitle>NFC Tags</CardTitle>
+                  <CardDescription>
+                    Manage NFC authentication
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Monitor active NFC tags, track scan history, and manage tag status across your product authentication system.
+              </p>
+              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc')}>
+                View NFC Dashboard
               </Button>
             </CardContent>
           </Card>

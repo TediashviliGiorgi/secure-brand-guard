@@ -22,6 +22,7 @@ import PricingPage from "./pages/PricingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
+import NFCManagementPage from "./pages/nfc/NFCManagementPage";
 import NotFound from "./pages/NotFound";
 import './i18n/config';
 
@@ -98,6 +99,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <SettingsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/nfc" 
+            element={
+              <ProtectedRoute>
+                <NFCManagementPage />
               </ProtectedRoute>
             } 
           />
