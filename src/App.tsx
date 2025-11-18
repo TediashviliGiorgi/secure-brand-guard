@@ -23,6 +23,8 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import NFCManagementPage from "./pages/nfc/NFCManagementPage";
+import NFCTagDetailPage from "./pages/nfc/NFCTagDetailPage";
+import NFCAnalyticsPage from "./pages/nfc/NFCAnalyticsPage";
 import NotFound from "./pages/NotFound";
 import './i18n/config';
 
@@ -107,6 +109,22 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <NFCManagementPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/nfc/:tagId" 
+            element={
+              <ProtectedRoute>
+                <NFCTagDetailPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/nfc-analytics" 
+            element={
+              <ProtectedRoute>
+                <NFCAnalyticsPage />
               </ProtectedRoute>
             } 
           />
