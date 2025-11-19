@@ -79,6 +79,21 @@ export const batchStep3Schema = z.object({
   agingPotentialMax: z
     .number()
     .optional(),
+  qrCodeSize: z
+    .enum(['small', 'medium', 'large'])
+    .optional(),
+  qrCodeStyle: z
+    .enum(['standard', 'branded', 'artistic'])
+    .optional(),
+  nfcChipType: z
+    .enum(['ntag213', 'ntag215', 'ntag216'])
+    .optional(),
+  nfcFormFactor: z
+    .enum(['sticker', 'label', 'embedded'])
+    .optional(),
+  nfcWriteProtection: z
+    .boolean()
+    .optional(),
 });
 
 // Step 4: Pairing Recommendations
@@ -143,6 +158,9 @@ export const batchStep7Schema = z.object({
   email: z.string().email('Invalid email').optional(),
   website: z.string().url('Invalid URL').optional().or(z.literal('')),
   socialMedia: z.string().optional(),
+  protectionMethod: z
+    .enum(['qr', 'nfc', 'both'])
+    .default('qr'),
 });
 
 // Complete batch schema

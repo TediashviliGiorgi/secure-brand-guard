@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -51,6 +51,7 @@ const stepTitles = [
 ];
 
 export default function CreateBatchPage() {
+  const [searchParams] = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<Partial<CompleteBatch>>({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -62,6 +63,14 @@ export default function CreateBatchPage() {
     mode: 'onBlur',
     defaultValues: formData,
   });
+
+  // Initialize protection method from URL parameter
+  useEffect(() => {
+    const type = searchParams.get('type');
+    if (type === 'qr' || type === 'nfc' || type === 'both') {
+      setFormData(prev => ({ ...prev, protectionMethod: type as 'qr' | 'nfc' | 'both' }));
+    }
+  }, [searchParams]);
 
   const handleNext = async () => {
     const isValid = await form.trigger();
@@ -130,6 +139,7 @@ export default function CreateBatchPage() {
         batchId={batchId}
         productName={formData.productName || ''}
         numberOfUnits={formData.numberOfUnits || 0}
+        technology={formData.protectionMethod as 'qr' | 'nfc' | 'both'}
         onNavigateToDashboard={() => navigate('/dashboard')}
         onNavigateToBatches={() => navigate('/dashboard/batches')}
       />
@@ -163,13 +173,13 @@ export default function CreateBatchPage() {
 
             <Form {...form}>
               <form onSubmit={handleSubmit}>
-                {currentStep === 1 && <BatchStep1 form={form} />}
-                {currentStep === 2 && <BatchStep2 form={form} />}
-                {currentStep === 3 && <BatchStep3 form={form} />}
-                {currentStep === 4 && <BatchStep4 form={form} />}
-                {currentStep === 5 && <BatchStep5 form={form} />}
-                {currentStep === 6 && <BatchStep6 form={form} />}
-                {currentStep === 7 && <BatchStep7 form={form} formData={formData} />}
+          {currentStep === 1 && <BatchStep1 form={form} />}
+          {currentStep === 2 && <BatchStep2 form={form} />}
+          {currentStep === 3 && <BatchStep3 form={form} />}
+          {currentStep === 4 && <BatchStep4 form={form} />}
+          {currentStep === 5 && <BatchStep5 form={form} />}
+          {currentStep === 6 && <BatchStep6 form={form} />}
+          {currentStep === 7 && <BatchStep7 form={form} formData={formData} />}
 
                 <div className="flex items-center justify-between mt-8 pt-6 border-t">
                   <div>
