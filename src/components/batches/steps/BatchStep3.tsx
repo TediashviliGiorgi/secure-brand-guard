@@ -3,7 +3,15 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescripti
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { Sparkles } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Sparkles, AlertCircle, Shield } from 'lucide-react';
+import { CompleteBatch } from '@/lib/batchValidators';
 
 interface BatchStep3Props {
   form: UseFormReturn<any>;
@@ -16,6 +24,7 @@ export const BatchStep3 = ({ form }: BatchStep3Props) => {
 
   return (
     <div className="space-y-6">
+      {/* Product Description Fields - Always Show */}
       <FormField
         control={form.control}
         name="description"
@@ -112,13 +121,21 @@ export const BatchStep3 = ({ form }: BatchStep3Props) => {
                     max={50}
                     step={1}
                     value={[field.value || 0]}
-                    onValueChange={(vals) => field.onChange(vals[0])}
+                    onValueChange={(value) => field.onChange(value[0])}
+                    className="py-4"
                   />
                 </FormControl>
-                <FormDescription>{field.value || 0} years</FormDescription>
+                <div className="text-center">
+                  <span className="text-2xl font-bold text-primary">
+                    {field.value || 0}
+                  </span>
+                  <span className="text-sm text-muted-foreground ml-1">years</span>
+                </div>
+                <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="agingPotentialMax"
@@ -131,10 +148,17 @@ export const BatchStep3 = ({ form }: BatchStep3Props) => {
                     max={50}
                     step={1}
                     value={[field.value || 0]}
-                    onValueChange={(vals) => field.onChange(vals[0])}
+                    onValueChange={(value) => field.onChange(value[0])}
+                    className="py-4"
                   />
                 </FormControl>
-                <FormDescription>{field.value || 0} years</FormDescription>
+                <div className="text-center">
+                  <span className="text-2xl font-bold text-primary">
+                    {field.value || 0}
+                  </span>
+                  <span className="text-sm text-muted-foreground ml-1">years</span>
+                </div>
+                <FormMessage />
               </FormItem>
             )}
           />

@@ -248,6 +248,28 @@ export const BatchStep7 = ({ form, formData }: BatchStep7Props) => {
                 </FormItem>
               )}
             />
+            
+            <FormField
+              control={form.control}
+              name="protectionMethod"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Protection Method</FormLabel>
+                  <FormControl>
+                    <select
+                      {...field}
+                      className="w-full border border-border rounded-md p-2 bg-background"
+                      value={field.value || formData?.protectionMethod || 'qr'}
+                    >
+                      <option value="qr">QR Codes Only</option>
+                      <option value="nfc">NFC Tags Only</option>
+                      <option value="both">QR Codes + NFC Tags</option>
+                    </select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </CollapsibleContent>
         </div>
       </Collapsible>

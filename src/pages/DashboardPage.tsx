@@ -97,7 +97,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Generate new batches of dual QR codes for product authentication.
                 </p>
-                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create')}>
+                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create?type=qr')}>
                   Create New Batch
                 </Button>
               </CardContent>
@@ -210,7 +210,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Generate new NFC tags for product authentication systems.
                 </p>
-                <Button className="w-full" onClick={() => navigate('/dashboard/nfc')}>
+                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create?type=nfc')}>
                   Create NFC Tags
                 </Button>
               </CardContent>
