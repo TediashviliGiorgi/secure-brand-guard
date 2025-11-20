@@ -192,54 +192,57 @@ export default function DashboardPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {/* Card 1: NFC Batches */}
             <Card className="border-border/50 shadow-lg hover-lift bg-gradient-to-br from-blue-500/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                    <Nfc className="w-6 h-6 text-blue-500" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Create Tags</CardTitle>
-                    <CardDescription>
-                      Generate NFC tags
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Generate new NFC tags for product authentication systems.
-                </p>
-                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create?type=nfc')}>
-                  Create NFC Tags
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
                     <Package className="w-6 h-6 text-blue-500" />
                   </div>
                   <div>
-                    <CardTitle>Manage Tags</CardTitle>
+                    <CardTitle className="text-lg">NFC Batches</CardTitle>
                     <CardDescription>
-                      Control existing NFC tags
+                      Manage NFC batches
                     </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Monitor active tags, track scan history, and manage tag status.
+                  View and manage product batches protected with NFC tags. Create new batches, track production, and monitor authentication.
                 </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc')}>
+                <Button className="w-full" onClick={() => navigate('/dashboard/batches?technology=nfc')}>
+                  View NFC Batches
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Card 2: Browse All Tags */}
+            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                    <Nfc className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle>Browse All Tags</CardTitle>
+                    <CardDescription>
+                      Monitor individual tags
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Search and monitor all NFC tags across batches. Track scan history and detect suspicious activity.
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc/tags')}>
                   View All Tags
                 </Button>
               </CardContent>
             </Card>
 
+            {/* Card 3: NFC Analytics */}
             <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -258,12 +261,13 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground mb-4">
                   View scan trends, heat maps, peak times, and device analytics.
                 </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc-analytics')}>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics?type=nfc')}>
                   View Analytics
                 </Button>
               </CardContent>
             </Card>
 
+            {/* Card 4: NFC Security */}
             <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -282,7 +286,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Track suspicious NFC scan patterns and cloning attempts.
                 </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security?type=nfc')}>
                   View Security
                 </Button>
               </CardContent>

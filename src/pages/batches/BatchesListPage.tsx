@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/table';
 import { 
   Package, Plus, Search, TrendingUp, Shield, ArrowLeft,
-  Eye, AlertTriangle
+  Eye, AlertTriangle, QrCode, Radio
 } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
@@ -29,6 +29,7 @@ interface BatchItem {
   qr2Verified: number;
   conversionRate: number;
   activeAlerts: number;
+  protectionMethod: 'qr' | 'nfc' | 'both';
 }
 
 // Mock data
@@ -44,6 +45,7 @@ const mockBatches: BatchItem[] = [
     qr2Verified: 3421,
     conversionRate: 26.6,
     activeAlerts: 3,
+    protectionMethod: 'qr',
   },
   {
     id: 'AUTH-2024-002',
@@ -56,6 +58,7 @@ const mockBatches: BatchItem[] = [
     qr2Verified: 2134,
     conversionRate: 25.2,
     activeAlerts: 1,
+    protectionMethod: 'nfc',
   },
   {
     id: 'AUTH-2023-045',
@@ -68,17 +71,29 @@ const mockBatches: BatchItem[] = [
     qr2Verified: 7234,
     conversionRate: 30.0,
     activeAlerts: 0,
+    protectionMethod: 'both',
   },
 ];
 
 export default function BatchesListPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Get technology filter from URL
+  const technologyFilter = searchParams.get('technology') as 'qr' | 'nfc' | null;
 
-  const filteredBatches = mockBatches.filter(batch =>
-    batch.product.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    batch.batchNumber.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredBatches = mockBatches.filter(batch => {
+    const matchesSearch = 
+      batch.product.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      batch.batchNumber.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Filter by technology if specified
+    const matchesTechnology = !technologyFilter || 
+      batch.protectionMethod === technologyFilter;
+    
+    return matchesSearch && matchesTechnology;
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -111,16 +126,51 @@ export default function BatchesListPage() {
 
         <div className="mb-6 flex items-start justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Batches</h1>
+            <h1 className="text-3xl font-bold mb-2">
+              {technologyFilter === 'nfc' && 'NFC Batches'}
+              {technologyFilter === 'qr' && 'QR Code Batches'}
+              {!technologyFilter && 'All Batches'}
+            </h1>
             <p className="text-muted-foreground">
-              Manage your product batches and QR codes
+              {technologyFilter === 'nfc' && 'Manage your NFC-authenticated product batches'}
+              {technologyFilter === 'qr' && 'Manage your QR code-authenticated product batches'}
+              {!technologyFilter && 'Manage all your product batches'}
             </p>
           </div>
-          <Button onClick={() => navigate('/dashboard/batches/create')}>
+          <Button onClick={() => navigate('/dashboard/batches/create' + (technologyFilter ? `?type=${technologyFilter}` : ''))}>
             <Plus className="mr-2 h-4 w-4" />
             Create New Batch
           </Button>
         </div>
+
+        {/* Technology filter tabs */}
+        <Card className="mb-6 p-4">
+          <div className="flex gap-2">
+            <Button 
+              variant={!technologyFilter ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => navigate('/dashboard/batches')}
+            >
+              All
+            </Button>
+            <Button 
+              variant={technologyFilter === 'qr' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => navigate('/dashboard/batches?technology=qr')}
+            >
+              <QrCode className="mr-2 h-4 w-4" />
+              QR Only
+            </Button>
+            <Button 
+              variant={technologyFilter === 'nfc' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => navigate('/dashboard/batches?technology=nfc')}
+            >
+              <Radio className="mr-2 h-4 w-4" />
+              NFC Only
+            </Button>
+          </div>
+        </Card>
 
         <Card className="mb-6 p-4">
           <div className="relative">
@@ -156,6 +206,7 @@ export default function BatchesListPage() {
                   <TableRow>
                     <TableHead>Product</TableHead>
                     <TableHead>Batch Number</TableHead>
+                    <TableHead>Technology</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead className="text-right">Bottles</TableHead>
                     <TableHead className="text-right">QR1 Scans</TableHead>
@@ -182,6 +233,28 @@ export default function BatchesListPage() {
                         <code className="text-sm bg-muted px-2 py-1 rounded">
                           {batch.batchNumber}
                         </code>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="gap-1">
+                          {batch.protectionMethod === 'qr' && (
+                            <>
+                              <QrCode className="h-3 w-3" />
+                              QR
+                            </>
+                          )}
+                          {batch.protectionMethod === 'nfc' && (
+                            <>
+                              <Radio className="h-3 w-3" />
+                              NFC
+                            </>
+                          )}
+                          {batch.protectionMethod === 'both' && (
+                            <>
+                              <Shield className="h-3 w-3" />
+                              QR+NFC
+                            </>
+                          )}
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <Badge className={getStatusColor(batch.status)}>
