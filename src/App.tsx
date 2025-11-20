@@ -105,7 +105,7 @@ const App = () => (
             } 
           />
           <Route 
-            path="/dashboard/nfc" 
+            path="/dashboard/nfc/tags" 
             element={
               <ProtectedRoute>
                 <NFCManagementPage />

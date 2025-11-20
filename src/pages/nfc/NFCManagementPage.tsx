@@ -226,8 +226,8 @@ export default function NFCManagementPage() {
                   <Nfc className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-semibold">NFC Tag Management</h1>
-                  <p className="text-xs text-muted-foreground">Monitor and manage your NFC tags</p>
+                  <h1 className="text-xl font-semibold">Browse All NFC Tags</h1>
+                  <p className="text-xs text-muted-foreground">Monitor all NFC tags across batches</p>
                 </div>
               </div>
             </div>
@@ -398,7 +398,13 @@ export default function NFCManagementPage() {
                             </TableCell>
                             <TableCell className="font-medium">{tag.productName}</TableCell>
                             <TableCell>
-                              <Badge variant="outline">{tag.batchId}</Badge>
+                              <Button
+                                variant="link"
+                                className="h-auto p-0 font-normal"
+                                onClick={() => navigate(`/dashboard/batches/${tag.batchId}`)}
+                              >
+                                <Badge variant="outline">{tag.batchId}</Badge>
+                              </Button>
                             </TableCell>
                             <TableCell>{getStatusBadge(tag.status)}</TableCell>
                             <TableCell className="text-right font-semibold">
