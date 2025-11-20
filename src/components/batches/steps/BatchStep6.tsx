@@ -5,8 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Card } from '@/components/ui/card';
-import { Plus, X, FileText, QrCode, Nfc, Shield } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import { Plus, X, FileText, QrCode, Nfc, Shield, Calculator, Check, AlertTriangle, Lightbulb, Star } from 'lucide-react';
 
 interface BatchStep6Props {
   form: UseFormReturn<any>;
@@ -19,6 +21,7 @@ export const BatchStep6 = ({ form }: BatchStep6Props) => {
   const productStory = form.watch('productStory') || '';
   const traditionalMethods = form.watch('traditionalMethods') || '';
   const awards = form.watch('awards') || [];
+  const quantity = form.watch('numberOfUnits') || 5000;
 
   const addAward = () => {
     const currentAwards = form.getValues('awards') || [];
@@ -43,255 +46,528 @@ export const BatchStep6 = ({ form }: BatchStep6Props) => {
     );
   };
 
+  // Calculate costs based on quantity
+  const calculateCost = (method: 'qr' | 'nfc' | 'both') => {
+    const rates = {
+      qr: { min: 6, max: 10, avg: 8 },
+      nfc: { min: 50, max: 200, avg: 100 },
+      both: { min: 56, max: 210, avg: 108 }
+    };
+    
+    const rate = rates[method];
+    return {
+      minTotal: quantity * rate.min,
+      maxTotal: quantity * rate.max,
+      avgTotal: quantity * rate.avg
+    };
+  };
+
+  const qrCost = calculateCost('qr');
+  const nfcCost = calculateCost('nfc');
+  const bothCost = calculateCost('both');
+
   return (
     <div className="space-y-6">
-      {/* Protection Method Selection */}
-      <FormField
-        control={form.control}
-        name="protectionMethod"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Protection Method *</FormLabel>
-            <FormDescription>
-              Choose how you want to protect your products
-            </FormDescription>
-            <FormControl>
-              <RadioGroup
-                onValueChange={field.onChange}
-                defaultValue={field.value || 'qr'}
-                className="grid grid-cols-1 md:grid-cols-3 gap-4"
-              >
-                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'qr' ? 'border-primary bg-primary/5' : ''}`}>
-                  <FormItem className="flex items-start space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="qr" />
-                    </FormControl>
-                    <div className="space-y-1 leading-none flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <QrCode className="h-5 w-5 text-primary" />
-                        <FormLabel className="font-semibold cursor-pointer">
-                          QR Code Only
-                        </FormLabel>
-                      </div>
-                      <FormDescription className="text-xs">
-                        Traditional QR code scanning. Perfect for most products.
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                </Card>
+      {/* Protection Method Selection with Pricing */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Choose Protection Method</CardTitle>
+          <CardDescription>
+            Select the authentication technology for your {quantity.toLocaleString()} bottles
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <FormField
+            control={form.control}
+            name="protectionMethod"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value || 'qr'}
+                    className="space-y-4"
+                  >
+                    
+                    {/* Option 1: QR Code Only */}
+                    <Card className={`relative cursor-pointer p-6 hover:border-primary transition-colors ${
+                      field.value === 'qr' ? 'border-primary border-2 bg-primary/5' : ''
+                    }`}>
+                      <FormItem className="flex items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="qr" />
+                        </FormControl>
+                        <div className="flex-1 space-y-4">
+                          
+                          {/* Header with Price */}
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <QrCode className="h-5 w-5 text-primary" />
+                                <FormLabel className="text-lg font-semibold cursor-pointer">
+                                  QR Code Only
+                                </FormLabel>
+                              </div>
+                              <FormDescription className="text-sm">
+                                Cost-effective dual QR system. Perfect for most products.
+                              </FormDescription>
+                            </div>
+                            
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-primary">
+                                6-10 ₾
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                per bottle
+                              </div>
+                            </div>
+                          </div>
 
-                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'nfc' ? 'border-primary bg-primary/5' : ''}`}>
-                  <FormItem className="flex items-start space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="nfc" />
-                    </FormControl>
-                    <div className="space-y-1 leading-none flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Nfc className="h-5 w-5 text-primary" />
-                        <FormLabel className="font-semibold cursor-pointer">
-                          NFC Tag Only
-                        </FormLabel>
-                      </div>
-                      <FormDescription className="text-xs">
-                        Near Field Communication tags. Premium authentication experience.
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                </Card>
+                          {/* Cost Calculation */}
+                          <Alert className="bg-primary/5 border-primary/20">
+                            <Calculator className="h-4 w-4" />
+                            <AlertDescription>
+                              <div className="flex items-baseline gap-2">
+                                <strong>Total Cost:</strong>
+                                <span className="text-lg font-bold">
+                                  {qrCost.minTotal.toLocaleString()} - {qrCost.maxTotal.toLocaleString()} ₾
+                                </span>
+                              </div>
+                              <div className="text-xs text-muted-foreground mt-1">
+                                Average: {qrCost.avgTotal.toLocaleString()} ₾ ({quantity.toLocaleString()} bottles × 8 ₾)
+                              </div>
+                            </AlertDescription>
+                          </Alert>
 
-                <Card className={`relative cursor-pointer p-4 hover:border-primary transition-colors ${field.value === 'both' ? 'border-primary bg-primary/5' : ''}`}>
-                  <FormItem className="flex items-start space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="both" />
-                    </FormControl>
-                    <div className="space-y-1 leading-none flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Shield className="h-5 w-5 text-primary" />
-                        <FormLabel className="font-semibold cursor-pointer">
-                          QR + NFC
-                        </FormLabel>
-                      </div>
-                      <FormDescription className="text-xs">
-                        Maximum security with both QR codes and NFC tags.
-                      </FormDescription>
-                    </div>
-                  </FormItem>
-                </Card>
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+                          {/* Benefits */}
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span>100% smartphone compatibility</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span>Immediate deployment (1 day)</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span>Dual system: Marketing + Security</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span>Print on standard label paper</span>
+                            </div>
+                          </div>
+                        </div>
+                      </FormItem>
+                    </Card>
 
+                    {/* Option 2: NFC Tag Only */}
+                    <Card className={`relative cursor-pointer p-6 hover:border-primary transition-colors ${
+                      field.value === 'nfc' ? 'border-primary border-2 bg-amber-500/5' : ''
+                    }`}>
+                      <Badge className="absolute top-4 right-4 bg-amber-500">
+                        Premium
+                      </Badge>
+                      
+                      <FormItem className="flex items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="nfc" />
+                        </FormControl>
+                        <div className="flex-1 space-y-4">
+                          
+                          {/* Header with Price */}
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <Nfc className="h-5 w-5 text-amber-600" />
+                                <FormLabel className="text-lg font-semibold cursor-pointer">
+                                  NFC Tag Only
+                                </FormLabel>
+                              </div>
+                              <FormDescription className="text-sm">
+                                Hardware-level security. Premium authentication experience.
+                              </FormDescription>
+                            </div>
+                            
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-amber-600">
+                                50-200 ₾
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                per bottle
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Cost Calculation */}
+                          <Alert className="bg-amber-500/5 border-amber-500/20">
+                            <Calculator className="h-4 w-4 text-amber-600" />
+                            <AlertDescription>
+                              <div className="flex items-baseline gap-2">
+                                <strong>Total Cost:</strong>
+                                <span className="text-lg font-bold text-amber-600">
+                                  {nfcCost.minTotal.toLocaleString()} - {nfcCost.maxTotal.toLocaleString()} ₾
+                                </span>
+                              </div>
+                              <div className="text-xs text-muted-foreground mt-1">
+                                Average: {nfcCost.avgTotal.toLocaleString()} ₾ ({quantity.toLocaleString()} bottles × 100 ₾)
+                              </div>
+                              <div className="text-xs text-amber-600 mt-1 flex items-center gap-1">
+                                <AlertTriangle className="h-3 w-3" />
+                                Production lead time: 2-3 weeks
+                              </div>
+                            </AlertDescription>
+                          </Alert>
+
+                          {/* Benefits */}
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Shield className="h-4 w-4 text-amber-600" />
+                              <span>Near-impossible to counterfeit</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Shield className="h-4 w-4 text-amber-600" />
+                              <span>Unique hardware UID (unclonable)</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Shield className="h-4 w-4 text-amber-600" />
+                              <span>Cannot be photographed/copied</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <AlertTriangle className="h-4 w-4 text-amber-600" />
+                              <span>Requires NFC-enabled phone (~60% compatibility)</span>
+                            </div>
+                          </div>
+                        </div>
+                      </FormItem>
+                    </Card>
+
+                    {/* Option 3: Both (QR + NFC) */}
+                    <Card className={`relative cursor-pointer p-6 hover:border-primary transition-colors ${
+                      field.value === 'both' ? 'border-primary border-2 bg-gradient-to-br from-primary/5 to-amber-500/5' : ''
+                    }`}>
+                      <Badge className="absolute top-4 right-4 bg-gradient-to-r from-primary to-amber-500 text-white">
+                        Maximum Security
+                      </Badge>
+                      
+                      <FormItem className="flex items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="both" />
+                        </FormControl>
+                        <div className="flex-1 space-y-4">
+                          
+                          {/* Header with Price */}
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <Shield className="h-5 w-5" />
+                                <FormLabel className="text-lg font-semibold cursor-pointer">
+                                  QR + NFC Combo
+                                </FormLabel>
+                              </div>
+                              <FormDescription className="text-sm">
+                                Maximum security with both QR codes and NFC tags.
+                              </FormDescription>
+                            </div>
+                            
+                            <div className="text-right">
+                              <div className="text-2xl font-bold bg-gradient-to-r from-primary to-amber-600 bg-clip-text text-transparent">
+                                56-210 ₾
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                per bottle
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Cost Calculation */}
+                          <Alert className="bg-gradient-to-r from-primary/5 to-amber-500/5 border-primary/20">
+                            <Calculator className="h-4 w-4" />
+                            <AlertDescription>
+                              <div className="flex items-baseline gap-2">
+                                <strong>Total Cost:</strong>
+                                <span className="text-lg font-bold">
+                                  {bothCost.minTotal.toLocaleString()} - {bothCost.maxTotal.toLocaleString()} ₾
+                                </span>
+                              </div>
+                              <div className="text-xs text-muted-foreground mt-1">
+                                Average: {bothCost.avgTotal.toLocaleString()} ₾ ({quantity.toLocaleString()} bottles × 108 ₾)
+                              </div>
+                            </AlertDescription>
+                          </Alert>
+
+                          {/* Benefits */}
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span>All QR benefits + NFC security</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Shield className="h-4 w-4 text-amber-600" />
+                              <span>Redundant protection system</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Star className="h-4 w-4 text-amber-500" />
+                              <span>Best for premium/luxury products</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Star className="h-4 w-4 text-amber-500" />
+                              <span>Ideal for export markets</span>
+                            </div>
+                          </div>
+                        </div>
+                      </FormItem>
+                    </Card>
+
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Smart Recommendation */}
+          <Alert className="bg-blue-500/5 border-blue-500/20 mt-4">
+            <Lightbulb className="h-4 w-4 text-blue-500" />
+            <AlertTitle className="text-blue-600">💡 Recommendation</AlertTitle>
+            <AlertDescription>
+              {quantity < 1000 && (
+                <p>For small batches, <strong>NFC tags</strong> provide excellent ROI despite higher per-unit cost.</p>
+              )}
+              {quantity >= 1000 && quantity < 10000 && (
+                <p>For medium batches, <strong>QR codes</strong> offer the best balance of cost and security.</p>
+              )}
+              {quantity >= 10000 && (
+                <p>For high-volume production, <strong>QR codes</strong> are most cost-effective. Consider NFC for premium sub-lines.</p>
+              )}
+            </AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+
+      {/* Company History */}
       <FormField
         control={form.control}
         name="companyHistory"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Company History *</FormLabel>
+            <FormLabel>Company History</FormLabel>
+            <FormDescription>
+              Tell the story of your company's heritage and traditions
+            </FormDescription>
             <FormControl>
               <Textarea
-                placeholder="Tell the story of your company..."
-                className="min-h-[150px] resize-none"
-                maxLength={1000}
+                placeholder="Founded in 1895, our family winery has been producing authentic Georgian wines using traditional qvevri methods..."
+                className="min-h-[120px] resize-none"
                 {...field}
               />
             </FormControl>
-            <FormDescription className="flex justify-between">
-              <span>Share your company's heritage and values</span>
-              <span className="text-muted-foreground">{companyHistory.length}/1000</span>
-            </FormDescription>
+            <div className="flex justify-between items-center">
+              <FormDescription className="text-xs">
+                {companyHistory.length}/500 characters
+              </FormDescription>
+              {companyHistory.length > 500 && (
+                <span className="text-xs text-destructive">
+                  Exceeds maximum length
+                </span>
+              )}
+            </div>
             <FormMessage />
           </FormItem>
         )}
       />
 
+      {/* Product Story */}
       <FormField
         control={form.control}
         name="productStory"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>This Product's Story *</FormLabel>
+            <FormLabel>Product Story *</FormLabel>
+            <FormDescription>
+              Share what makes this product unique and special
+            </FormDescription>
             <FormControl>
               <Textarea
-                placeholder="What makes this product special..."
-                className="min-h-[150px] resize-none"
-                maxLength={1000}
+                placeholder="This vintage Saperavi is aged in oak barrels for 18 months, resulting in..."
+                className="min-h-[120px] resize-none"
                 {...field}
               />
             </FormControl>
-            <FormDescription className="flex justify-between">
-              <span>Share what makes this product unique</span>
-              <span className="text-muted-foreground">{productStory.length}/1000</span>
-            </FormDescription>
+            <div className="flex justify-between items-center">
+              <FormDescription className="text-xs">
+                {productStory.length}/500 characters
+              </FormDescription>
+              {productStory.length > 500 && (
+                <span className="text-xs text-destructive">
+                  Exceeds maximum length
+                </span>
+              )}
+            </div>
             <FormMessage />
           </FormItem>
         )}
       />
 
+      {/* Traditional Methods */}
       <FormField
         control={form.control}
         name="traditionalMethods"
         render={({ field }) => (
           <FormItem>
             <div className="flex items-center justify-between">
-              <FormLabel>Traditional Methods</FormLabel>
-              <Button type="button" variant="outline" size="sm" onClick={useTemplate}>
+              <FormLabel>Traditional Production Methods</FormLabel>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={useTemplate}
+                className="h-8"
+              >
                 <FileText className="mr-2 h-4 w-4" />
                 Use Template
               </Button>
             </div>
+            <FormDescription>
+              Describe the authentic and traditional methods used
+            </FormDescription>
             <FormControl>
               <Textarea
-                placeholder="Describe traditional production methods..."
-                className="min-h-[100px] resize-none"
-                maxLength={500}
+                placeholder="We use traditional qvevri clay vessels buried underground for natural fermentation..."
+                className="min-h-[120px] resize-none"
                 {...field}
               />
             </FormControl>
-            <FormDescription className="flex justify-between">
-              <span>Optional: Traditional techniques used</span>
-              <span className="text-muted-foreground">{traditionalMethods.length}/500</span>
-            </FormDescription>
+            <div className="flex justify-between items-center">
+              <FormDescription className="text-xs">
+                {traditionalMethods.length}/500 characters
+              </FormDescription>
+              {traditionalMethods.length > 500 && (
+                <span className="text-xs text-destructive">
+                  Exceeds maximum length
+                </span>
+              )}
+            </div>
             <FormMessage />
           </FormItem>
         )}
       />
 
+      {/* Awards Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <FormLabel>Awards & Recognition</FormLabel>
+          <div>
+            <FormLabel>Awards & Recognition</FormLabel>
+            <FormDescription>
+              Add any awards or recognitions this product has received
+            </FormDescription>
+          </div>
           <Button type="button" variant="outline" size="sm" onClick={addAward}>
             <Plus className="mr-2 h-4 w-4" />
             Add Award
           </Button>
         </div>
 
-        {awards.length > 0 ? (
-          <div className="space-y-4">
-            {awards.map((award: any, index: number) => (
-              <div key={index} className="border rounded-lg p-4 space-y-4">
-                <div className="flex justify-between items-start">
-                  <h4 className="font-medium text-sm">Award {index + 1}</h4>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeAward(index)}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name={`awards.${index}.name`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Award Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g., Gold Medal" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name={`awards.${index}.year`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Year</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            min="1900"
-                            max={new Date().getFullYear()}
-                            {...field}
-                            onChange={(e) => field.onChange(parseInt(e.target.value))}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name={`awards.${index}.medalType`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Medal Type</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {MEDAL_TYPES.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type.charAt(0).toUpperCase() + type.slice(1)}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            ))}
+        {awards.length === 0 ? (
+          <div className="text-center py-8 border-2 border-dashed rounded-lg border-border">
+            <p className="text-sm text-muted-foreground mb-3">
+              No awards added yet
+            </p>
+            <Button type="button" variant="outline" size="sm" onClick={addAward}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add First Award
+            </Button>
           </div>
         ) : (
-          <div className="text-center py-8 border-2 border-dashed rounded-lg">
-            <p className="text-sm text-muted-foreground">
-              No awards added yet. Click "Add Award" to include recognition.
-            </p>
+          <div className="space-y-3">
+            {awards.map((award: any, index: number) => (
+              <Card key={index} className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                  <div className="md:col-span-6">
+                    <FormField
+                      control={form.control}
+                      name={`awards.${index}.name`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm">Award Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="e.g., Gold Medal at Wine Expo"
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <FormField
+                      control={form.control}
+                      name={`awards.${index}.year`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm">Year</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              min={1900}
+                              max={new Date().getFullYear()}
+                              {...field}
+                              onChange={(e) =>
+                                field.onChange(parseInt(e.target.value))
+                              }
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="md:col-span-3">
+                    <FormField
+                      control={form.control}
+                      name={`awards.${index}.medalType`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm">Medal Type</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {MEDAL_TYPES.map((type) => (
+                                <SelectItem key={type} value={type}>
+                                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="md:col-span-1 flex items-end">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeAward(index)}
+                      className="text-destructive hover:text-destructive"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
         )}
       </div>

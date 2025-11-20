@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Nfc, Radio } from 'lucide-react';
+import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Radio, Plus, FileText } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -56,246 +56,248 @@ export default function DashboardPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
+        
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
             Welcome, {user?.companyName || 'Company'}!
           </h2>
           <p className="text-muted-foreground">
-            {user?.region || 'All Regions'} • {user?.industry || 'Premium Products'}
+            Manage your product authentication and brand protection
           </p>
         </div>
 
-        {/* QR Code Authentication Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-              <QrCode className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-foreground">QR Code Authentication</h3>
-              <p className="text-sm text-muted-foreground">Dual QR code system for marketing and security</p>
-            </div>
-          </div>
+        {/* Main Action Cards - 4 cards in one unified section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <Card className="border-border/50 shadow-lg hover-lift bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <QrCode className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Create Batch</CardTitle>
-                    <CardDescription>
-                      Generate QR codes
-                    </CardDescription>
-                  </div>
+          {/* Card 1: Create Batch - PRIMARY ACTION */}
+          <Card className="border-2 border-primary shadow-xl hover-lift">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <Plus className="w-6 h-6 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Generate new batches of dual QR codes for product authentication.
-                </p>
-                <Button className="w-full" onClick={() => navigate('/dashboard/batches/create?type=qr')}>
-                  Create New Batch
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Package className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle>Manage Batches</CardTitle>
-                    <CardDescription>
-                      Control existing QR codes
-                    </CardDescription>
-                  </div>
+                <div>
+                  <CardTitle className="text-lg">Create Batch</CardTitle>
+                  <CardDescription>
+                    Generate authentication codes
+                  </CardDescription>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  View and manage all QR code batches, products, and brand stories.
-                </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/batches')}>
-                  View All Batches
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Create a new product batch with dual QR codes or NFC tags. Choose your protection method in the setup wizard.
+              </p>
+              <Button 
+                className="w-full" 
+                onClick={() => navigate('/dashboard/batches/create')}
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                Create New Batch
+              </Button>
+            </CardContent>
+          </Card>
 
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <BarChart3 className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle>QR Analytics</CardTitle>
-                    <CardDescription>
-                      Track scan metrics
-                    </CardDescription>
-                  </div>
+          {/* Card 2: Manage Batches */}
+          <Card className="hover-lift">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                  <Package className="w-6 h-6 text-blue-500" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  View scan analytics, patterns, and geographic distribution.
-                </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics')}>
-                  View Analytics
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-primary/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-red-500" />
-                  </div>
-                  <div>
-                    <CardTitle>QR Security</CardTitle>
-                    <CardDescription>
-                      Monitor QR threats
-                    </CardDescription>
-                  </div>
+                <div>
+                  <CardTitle>Manage Batches</CardTitle>
+                  <CardDescription>
+                    View all product batches
+                  </CardDescription>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Track suspicious QR scan patterns and counterfeit attempts.
-                </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security')}>
-                  View Security
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                View and manage all your product batches. Filter by QR or NFC, track production, and download codes.
+              </p>
+              
+              {/* Quick Filter Chips */}
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/dashboard/batches')}
+                  className="text-xs"
+                >
+                  All
                 </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/dashboard/batches?technology=qr')}
+                  className="text-xs"
+                >
+                  <QrCode className="mr-1 h-3 w-3" />
+                  QR
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/dashboard/batches?technology=nfc')}
+                  className="text-xs"
+                >
+                  <Radio className="mr-1 h-3 w-3" />
+                  NFC
+                </Button>
+              </div>
 
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/dashboard/batches')}
+              >
+                View All Batches
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Card 3: Analytics */}
+          <Card className="hover-lift">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-green-500" />
+                </div>
+                <div>
+                  <CardTitle>Analytics</CardTitle>
+                  <CardDescription>
+                    Track performance metrics
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                View scan trends, geographic distribution, peak times, and consumer engagement across all batches.
+              </p>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/dashboard/analytics')}
+              >
+                View Analytics
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Card 4: Security */}
+          <Card className="hover-lift">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-red-500" />
+                </div>
+                <div>
+                  <CardTitle>Security</CardTitle>
+                  <CardDescription>
+                    Monitor authentication threats
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Track suspicious scan patterns, detect counterfeiting attempts, and manage security alerts.
+              </p>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/dashboard/security')}
+              >
+                View Security
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Advanced Tools Section */}
         <Separator className="my-8" />
-
-        {/* NFC Authentication Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-              <Radio className="w-5 h-5 text-blue-500" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-foreground">NFC Authentication</h3>
-              <p className="text-sm text-muted-foreground">Near-field communication tag management and monitoring</p>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {/* Card 1: NFC Batches */}
-            <Card className="border-border/50 shadow-lg hover-lift bg-gradient-to-br from-blue-500/5 to-transparent">
+        
+        <section className="mb-8">
+          <h3 className="text-xl font-bold mb-4 text-muted-foreground">Advanced Tools</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            {/* Browse QR Codes */}
+            <Card className="bg-muted/30">
               <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                    <Package className="w-6 h-6 text-blue-500" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">NFC Batches</CardTitle>
-                    <CardDescription>
-                      Manage NFC batches
-                    </CardDescription>
-                  </div>
-                </div>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <QrCode className="h-4 w-4" />
+                  Browse QR Codes
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  View and manage product batches protected with NFC tags. Create new batches, track production, and monitor authentication.
+                <p className="text-xs text-muted-foreground mb-3">
+                  Search and monitor all QR codes across batches
                 </p>
-                <Button className="w-full" onClick={() => navigate('/dashboard/batches?technology=nfc')}>
-                  View NFC Batches
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="w-full"
+                  disabled
+                >
+                  Browse Codes
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Card 2: Browse All Tags */}
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
+            {/* Browse NFC Tags */}
+            <Card className="bg-muted/30">
               <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                    <Nfc className="w-6 h-6 text-blue-500" />
-                  </div>
-                  <div>
-                    <CardTitle>Browse All Tags</CardTitle>
-                    <CardDescription>
-                      Monitor individual tags
-                    </CardDescription>
-                  </div>
-                </div>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Radio className="h-4 w-4" />
+                  Browse NFC Tags
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Search and monitor all NFC tags across batches. Track scan history and detect suspicious activity.
+                <p className="text-xs text-muted-foreground mb-3">
+                  Search and monitor all NFC tags across batches
                 </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/nfc/tags')}>
-                  View All Tags
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="w-full"
+                  onClick={() => navigate('/dashboard/nfc/tags')}
+                >
+                  Browse Tags
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Card 3: NFC Analytics */}
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
+            {/* Reports */}
+            <Card className="bg-muted/30">
               <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                    <BarChart3 className="w-6 h-6 text-blue-500" />
-                  </div>
-                  <div>
-                    <CardTitle>NFC Analytics</CardTitle>
-                    <CardDescription>
-                      Track scan metrics
-                    </CardDescription>
-                  </div>
-                </div>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Reports
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  View scan trends, heat maps, peak times, and device analytics.
+                <p className="text-xs text-muted-foreground mb-3">
+                  Generate detailed authentication reports
                 </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/analytics?type=nfc')}>
-                  View Analytics
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Card 4: NFC Security */}
-            <Card className="border-border/50 shadow-lg bg-gradient-to-br from-blue-500/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-red-500" />
-                  </div>
-                  <div>
-                    <CardTitle>NFC Security</CardTitle>
-                    <CardDescription>
-                      Monitor NFC threats
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Track suspicious NFC scan patterns and cloning attempts.
-                </p>
-                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/security?type=nfc')}>
-                  View Security
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="w-full"
+                  disabled
+                >
+                  Generate Report
                 </Button>
               </CardContent>
             </Card>
           </div>
         </section>
 
-        {/* Info Section */}
-        <Card className="mt-8 border-border/50 bg-card/50">
+        {/* Getting Started Guide */}
+        <Card className="border-border/50 bg-card/50">
           <CardHeader>
             <CardTitle>Getting Started with AuthIt</CardTitle>
           </CardHeader>
@@ -305,9 +307,9 @@ export default function DashboardPage() {
                 1
               </div>
               <div>
-                <h4 className="font-medium mb-1">Add Your Products</h4>
+                <h4 className="font-medium mb-1">Create Your First Batch</h4>
                 <p className="text-sm text-muted-foreground">
-                  Start by adding your products to the system with details and brand stories.
+                  Click "Create Batch" and follow the wizard. You'll choose between QR codes, NFC tags, or both during the setup process.
                 </p>
               </div>
             </div>
@@ -316,9 +318,9 @@ export default function DashboardPage() {
                 2
               </div>
               <div>
-                <h4 className="font-medium mb-1">Generate QR Codes</h4>
+                <h4 className="font-medium mb-1">Download & Apply</h4>
                 <p className="text-sm text-muted-foreground">
-                  Create dual QR codes for each product - one for marketing, one for security.
+                  Download your QR labels or NFC programming file. Apply codes to your products according to the placement guide.
                 </p>
               </div>
             </div>
@@ -327,9 +329,9 @@ export default function DashboardPage() {
                 3
               </div>
               <div>
-                <h4 className="font-medium mb-1">Track & Verify</h4>
+                <h4 className="font-medium mb-1">Monitor & Protect</h4>
                 <p className="text-sm text-muted-foreground">
-                  Monitor scans and verifications to protect your brand from counterfeiting.
+                  Track scans, verify authenticity, and monitor security alerts in real-time from your dashboard.
                 </p>
               </div>
             </div>

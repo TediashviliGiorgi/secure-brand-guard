@@ -64,11 +64,12 @@ export default function CreateBatchPage() {
     defaultValues: formData,
   });
 
-  // Initialize protection method from URL parameter
+  // URL parameters removed - users should see all options with pricing in wizard
   useEffect(() => {
     const type = searchParams.get('type');
     if (type === 'qr' || type === 'nfc' || type === 'both') {
-      setFormData(prev => ({ ...prev, protectionMethod: type as 'qr' | 'nfc' | 'both' }));
+      // Don't pre-select, just store in formData for reference
+      setFormData(prev => ({ ...prev, _suggestedType: type as 'qr' | 'nfc' | 'both' }));
     }
   }, [searchParams]);
 
