@@ -8,6 +8,8 @@ import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { Separator } from '@/components/ui/separator';
 import { BatchStatistics } from '@/components/dashboard/BatchStatistics';
+import { AnalyticsOverview } from '@/components/dashboard/AnalyticsOverview';
+import { SecurityOverview } from '@/components/dashboard/SecurityOverview';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -71,8 +73,8 @@ export default function DashboardPage() {
         {/* Batch Statistics */}
         <BatchStatistics />
 
-        {/* Main Action Cards - 4 cards in one unified section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Main Action Cards - 2 columns grid with primary actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           
           {/* Card 1: Create Batch - PRIMARY ACTION */}
           <Card className="border-2 border-primary shadow-xl hover-lift">
@@ -163,63 +165,12 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          {/* Card 3: Analytics */}
-          <Card className="hover-lift">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-green-500" />
-                </div>
-                <div>
-                  <CardTitle>Analytics</CardTitle>
-                  <CardDescription>
-                    Track performance metrics
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                View scan trends, geographic distribution, peak times, and consumer engagement across all batches.
-              </p>
-              <Button 
-                variant="outline" 
-                className="w-full"
-                onClick={() => navigate('/dashboard/analytics')}
-              >
-                View Analytics
-              </Button>
-            </CardContent>
-          </Card>
+        </div>
 
-          {/* Card 4: Security */}
-          <Card className="hover-lift">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
-                  <Shield className="w-6 h-6 text-red-500" />
-                </div>
-                <div>
-                  <CardTitle>Security</CardTitle>
-                  <CardDescription>
-                    Monitor authentication threats
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Track suspicious scan patterns, detect counterfeiting attempts, and manage security alerts.
-              </p>
-              <Button 
-                variant="outline" 
-                className="w-full"
-                onClick={() => navigate('/dashboard/security')}
-              >
-                View Security
-              </Button>
-            </CardContent>
-          </Card>
+        {/* Analytics and Security Overview - Full width comprehensive sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <AnalyticsOverview />
+          <SecurityOverview />
         </div>
 
         {/* Advanced Tools Section */}
