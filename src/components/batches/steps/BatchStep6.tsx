@@ -8,7 +8,9 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { Plus, X, FileText, QrCode, Nfc, Shield, Calculator, Check, AlertTriangle, Lightbulb, Star } from 'lucide-react';
+import { Calculator, Check, AlertTriangle, Shield, Lightbulb, Star, Info, Plus, X, FileText, QrCode, Nfc } from 'lucide-react';
+import { ComparisonModal } from '@/components/batches/ComparisonModal';
+import { calculateCost } from '@/lib/costCalculator';
 
 interface BatchStep6Props {
   form: UseFormReturn<any>;
@@ -22,6 +24,10 @@ export const BatchStep6 = ({ form }: BatchStep6Props) => {
   const traditionalMethods = form.watch('traditionalMethods') || '';
   const awards = form.watch('awards') || [];
   const quantity = form.watch('numberOfUnits') || 5000;
+  
+  const qrCost = calculateCost('qr', quantity);
+  const nfcCost = calculateCost('nfc', quantity);
+  const bothCost = calculateCost('both', quantity);
 
   const addAward = () => {
     const currentAwards = form.getValues('awards') || [];
@@ -46,36 +52,29 @@ export const BatchStep6 = ({ form }: BatchStep6Props) => {
     );
   };
 
-  // Calculate costs based on quantity
-  const calculateCost = (method: 'qr' | 'nfc' | 'both') => {
-    const rates = {
-      qr: { min: 6, max: 10, avg: 8 },
-      nfc: { min: 50, max: 200, avg: 100 },
-      both: { min: 56, max: 210, avg: 108 }
-    };
-    
-    const rate = rates[method];
-    return {
-      minTotal: quantity * rate.min,
-      maxTotal: quantity * rate.max,
-      avgTotal: quantity * rate.avg
-    };
-  };
-
-  const qrCost = calculateCost('qr');
-  const nfcCost = calculateCost('nfc');
-  const bothCost = calculateCost('both');
-
   return (
     <div className="space-y-6">
       {/* Protection Method Selection with Pricing */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Choose Protection Method</CardTitle>
-          <CardDescription>
-            Select the authentication technology for your {quantity.toLocaleString()} bottles
-          </CardDescription>
-        </CardHeader>
+    <Card>
+      <CardHeader>
+        <div className="flex items-start justify-between">
+          <div>
+            <CardTitle>Choose Protection Method</CardTitle>
+            <CardDescription>
+              Select the authentication technology for your {quantity.toLocaleString()} bottles
+            </CardDescription>
+          </div>
+          <ComparisonModal 
+            quantity={quantity}
+            trigger={
+              <Button variant="outline" size="sm">
+                <Info className="mr-2 h-4 w-4" />
+                Compare Options
+              </Button>
+            }
+          />
+        </div>
+      </CardHeader>
         <CardContent>
           <FormField
             control={form.control}
