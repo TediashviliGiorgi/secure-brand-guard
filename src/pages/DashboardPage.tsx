@@ -7,6 +7,7 @@ import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { Separator } from '@/components/ui/separator';
+import { BatchStatistics } from '@/components/dashboard/BatchStatistics';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -66,6 +67,9 @@ export default function DashboardPage() {
             Manage your product authentication and brand protection
           </p>
         </div>
+
+        {/* Batch Statistics */}
+        <BatchStatistics />
 
         {/* Main Action Cards - 4 cards in one unified section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

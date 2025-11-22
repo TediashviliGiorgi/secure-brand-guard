@@ -27,6 +27,7 @@ import {
 import { ArrowLeft } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { CostCalculatorSidebar } from '@/components/batches/CostCalculatorSidebar';
 
 const TOTAL_STEPS = 7;
 
@@ -147,21 +148,25 @@ export default function CreateBatchPage() {
     );
   }
 
+  const quantity = form.watch('numberOfUnits') || 0;
+
   return (
     <div className="min-h-screen bg-muted/30">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="flex items-center justify-between mb-6">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/dashboard/batches')}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Batches
-          </Button>
-          <LanguageSelector />
-        </div>
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                onClick={() => navigate('/dashboard/batches')}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Batches
+              </Button>
+              <LanguageSelector />
+            </div>
 
-        <Card className="shadow-md">
+            <Card className="shadow-md">
           <CardHeader className="border-b">
             <CardTitle className="text-2xl">Create New Batch</CardTitle>
             <CardDescription>
@@ -220,6 +225,13 @@ export default function CreateBatchPage() {
             </Form>
           </CardContent>
         </Card>
+          </div>
+
+          {/* Cost Calculator Sidebar */}
+          <div className="hidden lg:block">
+            <CostCalculatorSidebar quantity={quantity} />
+          </div>
+        </div>
       </div>
     </div>
   );
