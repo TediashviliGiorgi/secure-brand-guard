@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Shield, 
   AlertTriangle, 
@@ -17,7 +18,9 @@ import {
   TrendingDown,
   Bell,
   ShieldCheck,
-  Skull
+  Skull,
+  QrCode,
+  Radio
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -25,52 +28,122 @@ import { cn } from '@/lib/utils';
 export const SecurityOverview = () => {
   const navigate = useNavigate();
 
-  // Mock security data
+  // Mock security data by protection method
   const security = {
-    healthScore: 87,
-    healthStatus: 'Good' as 'Excellent' | 'Good' | 'Warning' | 'Critical',
-    
-    activeAlerts: 3,
-    criticalAlerts: 0,
-    warningAlerts: 2,
-    infoAlerts: 1,
-    
-    totalVerifications: 4567,
-    authenticVerifications: 4489,
-    suspiciousScans: 78,
-    
-    blockedAttempts: 12,
-    blockedLast24h: 3,
-    
-    lastThreat: '2 hours ago',
-    lastThreatType: 'Duplicate scan pattern',
-    lastThreatLocation: 'Unknown location',
-    
-    riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
-    
-    recentIncidents: [
-      { 
-        id: 1, 
-        type: 'warning', 
-        message: 'Multiple scans from same IP', 
-        time: '2h ago',
-        product: 'Saperavi Reserve 2021'
-      },
-      { 
-        id: 2, 
-        type: 'info', 
-        message: 'Unusual geographic pattern detected', 
-        time: '5h ago',
-        product: 'Kindzmarauli Premium'
-      },
-      { 
-        id: 3, 
-        type: 'warning', 
-        message: 'Rapid succession scans', 
-        time: '8h ago',
-        product: 'Mukuzani Classic'
-      },
-    ],
+    all: {
+      healthScore: 94,
+      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
+      criticalAlerts: 2,
+      warningAlerts: 5,
+      infoAlerts: 8,
+      totalVerifications: 2690,
+      authenticVerifications: 2604,
+      suspiciousScans: 86,
+      blockedAttempts: 47,
+      blockedLast24h: 12,
+      lastThreat: '2 hours ago',
+      lastThreatType: 'Counterfeit attempt detected',
+      lastThreatLocation: 'Southeast Asia',
+      recentIncidents: [
+        { 
+          id: 1, 
+          type: 'warning', 
+          message: 'Unusual scan pattern from multiple IPs', 
+          time: '2h ago',
+          product: 'Saperavi Reserve 2021'
+        },
+        { 
+          id: 2, 
+          type: 'critical', 
+          message: 'Multiple failed verifications detected', 
+          time: '5h ago',
+          product: 'Kindzmarauli Premium'
+        },
+        { 
+          id: 3, 
+          type: 'info', 
+          message: 'New device registration spike', 
+          time: '8h ago',
+          product: 'Mukuzani Classic'
+        },
+      ],
+    },
+    qr: {
+      healthScore: 92,
+      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
+      criticalAlerts: 1,
+      warningAlerts: 4,
+      infoAlerts: 5,
+      totalVerifications: 1867,
+      authenticVerifications: 1776,
+      suspiciousScans: 91,
+      blockedAttempts: 32,
+      blockedLast24h: 8,
+      lastThreat: '1 hour ago',
+      lastThreatType: 'QR code screenshot fraud',
+      lastThreatLocation: 'Asia Pacific',
+      recentIncidents: [
+        { 
+          id: 1, 
+          type: 'warning', 
+          message: 'QR code screenshot detected', 
+          time: '1h ago',
+          product: 'Saperavi Reserve 2021'
+        },
+        { 
+          id: 2, 
+          type: 'critical', 
+          message: 'Cloned QR code identified', 
+          time: '4h ago',
+          product: 'Kindzmarauli Premium'
+        },
+        { 
+          id: 3, 
+          type: 'info', 
+          message: 'High scan velocity pattern', 
+          time: '7h ago',
+          product: 'Mukuzani Classic'
+        },
+      ],
+    },
+    nfc: {
+      healthScore: 98,
+      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
+      criticalAlerts: 1,
+      warningAlerts: 1,
+      infoAlerts: 3,
+      totalVerifications: 823,
+      authenticVerifications: 814,
+      suspiciousScans: 9,
+      blockedAttempts: 15,
+      blockedLast24h: 4,
+      lastThreat: '3 hours ago',
+      lastThreatType: 'Tag manipulation attempt',
+      lastThreatLocation: 'Western Europe',
+      recentIncidents: [
+        { 
+          id: 1, 
+          type: 'warning', 
+          message: 'Unauthorized NFC read attempt', 
+          time: '3h ago',
+          product: 'Premium Saperavi'
+        },
+        { 
+          id: 2, 
+          type: 'critical', 
+          message: 'Potential tag cloning detected', 
+          time: '6h ago',
+          product: 'Limited Edition'
+        },
+        { 
+          id: 3, 
+          type: 'info', 
+          message: 'Rapid successive scans', 
+          time: '12h ago',
+          product: 'Classic Collection'
+        },
+      ],
+    }
   };
 
   const getHealthColor = (score: number) => {
@@ -106,6 +179,175 @@ export const SecurityOverview = () => {
     }
   };
 
+  const renderSecuritySection = (data: typeof security.all) => (
+    <>
+      {/* Security Health Score - Prominent */}
+      <div className={cn(
+        "p-4 rounded-lg border-2",
+        data.healthScore >= 70 ? "bg-success/5 border-success/20" : "bg-warning/5 border-warning/20"
+      )}>
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">Security Health Score</div>
+            <div className={cn("text-3xl font-bold", getHealthColor(data.healthScore))}>
+              {data.healthScore}/100
+            </div>
+          </div>
+          <div className={cn(
+            "w-16 h-16 rounded-full flex items-center justify-center",
+            getHealthBgColor(data.healthScore)
+          )}>
+            <ShieldCheck className={cn("w-8 h-8", getHealthColor(data.healthScore))} />
+          </div>
+        </div>
+        <Progress 
+          value={data.healthScore} 
+          className={cn(
+            "h-2",
+            data.healthScore >= 70 ? "[&>div]:bg-success" : "[&>div]:bg-warning"
+          )}
+        />
+        <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2">
+          <TrendingDown className="h-3 w-3 text-success" />
+          <span>Threats down 23% this week</span>
+        </div>
+      </div>
+
+      {/* Active Alerts Summary */}
+      <div className="grid grid-cols-3 gap-2">
+        <div className="space-y-1 p-3 rounded-lg bg-destructive/5 border border-destructive/20">
+          <div className="flex items-center gap-1.5 text-destructive">
+            <AlertOctagon className="h-3.5 w-3.5" />
+            <span className="text-xs font-medium">Critical</span>
+          </div>
+          <div className="text-2xl font-bold text-destructive">{data.criticalAlerts}</div>
+        </div>
+
+        <div className="space-y-1 p-3 rounded-lg bg-warning/5 border border-warning/20">
+          <div className="flex items-center gap-1.5 text-warning">
+            <AlertTriangle className="h-3.5 w-3.5" />
+            <span className="text-xs font-medium">Warning</span>
+          </div>
+          <div className="text-2xl font-bold text-warning">{data.warningAlerts}</div>
+        </div>
+
+        <div className="space-y-1 p-3 rounded-lg bg-blue-500/5 border border-blue-500/20">
+          <div className="flex items-center gap-1.5 text-blue-500">
+            <Activity className="h-3.5 w-3.5" />
+            <span className="text-xs font-medium">Info</span>
+          </div>
+          <div className="text-2xl font-bold text-blue-500">{data.infoAlerts}</div>
+        </div>
+      </div>
+
+      {/* Key Security Metrics */}
+      <div className="space-y-2">
+        <h4 className="text-sm font-medium flex items-center gap-2">
+          <Eye className="h-4 w-4 text-red-500" />
+          Security Metrics
+        </h4>
+        
+        {/* Verification Success Rate */}
+        <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-success" />
+            <div className="text-xs">
+              <div className="font-medium">Authentic Verifications</div>
+              <div className="text-muted-foreground">
+                {data.authenticVerifications.toLocaleString()} / {data.totalVerifications.toLocaleString()}
+              </div>
+            </div>
+          </div>
+          <Badge variant="outline" className="bg-success/10 text-success border-success/20">
+            {((data.authenticVerifications / data.totalVerifications) * 100).toFixed(1)}%
+          </Badge>
+        </div>
+
+        {/* Suspicious Activity */}
+        <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
+          <div className="flex items-center gap-2">
+            <Skull className="h-4 w-4 text-warning" />
+            <div className="text-xs">
+              <div className="font-medium">Suspicious Scans</div>
+              <div className="text-muted-foreground">Flagged for review</div>
+            </div>
+          </div>
+          <Badge variant="outline" className="bg-warning/10 text-warning border-warning/20">
+            {data.suspiciousScans}
+          </Badge>
+        </div>
+
+        {/* Blocked Attempts */}
+        <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
+          <div className="flex items-center gap-2">
+            <Lock className="h-4 w-4 text-destructive" />
+            <div className="text-xs">
+              <div className="font-medium">Blocked Attempts</div>
+              <div className="text-muted-foreground">{data.blockedLast24h} in last 24h</div>
+            </div>
+          </div>
+          <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20">
+            {data.blockedAttempts}
+          </Badge>
+        </div>
+      </div>
+
+      {/* Recent Security Incidents */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <h4 className="text-sm font-medium flex items-center gap-2">
+            <Bell className="h-4 w-4 text-red-500" />
+            Recent Alerts
+          </h4>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate('/dashboard/security')}
+            className="h-6 text-xs"
+          >
+            View All
+          </Button>
+        </div>
+        
+        <div className="space-y-2">
+          {data.recentIncidents.slice(0, 3).map((incident) => (
+            <Alert key={incident.id} className="py-2 px-3">
+              <div className="flex items-start gap-2">
+                {getAlertIcon(incident.type)}
+                <div className="flex-1 space-y-0.5">
+                  <AlertDescription className="text-xs font-medium">
+                    {incident.message}
+                  </AlertDescription>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    <span>{incident.time}</span>
+                    <span>•</span>
+                    <span className="truncate">{incident.product}</span>
+                  </div>
+                </div>
+              </div>
+            </Alert>
+          ))}
+        </div>
+      </div>
+
+      {/* Last Threat Info */}
+      {data.lastThreat && (
+        <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
+          <div className="flex items-start gap-2 mb-2">
+            <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
+            <div className="flex-1">
+              <div className="text-xs font-medium text-amber-600">Last Detected Threat</div>
+              <div className="text-xs text-muted-foreground mt-1">{data.lastThreatType}</div>
+              <div className="text-xs text-muted-foreground">{data.lastThreatLocation}</div>
+            </div>
+            <div className="text-xs text-muted-foreground">{data.lastThreat}</div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+
   return (
     <Card className="hover-lift border-red-500/20 bg-gradient-to-br from-red-500/5 via-transparent to-transparent">
       <CardHeader className="pb-3">
@@ -116,188 +358,51 @@ export const SecurityOverview = () => {
             </div>
             <div>
               <CardTitle className="text-lg">Security Monitor</CardTitle>
-              <CardDescription>Real-time threat detection</CardDescription>
+              <CardDescription>Threat detection by method</CardDescription>
             </div>
           </div>
           <Badge 
-            variant={getRiskBadgeVariant(security.riskLevel)}
+            variant={getRiskBadgeVariant(security.all.riskLevel)}
             className="gap-1"
           >
             <ShieldCheck className="h-3 w-3" />
-            {security.riskLevel} Risk
+            {security.all.riskLevel} Risk
           </Badge>
         </div>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        
-        {/* Security Health Score - Prominent */}
-        <div className={cn(
-          "p-4 rounded-lg border-2",
-          security.healthScore >= 70 ? "bg-success/5 border-success/20" : "bg-warning/5 border-warning/20"
-        )}>
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <div className="text-xs font-medium text-muted-foreground mb-1">Security Health Score</div>
-              <div className={cn("text-3xl font-bold", getHealthColor(security.healthScore))}>
-                {security.healthScore}/100
-              </div>
-            </div>
-            <div className={cn(
-              "w-16 h-16 rounded-full flex items-center justify-center",
-              getHealthBgColor(security.healthScore)
-            )}>
-              <ShieldCheck className={cn("w-8 h-8", getHealthColor(security.healthScore))} />
-            </div>
-          </div>
-          <Progress 
-            value={security.healthScore} 
-            className={cn(
-              "h-2",
-              security.healthScore >= 70 ? "[&>div]:bg-success" : "[&>div]:bg-warning"
-            )}
-          />
-          <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2">
-            <TrendingDown className="h-3 w-3 text-success" />
-            <span>Threats down 23% this week</span>
-          </div>
-        </div>
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-4">
+            <TabsTrigger value="all" className="gap-2 text-xs">
+              <Shield className="h-3.5 w-3.5" />
+              All Methods
+            </TabsTrigger>
+            <TabsTrigger value="qr" className="gap-2 text-xs">
+              <QrCode className="h-3.5 w-3.5" />
+              QR Codes
+            </TabsTrigger>
+            <TabsTrigger value="nfc" className="gap-2 text-xs">
+              <Radio className="h-3.5 w-3.5" />
+              NFC Tags
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Active Alerts Summary */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="space-y-1 p-3 rounded-lg bg-destructive/5 border border-destructive/20">
-            <div className="flex items-center gap-1.5 text-destructive">
-              <AlertOctagon className="h-3.5 w-3.5" />
-              <span className="text-xs font-medium">Critical</span>
-            </div>
-            <div className="text-2xl font-bold text-destructive">{security.criticalAlerts}</div>
-          </div>
+          <TabsContent value="all" className="space-y-4">
+            {renderSecuritySection(security.all)}
+          </TabsContent>
 
-          <div className="space-y-1 p-3 rounded-lg bg-warning/5 border border-warning/20">
-            <div className="flex items-center gap-1.5 text-warning">
-              <AlertTriangle className="h-3.5 w-3.5" />
-              <span className="text-xs font-medium">Warning</span>
-            </div>
-            <div className="text-2xl font-bold text-warning">{security.warningAlerts}</div>
-          </div>
+          <TabsContent value="qr" className="space-y-4">
+            {renderSecuritySection(security.qr)}
+          </TabsContent>
 
-          <div className="space-y-1 p-3 rounded-lg bg-blue-500/5 border border-blue-500/20">
-            <div className="flex items-center gap-1.5 text-blue-500">
-              <Activity className="h-3.5 w-3.5" />
-              <span className="text-xs font-medium">Info</span>
-            </div>
-            <div className="text-2xl font-bold text-blue-500">{security.infoAlerts}</div>
-          </div>
-        </div>
-
-        {/* Key Security Metrics */}
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium flex items-center gap-2">
-            <Eye className="h-4 w-4 text-red-500" />
-            Security Metrics
-          </h4>
-          
-          {/* Verification Success Rate */}
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-success" />
-              <div className="text-xs">
-                <div className="font-medium">Authentic Verifications</div>
-                <div className="text-muted-foreground">
-                  {security.authenticVerifications.toLocaleString()} / {security.totalVerifications.toLocaleString()}
-                </div>
-              </div>
-            </div>
-            <Badge variant="outline" className="bg-success/10 text-success border-success/20">
-              {((security.authenticVerifications / security.totalVerifications) * 100).toFixed(1)}%
-            </Badge>
-          </div>
-
-          {/* Suspicious Activity */}
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
-            <div className="flex items-center gap-2">
-              <Skull className="h-4 w-4 text-warning" />
-              <div className="text-xs">
-                <div className="font-medium">Suspicious Scans</div>
-                <div className="text-muted-foreground">Flagged for review</div>
-              </div>
-            </div>
-            <Badge variant="outline" className="bg-warning/10 text-warning border-warning/20">
-              {security.suspiciousScans}
-            </Badge>
-          </div>
-
-          {/* Blocked Attempts */}
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/20">
-            <div className="flex items-center gap-2">
-              <Lock className="h-4 w-4 text-destructive" />
-              <div className="text-xs">
-                <div className="font-medium">Blocked Attempts</div>
-                <div className="text-muted-foreground">{security.blockedLast24h} in last 24h</div>
-              </div>
-            </div>
-            <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20">
-              {security.blockedAttempts}
-            </Badge>
-          </div>
-        </div>
-
-        {/* Recent Security Incidents */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <h4 className="text-sm font-medium flex items-center gap-2">
-              <Bell className="h-4 w-4 text-red-500" />
-              Recent Alerts
-            </h4>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={() => navigate('/dashboard/security')}
-              className="h-6 text-xs"
-            >
-              View All
-            </Button>
-          </div>
-          
-          <div className="space-y-2">
-            {security.recentIncidents.slice(0, 3).map((incident) => (
-              <Alert key={incident.id} className="py-2 px-3">
-                <div className="flex items-start gap-2">
-                  {getAlertIcon(incident.type)}
-                  <div className="flex-1 space-y-0.5">
-                    <AlertDescription className="text-xs font-medium">
-                      {incident.message}
-                    </AlertDescription>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" />
-                      <span>{incident.time}</span>
-                      <span>•</span>
-                      <span className="truncate">{incident.product}</span>
-                    </div>
-                  </div>
-                </div>
-              </Alert>
-            ))}
-          </div>
-        </div>
-
-        {/* Last Threat Info */}
-        {security.lastThreat && (
-          <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
-            <div className="flex items-start gap-2 mb-2">
-              <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
-              <div className="flex-1">
-                <div className="text-xs font-medium text-amber-600">Last Detected Threat</div>
-                <div className="text-xs text-muted-foreground mt-1">{security.lastThreatType}</div>
-                <div className="text-xs text-muted-foreground">{security.lastThreatLocation}</div>
-              </div>
-              <div className="text-xs text-muted-foreground">{security.lastThreat}</div>
-            </div>
-          </div>
-        )}
+          <TabsContent value="nfc" className="space-y-4">
+            {renderSecuritySection(security.nfc)}
+          </TabsContent>
+        </Tabs>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-2 pt-2">
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border/50">
           <Button 
             variant="outline" 
             size="sm"
