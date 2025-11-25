@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,91 +18,92 @@ import {
   Users,
   Zap,
   QrCode,
-  Radio
+  Radio,
+  Calendar
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-// Mock data for mini charts
-const scanTrendData = {
-  all: [
-    { day: 'Mon', scans: 245 },
-    { day: 'Tue', scans: 312 },
-    { day: 'Wed', scans: 289 },
-    { day: 'Thu', scans: 398 },
-    { day: 'Fri', scans: 445 },
-    { day: 'Sat', scans: 523 },
-    { day: 'Sun', scans: 478 },
-  ],
-  qr: [
-    { day: 'Mon', scans: 165 },
-    { day: 'Tue', scans: 218 },
-    { day: 'Wed', scans: 195 },
-    { day: 'Thu', scans: 275 },
-    { day: 'Fri', scans: 312 },
-    { day: 'Sat', scans: 368 },
-    { day: 'Sun', scans: 334 },
-  ],
-  nfc: [
-    { day: 'Mon', scans: 80 },
-    { day: 'Tue', scans: 94 },
-    { day: 'Wed', scans: 94 },
-    { day: 'Thu', scans: 123 },
-    { day: 'Fri', scans: 133 },
-    { day: 'Sat', scans: 155 },
-    { day: 'Sun', scans: 144 },
-  ],
+type TimeRange = '24h' | '7d' | '30d' | '90d';
+
+// Mock data generator for different time ranges
+const generateScanTrendData = (timeRange: TimeRange, method: 'all' | 'qr' | 'nfc') => {
+  const multiplier = method === 'all' ? 1 : method === 'qr' ? 0.7 : 0.3;
+  
+  switch (timeRange) {
+    case '24h':
+      return Array.from({ length: 24 }, (_, i) => ({
+        day: `${i}:00`,
+        scans: Math.floor((200 + Math.random() * 150) * multiplier)
+      }));
+    case '7d':
+      return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => ({
+        day,
+        scans: Math.floor((300 + Math.random() * 200) * multiplier)
+      }));
+    case '30d':
+      return Array.from({ length: 30 }, (_, i) => ({
+        day: `Day ${i + 1}`,
+        scans: Math.floor((280 + Math.random() * 180) * multiplier)
+      }));
+    case '90d':
+      return Array.from({ length: 13 }, (_, i) => ({
+        day: `Wk ${i + 1}`,
+        scans: Math.floor((2000 + Math.random() * 1000) * multiplier)
+      }));
+  }
+};
+
+// Mock analytics data generator for different time ranges
+const generateAnalyticsData = (timeRange: TimeRange, method: 'all' | 'qr' | 'nfc') => {
+  const baseMultiplier = method === 'all' ? 1 : method === 'qr' ? 0.69 : 0.31;
+  const timeMultiplier = timeRange === '24h' ? 0.1 : timeRange === '7d' ? 1 : timeRange === '30d' ? 4.2 : 12.8;
+  
+  const totalScans = Math.floor(2690 * baseMultiplier * timeMultiplier);
+  const verifications = Math.floor(totalScans * 0.968);
+  const uniqueUsers = Math.floor(totalScans * 0.686);
+  
+  return {
+    totalScans,
+    scansChange: 12.2 + Math.random() * 12,
+    verifications,
+    verificationRate: 96.8,
+    verificationChange: 1.5 + Math.random() * 2,
+    uniqueUsers,
+    usersChange: 8.9 + Math.random() * 8,
+    avgScanTime: method === 'nfc' ? '2.4s' : method === 'qr' ? '1.5s' : '1.8s',
+    scanTimeChange: -0.5 + Math.random() * 0.8,
+    topCountry: method === 'nfc' ? 'Germany' : 'United States',
+    topCountryPercentage: 38 + Math.floor(Math.random() * 10),
+    mobilePercentage: method === 'nfc' ? 91 : method === 'qr' ? 82 : 74,
+    peakHour: method === 'nfc' ? '15:00' : method === 'qr' ? '13:00' : '14:00',
+  };
 };
 
 export const AnalyticsOverview = () => {
   const navigate = useNavigate();
+  const [timeRange, setTimeRange] = useState<TimeRange>('7d');
+  const [activeMethod, setActiveMethod] = useState<'all' | 'qr' | 'nfc'>('all');
 
-  // Mock analytics data by protection method
+  // Generate dynamic analytics data based on selected time range
   const analytics = {
-    all: {
-      totalScans: 2690,
-      scansChange: 18.2,
-      verifications: 2604,
-      verificationRate: 96.8,
-      verificationChange: 2.3,
-      uniqueUsers: 1847,
-      usersChange: 12.7,
-      avgScanTime: '1.8s',
-      scanTimeChange: -0.3,
-      topCountry: 'United States',
-      topCountryPercentage: 42,
-      mobilePercentage: 74,
-      peakHour: '14:00',
-    },
-    qr: {
-      totalScans: 1867,
-      scansChange: 21.5,
-      verifications: 1776,
-      verificationRate: 95.1,
-      verificationChange: 1.8,
-      uniqueUsers: 1289,
-      usersChange: 15.2,
-      avgScanTime: '1.5s',
-      scanTimeChange: -0.5,
-      topCountry: 'United States',
-      topCountryPercentage: 45,
-      mobilePercentage: 82,
-      peakHour: '13:00',
-    },
-    nfc: {
-      totalScans: 823,
-      scansChange: 12.4,
-      verifications: 814,
-      verificationRate: 98.9,
-      verificationChange: 3.1,
-      uniqueUsers: 558,
-      usersChange: 8.9,
-      avgScanTime: '2.4s',
-      scanTimeChange: 0.2,
-      topCountry: 'Germany',
-      topCountryPercentage: 38,
-      mobilePercentage: 91,
-      peakHour: '15:00',
+    all: generateAnalyticsData(timeRange, 'all'),
+    qr: generateAnalyticsData(timeRange, 'qr'),
+    nfc: generateAnalyticsData(timeRange, 'nfc'),
+  };
+
+  const scanTrendData = {
+    all: generateScanTrendData(timeRange, 'all'),
+    qr: generateScanTrendData(timeRange, 'qr'),
+    nfc: generateScanTrendData(timeRange, 'nfc'),
+  };
+
+  const getTimeRangeLabel = (range: TimeRange) => {
+    switch (range) {
+      case '24h': return 'Last 24 Hours';
+      case '7d': return 'Last 7 Days';
+      case '30d': return 'Last 30 Days';
+      case '90d': return 'Last 90 Days';
     }
   };
 
@@ -133,7 +135,7 @@ export const AnalyticsOverview = () => {
             {renderTrendBadge(data.scansChange)}
           </div>
           <div className="text-2xl font-bold">{data.totalScans.toLocaleString()}</div>
-          <div className="text-xs text-muted-foreground">Last 7 days</div>
+          <div className="text-xs text-muted-foreground">{getTimeRangeLabel(timeRange)}</div>
         </div>
 
         {/* Verification Rate */}
@@ -184,7 +186,7 @@ export const AnalyticsOverview = () => {
             <Activity className="h-4 w-4 text-green-500" />
             Scan Activity Trend
           </h4>
-          <span className="text-xs text-muted-foreground">7 days</span>
+          <span className="text-xs text-muted-foreground">{getTimeRangeLabel(timeRange)}</span>
         </div>
         <div className="h-24 w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -289,7 +291,29 @@ export const AnalyticsOverview = () => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <Tabs defaultValue="all" className="w-full">
+        {/* Time Range Selector */}
+        <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30 border border-border/50">
+          <div className="flex items-center gap-2 text-sm font-medium">
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">Time Range:</span>
+            <span className="text-foreground">{getTimeRangeLabel(timeRange)}</span>
+          </div>
+          <div className="flex gap-1">
+            {(['24h', '7d', '30d', '90d'] as TimeRange[]).map((range) => (
+              <Button
+                key={range}
+                variant={timeRange === range ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setTimeRange(range)}
+                className="h-7 px-3 text-xs"
+              >
+                {range}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <Tabs defaultValue="all" className="w-full" onValueChange={(v) => setActiveMethod(v as any)}>
           <TabsList className="grid w-full grid-cols-3 mb-4">
             <TabsTrigger value="all" className="gap-2 text-xs">
               <Activity className="h-3.5 w-3.5" />
