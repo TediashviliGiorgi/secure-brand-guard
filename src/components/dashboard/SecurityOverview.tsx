@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,129 +21,74 @@ import {
   ShieldCheck,
   Skull,
   QrCode,
-  Radio
+  Radio,
+  Calendar
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
+type TimeRange = '24h' | '7d' | '30d' | '90d';
+
+// Mock security data generator for different time ranges
+const generateSecurityData = (timeRange: TimeRange, method: 'all' | 'qr' | 'nfc') => {
+  const baseMultiplier = method === 'all' ? 1 : method === 'qr' ? 0.69 : 0.31;
+  const timeMultiplier = timeRange === '24h' ? 0.1 : timeRange === '7d' ? 1 : timeRange === '30d' ? 4.2 : 12.8;
+  
+  const totalVerifications = Math.floor(2690 * baseMultiplier * timeMultiplier);
+  const authenticVerifications = Math.floor(totalVerifications * 0.968);
+  const suspiciousScans = totalVerifications - authenticVerifications;
+  const blockedAttempts = Math.floor(suspiciousScans * 0.547);
+  
+  const healthScore = method === 'nfc' ? 98 : method === 'qr' ? 92 : 94;
+  
+  return {
+    healthScore,
+    riskLevel: healthScore >= 90 ? 'Low' as const : healthScore >= 70 ? 'Medium' as const : 'High' as const,
+    criticalAlerts: method === 'nfc' ? 1 : method === 'qr' ? 1 : 2,
+    warningAlerts: method === 'nfc' ? 1 : method === 'qr' ? 4 : 5,
+    infoAlerts: method === 'nfc' ? 3 : method === 'qr' ? 5 : 8,
+    totalVerifications,
+    authenticVerifications,
+    suspiciousScans,
+    blockedAttempts,
+    blockedLast24h: Math.floor(blockedAttempts * 0.255),
+    lastThreat: timeRange === '24h' ? '30 min ago' : '2 hours ago',
+    lastThreatType: method === 'qr' ? 'QR code screenshot fraud' : method === 'nfc' ? 'Tag manipulation attempt' : 'Counterfeit attempt detected',
+    lastThreatLocation: method === 'nfc' ? 'Western Europe' : method === 'qr' ? 'Asia Pacific' : 'Southeast Asia',
+    recentIncidents: method === 'qr' ? [
+      { id: 1, type: 'warning', message: 'QR code screenshot detected', time: '1h ago', product: 'Saperavi Reserve 2021' },
+      { id: 2, type: 'critical', message: 'Cloned QR code identified', time: '4h ago', product: 'Kindzmarauli Premium' },
+      { id: 3, type: 'info', message: 'High scan velocity pattern', time: '7h ago', product: 'Mukuzani Classic' },
+    ] : method === 'nfc' ? [
+      { id: 1, type: 'warning', message: 'Unauthorized NFC read attempt', time: '3h ago', product: 'Premium Saperavi' },
+      { id: 2, type: 'critical', message: 'Potential tag cloning detected', time: '6h ago', product: 'Limited Edition' },
+      { id: 3, type: 'info', message: 'Rapid successive scans', time: '12h ago', product: 'Classic Collection' },
+    ] : [
+      { id: 1, type: 'warning', message: 'Unusual scan pattern from multiple IPs', time: '2h ago', product: 'Saperavi Reserve 2021' },
+      { id: 2, type: 'critical', message: 'Multiple failed verifications detected', time: '5h ago', product: 'Kindzmarauli Premium' },
+      { id: 3, type: 'info', message: 'New device registration spike', time: '8h ago', product: 'Mukuzani Classic' },
+    ],
+  };
+};
+
 export const SecurityOverview = () => {
   const navigate = useNavigate();
+  const [timeRange, setTimeRange] = useState<TimeRange>('7d');
+  const [activeMethod, setActiveMethod] = useState<'all' | 'qr' | 'nfc'>('all');
 
-  // Mock security data by protection method
+  // Generate dynamic security data based on selected time range
   const security = {
-    all: {
-      healthScore: 94,
-      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
-      criticalAlerts: 2,
-      warningAlerts: 5,
-      infoAlerts: 8,
-      totalVerifications: 2690,
-      authenticVerifications: 2604,
-      suspiciousScans: 86,
-      blockedAttempts: 47,
-      blockedLast24h: 12,
-      lastThreat: '2 hours ago',
-      lastThreatType: 'Counterfeit attempt detected',
-      lastThreatLocation: 'Southeast Asia',
-      recentIncidents: [
-        { 
-          id: 1, 
-          type: 'warning', 
-          message: 'Unusual scan pattern from multiple IPs', 
-          time: '2h ago',
-          product: 'Saperavi Reserve 2021'
-        },
-        { 
-          id: 2, 
-          type: 'critical', 
-          message: 'Multiple failed verifications detected', 
-          time: '5h ago',
-          product: 'Kindzmarauli Premium'
-        },
-        { 
-          id: 3, 
-          type: 'info', 
-          message: 'New device registration spike', 
-          time: '8h ago',
-          product: 'Mukuzani Classic'
-        },
-      ],
-    },
-    qr: {
-      healthScore: 92,
-      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
-      criticalAlerts: 1,
-      warningAlerts: 4,
-      infoAlerts: 5,
-      totalVerifications: 1867,
-      authenticVerifications: 1776,
-      suspiciousScans: 91,
-      blockedAttempts: 32,
-      blockedLast24h: 8,
-      lastThreat: '1 hour ago',
-      lastThreatType: 'QR code screenshot fraud',
-      lastThreatLocation: 'Asia Pacific',
-      recentIncidents: [
-        { 
-          id: 1, 
-          type: 'warning', 
-          message: 'QR code screenshot detected', 
-          time: '1h ago',
-          product: 'Saperavi Reserve 2021'
-        },
-        { 
-          id: 2, 
-          type: 'critical', 
-          message: 'Cloned QR code identified', 
-          time: '4h ago',
-          product: 'Kindzmarauli Premium'
-        },
-        { 
-          id: 3, 
-          type: 'info', 
-          message: 'High scan velocity pattern', 
-          time: '7h ago',
-          product: 'Mukuzani Classic'
-        },
-      ],
-    },
-    nfc: {
-      healthScore: 98,
-      riskLevel: 'Low' as 'Low' | 'Medium' | 'High' | 'Critical',
-      criticalAlerts: 1,
-      warningAlerts: 1,
-      infoAlerts: 3,
-      totalVerifications: 823,
-      authenticVerifications: 814,
-      suspiciousScans: 9,
-      blockedAttempts: 15,
-      blockedLast24h: 4,
-      lastThreat: '3 hours ago',
-      lastThreatType: 'Tag manipulation attempt',
-      lastThreatLocation: 'Western Europe',
-      recentIncidents: [
-        { 
-          id: 1, 
-          type: 'warning', 
-          message: 'Unauthorized NFC read attempt', 
-          time: '3h ago',
-          product: 'Premium Saperavi'
-        },
-        { 
-          id: 2, 
-          type: 'critical', 
-          message: 'Potential tag cloning detected', 
-          time: '6h ago',
-          product: 'Limited Edition'
-        },
-        { 
-          id: 3, 
-          type: 'info', 
-          message: 'Rapid successive scans', 
-          time: '12h ago',
-          product: 'Classic Collection'
-        },
-      ],
+    all: generateSecurityData(timeRange, 'all'),
+    qr: generateSecurityData(timeRange, 'qr'),
+    nfc: generateSecurityData(timeRange, 'nfc'),
+  };
+
+  const getTimeRangeLabel = (range: TimeRange) => {
+    switch (range) {
+      case '24h': return 'Last 24 Hours';
+      case '7d': return 'Last 7 Days';
+      case '30d': return 'Last 30 Days';
+      case '90d': return 'Last 90 Days';
     }
   };
 
@@ -207,9 +153,9 @@ export const SecurityOverview = () => {
             data.healthScore >= 70 ? "[&>div]:bg-success" : "[&>div]:bg-warning"
           )}
         />
-        <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2">
+          <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2">
           <TrendingDown className="h-3 w-3 text-success" />
-          <span>Threats down 23% this week</span>
+          <span>Threats down 23% in {getTimeRangeLabel(timeRange).toLowerCase()}</span>
         </div>
       </div>
 
@@ -372,7 +318,29 @@ export const SecurityOverview = () => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <Tabs defaultValue="all" className="w-full">
+        {/* Time Range Selector */}
+        <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30 border border-border/50">
+          <div className="flex items-center gap-2 text-sm font-medium">
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">Time Range:</span>
+            <span className="text-foreground">{getTimeRangeLabel(timeRange)}</span>
+          </div>
+          <div className="flex gap-1">
+            {(['24h', '7d', '30d', '90d'] as TimeRange[]).map((range) => (
+              <Button
+                key={range}
+                variant={timeRange === range ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setTimeRange(range)}
+                className="h-7 px-3 text-xs"
+              >
+                {range}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <Tabs defaultValue="all" className="w-full" onValueChange={(v) => setActiveMethod(v as any)}>
           <TabsList className="grid w-full grid-cols-3 mb-4">
             <TabsTrigger value="all" className="gap-2 text-xs">
               <Shield className="h-3.5 w-3.5" />
