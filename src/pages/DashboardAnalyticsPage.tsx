@@ -214,7 +214,7 @@ const DashboardAnalyticsPage = () => {
 
         {/* Key Metrics */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -231,7 +231,7 @@ const DashboardAnalyticsPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -248,7 +248,7 @@ const DashboardAnalyticsPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -265,7 +265,7 @@ const DashboardAnalyticsPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">

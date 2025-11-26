@@ -271,7 +271,7 @@ export const AnalyticsOverview = () => {
   );
 
   return (
-    <Card className="hover-lift border-green-500/20 bg-gradient-to-br from-green-500/5 via-transparent to-transparent">
+    <Card className="border-green-500/20 bg-card">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">

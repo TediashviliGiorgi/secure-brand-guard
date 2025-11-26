@@ -77,7 +77,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           
           {/* Card 1: Create Batch - PRIMARY ACTION */}
-          <Card className="border-2 border-primary shadow-xl hover-lift">
+          <Card className="border-2 border-primary shadow-xl">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* Card 2: Manage Batches */}
-          <Card className="hover-lift">
+          <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">

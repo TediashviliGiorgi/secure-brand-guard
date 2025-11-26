@@ -54,7 +54,7 @@ export const BatchStatistics = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Total Batches by Method */}
-        <Card className="hover-lift">
+        <Card>
           <CardHeader className="pb-3">
             <CardDescription>Total Batches</CardDescription>
             <CardTitle className="text-3xl">{totalBatches}</CardTitle>
@@ -87,7 +87,7 @@ export const BatchStatistics = () => {
         </Card>
 
         {/* Average Cost Per Bottle */}
-        <Card className="hover-lift">
+        <Card>
           <CardHeader className="pb-3">
             <CardDescription>Avg Cost Per Bottle</CardDescription>
             <CardTitle className="text-3xl">{avgCostPerBottle.toFixed(0)} ₾</CardTitle>
@@ -107,7 +107,7 @@ export const BatchStatistics = () => {
         </Card>
 
         {/* Most Popular Method */}
-        <Card className="hover-lift">
+        <Card>
           <CardHeader className="pb-3">
             <CardDescription>Most Popular Method</CardDescription>
             <CardTitle className="text-2xl flex items-center gap-2">
@@ -132,7 +132,7 @@ export const BatchStatistics = () => {
         </Card>
 
         {/* ROI Analytics */}
-        <Card className="hover-lift border-green-500/20 bg-green-500/5">
+        <Card className="border-green-500/20 bg-green-500/5">
           <CardHeader className="pb-3">
             <CardDescription>Estimated ROI</CardDescription>
             <CardTitle className="text-3xl text-green-600">

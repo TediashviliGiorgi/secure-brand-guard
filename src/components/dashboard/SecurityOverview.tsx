@@ -295,7 +295,7 @@ export const SecurityOverview = () => {
   );
 
   return (
-    <Card className="hover-lift border-red-500/20 bg-gradient-to-br from-red-500/5 via-transparent to-transparent">
+    <Card className="border-red-500/20 bg-card">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
