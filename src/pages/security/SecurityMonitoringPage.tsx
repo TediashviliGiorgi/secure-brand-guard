@@ -308,7 +308,7 @@ export default function SecurityMonitoringPage() {
 
         {/* Security Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
@@ -323,7 +323,7 @@ export default function SecurityMonitoringPage() {
             </div>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-full -mr-12 -mt-12" />
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
@@ -338,7 +338,7 @@ export default function SecurityMonitoringPage() {
             </div>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-warning/5 rounded-full -mr-12 -mt-12" />
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
@@ -353,7 +353,7 @@ export default function SecurityMonitoringPage() {
             </div>
           </Card>
 
-          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+          <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-destructive/5 rounded-full -mr-12 -mt-12" />
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
@@ -398,7 +398,7 @@ export default function SecurityMonitoringPage() {
 
           <div className="space-y-4">
             {alerts.map((alert) => (
-              <Card key={alert.id} className={`p-6 ${getPriorityColor(alert.priority)} hover:shadow-md transition-all`}>
+              <Card key={alert.id} className={`p-6 ${getPriorityColor(alert.priority)}`}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-start gap-3">
                     <AlertTriangle className="h-5 w-5 mt-1 flex-shrink-0" />
