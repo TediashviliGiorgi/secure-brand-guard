@@ -93,7 +93,7 @@ export default function ProductStoryPage() {
       <div className="container mx-auto px-4 py-8 max-w-4xl space-y-12">
         {/* Verify Authenticity Section - PROMINENT */}
         <section className="relative overflow-hidden">
-          <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background shadow-lg">
+          <Card className="border-2 border-primary/20 bg-card shadow-lg">
             <CardContent className="p-8 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="p-3 rounded-full bg-primary/10 animate-pulse">

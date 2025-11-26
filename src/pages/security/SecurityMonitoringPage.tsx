@@ -246,7 +246,7 @@ export default function SecurityMonitoringPage() {
 
       <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Filters Section */}
-        <Card className="p-6 bg-gradient-to-r from-destructive/5 via-warning/5 to-success/5 border-2">
+        <Card className="p-6 bg-card border-2">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
             {/* Time Range Selector */}
             <div className="flex-1">
@@ -370,7 +370,7 @@ export default function SecurityMonitoringPage() {
         </div>
 
         {/* Health Score */}
-        <Card className="p-8 bg-gradient-to-br from-success/10 to-success/5 border-2 border-success/20">
+        <Card className="p-8 bg-card border-2 border-success/20">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground mb-2">Security Health Score</p>

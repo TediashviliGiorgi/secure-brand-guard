@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-muted">
+    <div className="min-h-screen bg-background">
       <SEO 
         title="Dashboard - AuthIt"
         description="Manage your brand authentication and product verification"

@@ -8,7 +8,7 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary via-background to-muted flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="border-b border-border/40 bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">

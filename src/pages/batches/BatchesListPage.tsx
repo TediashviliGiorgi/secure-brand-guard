@@ -111,7 +111,7 @@ export default function BatchesListPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         <div className="flex items-center justify-between mb-4">
           <Button

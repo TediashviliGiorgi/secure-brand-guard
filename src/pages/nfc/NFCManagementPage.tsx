@@ -201,7 +201,7 @@ export default function NFCManagementPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-background">
       <SEO 
         title="NFC Tag Management - AuthIt"
         description="Manage and monitor your NFC authentication tags"

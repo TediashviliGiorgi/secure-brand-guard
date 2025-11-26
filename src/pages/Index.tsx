@@ -88,8 +88,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+      <section className="relative overflow-hidden bg-background">
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
@@ -330,8 +329,7 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10" />
+      <section className="relative overflow-hidden py-20 bg-background">
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">Ready to Protect Your Brand?</h2>
