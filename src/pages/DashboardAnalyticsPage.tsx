@@ -1,25 +1,96 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Download, FileText, TrendingUp, TrendingDown, Users, Eye, MousePointerClick, Clock } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Download, FileText, TrendingUp, TrendingDown, Users, Eye, MousePointerClick, Clock, Calendar, Activity, QrCode, Radio, Zap, Globe, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
-const DashboardAnalyticsPage = () => {
-  const [dateRange, setDateRange] = useState('30d');
+type TimeRange = '24h' | '7d' | '30d' | '90d';
+type MethodFilter = 'all' | 'qr' | 'nfc';
 
-  // Mock data for charts
-  const timeSeriesData = [
-    { date: 'Jan 1', qr1: 420, qr2: 185, cvr: 44 },
-    { date: 'Jan 5', qr1: 510, qr2: 225, cvr: 44 },
-    { date: 'Jan 10', qr1: 680, qr2: 310, cvr: 46 },
-    { date: 'Jan 15', qr1: 750, qr2: 340, cvr: 45 },
-    { date: 'Jan 20', qr1: 890, qr2: 410, cvr: 46 },
-    { date: 'Jan 25', qr1: 950, qr2: 445, cvr: 47 },
-    { date: 'Jan 30', qr1: 1050, qr2: 490, cvr: 47 },
-  ];
+// Dynamic data generators based on time range and method
+const generateTimeSeriesData = (range: TimeRange, method: MethodFilter) => {
+  const multiplier = method === 'all' ? 1 : method === 'qr' ? 0.69 : 0.31;
+  
+  switch (range) {
+    case '24h':
+      return Array.from({ length: 24 }, (_, i) => ({
+        date: `${i}:00`,
+        qr1: Math.floor((15 + Math.random() * 10) * multiplier),
+        qr2: Math.floor((7 + Math.random() * 5) * multiplier),
+        cvr: 44 + Math.floor(Math.random() * 4),
+      }));
+    case '7d':
+      return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => ({
+        date: day,
+        qr1: Math.floor((420 + Math.random() * 200) * multiplier),
+        qr2: Math.floor((185 + Math.random() * 90) * multiplier),
+        cvr: 44 + Math.floor(Math.random() * 4),
+      }));
+    case '30d':
+      return Array.from({ length: 7 }, (_, i) => ({
+        date: `Jan ${(i + 1) * 5}`,
+        qr1: Math.floor((420 + i * 100 + Math.random() * 100) * multiplier),
+        qr2: Math.floor((185 + i * 50 + Math.random() * 50) * multiplier),
+        cvr: 44 + Math.floor(Math.random() * 4),
+      }));
+    case '90d':
+      return Array.from({ length: 13 }, (_, i) => ({
+        date: `Wk ${i + 1}`,
+        qr1: Math.floor((2800 + i * 200 + Math.random() * 500) * multiplier),
+        qr2: Math.floor((1200 + i * 100 + Math.random() * 200) * multiplier),
+        cvr: 44 + Math.floor(Math.random() * 4),
+      }));
+  }
+};
+
+const generateMetrics = (range: TimeRange, method: MethodFilter) => {
+  const baseMultiplier = method === 'all' ? 1 : method === 'qr' ? 0.69 : 0.31;
+  const timeMultiplier = range === '24h' ? 0.02 : range === '7d' ? 0.15 : range === '30d' ? 1 : 3.5;
+  
+  return {
+    totalScans: Math.floor(12450 * baseMultiplier * timeMultiplier),
+    scansChange: 18 + Math.random() * 10,
+    totalVerifications: Math.floor(5680 * baseMultiplier * timeMultiplier),
+    verificationsChange: 15 + Math.random() * 8,
+    conversionRate: 45.6 + (Math.random() * 2 - 1),
+    conversionChange: 1.5 + Math.random() * 1.5,
+    avgTime: range === '24h' ? '2m 10s' : range === '7d' ? '2m 35s' : range === '30d' ? '2m 35s' : '2m 42s',
+    timeChange: 10 + Math.random() * 10,
+  };
+};
+
+const DashboardAnalyticsPage = () => {
+  const [timeRange, setTimeRange] = useState<TimeRange>('30d');
+  const [methodFilter, setMethodFilter] = useState<MethodFilter>('all');
+
+  // Generate dynamic data based on filters
+  const timeSeriesData = generateTimeSeriesData(timeRange, methodFilter);
+  const metrics = generateMetrics(timeRange, methodFilter);
+  
+  const getTimeRangeLabel = () => {
+    switch (timeRange) {
+      case '24h': return 'Last 24 Hours';
+      case '7d': return 'Last 7 Days';
+      case '30d': return 'Last 30 Days';
+      case '90d': return 'Last 90 Days';
+    }
+  };
+
+  const renderTrendBadge = (value: number, isPositive = true) => {
+    const Icon = isPositive ? TrendingUp : TrendingDown;
+    const colorClass = isPositive ? 'text-success' : 'text-destructive';
+    
+    return (
+      <div className={`flex items-center gap-1 text-xs font-medium ${colorClass}`}>
+        <Icon className="h-3 w-3" />
+        <span>{Math.abs(value).toFixed(1)}%</span>
+      </div>
+    );
+  };
 
   const deviceData = [
     { name: 'Mobile', value: 78, color: 'hsl(var(--primary))' },
@@ -60,145 +131,224 @@ const DashboardAnalyticsPage = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
           <div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <Link to="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
               <span>/</span>
               <span>Analytics</span>
             </div>
-            <h1 className="text-3xl font-bold text-foreground">Analytics Overview</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-2">Analytics Overview</h1>
+            <p className="text-muted-foreground">Comprehensive insights into product verification and engagement</p>
           </div>
           
-          <div className="flex items-center gap-3">
-            <Select value={dateRange} onValueChange={setDateRange}>
-              <SelectTrigger className="w-32">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="7d">Last 7 days</SelectItem>
-                <SelectItem value="30d">Last 30 days</SelectItem>
-                <SelectItem value="90d">Last 90 days</SelectItem>
-                <SelectItem value="custom">Custom</SelectItem>
-              </SelectContent>
-            </Select>
-            
+          <div className="flex flex-wrap items-center gap-3">
+            <LanguageSelector />
             <Button variant="outline" size="sm">
               <Download className="w-4 h-4 mr-2" />
-              Export CSV
-            </Button>
-            
-            <Button variant="outline" size="sm">
-              <FileText className="w-4 h-4 mr-2" />
-              PDF Report
+              Export
             </Button>
           </div>
         </div>
 
+        {/* Filters Section */}
+        <Card className="p-6 mb-8 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border-2">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            {/* Time Range Selector */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">Time Range</span>
+              </div>
+              <div className="flex gap-2">
+                {(['24h', '7d', '30d', '90d'] as TimeRange[]).map((range) => (
+                  <Button
+                    key={range}
+                    variant={timeRange === range ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setTimeRange(range)}
+                    className="min-w-[70px]"
+                  >
+                    {range}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Method Filter */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Filter className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">Protection Method</span>
+              </div>
+              <Tabs value={methodFilter} onValueChange={(v) => setMethodFilter(v as MethodFilter)} className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="all" className="gap-1.5">
+                    <Activity className="h-3.5 w-3.5" />
+                    All
+                  </TabsTrigger>
+                  <TabsTrigger value="qr" className="gap-1.5">
+                    <QrCode className="h-3.5 w-3.5" />
+                    QR
+                  </TabsTrigger>
+                  <TabsTrigger value="nfc" className="gap-1.5">
+                    <Radio className="h-3.5 w-3.5" />
+                    NFC
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+
+            {/* Active Filters Display */}
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="gap-1">
+                <Activity className="h-3 w-3" />
+                {getTimeRangeLabel()}
+              </Badge>
+              <Badge variant="secondary" className="gap-1">
+                {methodFilter === 'all' ? 'All Methods' : methodFilter === 'qr' ? 'QR Codes' : 'NFC Tags'}
+              </Badge>
+            </div>
+          </div>
+        </Card>
+
         {/* Key Metrics */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
-              <CardDescription>Total QR #1 Scans</CardDescription>
-              <CardTitle className="text-3xl">12,450</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardDescription>Total Scans</CardDescription>
+                <Eye className="h-5 w-5 text-primary" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.totalScans.toLocaleString()}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-success" />
-                <span className="text-success font-medium">+23%</span>
-                <span className="text-muted-foreground">vs previous</span>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.scansChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
-              <CardDescription>Total QR #2 Verifications</CardDescription>
-              <CardTitle className="text-3xl">5,680</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardDescription>Verifications</CardDescription>
+                <Zap className="h-5 w-5 text-success" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.totalVerifications.toLocaleString()}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-success" />
-                <span className="text-success font-medium">+18%</span>
-                <span className="text-muted-foreground">vs previous</span>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.verificationsChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
-              <CardDescription>Avg Conversion Rate</CardDescription>
-              <CardTitle className="text-3xl">45.6%</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardDescription>Conversion Rate</CardDescription>
+                <TrendingUp className="h-5 w-5 text-secondary" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.conversionRate.toFixed(1)}%</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-success" />
-                <span className="text-success font-medium">+2.1%</span>
-                <span className="text-muted-foreground">vs previous</span>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.conversionChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
-              <CardDescription>Avg Engagement Time</CardDescription>
-              <CardTitle className="text-3xl">2m 35s</CardTitle>
+              <div className="flex items-center justify-between">
+                <CardDescription>Engagement Time</CardDescription>
+                <Clock className="h-5 w-5 text-accent" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.avgTime}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="w-4 h-4 text-success" />
-                <span className="text-success font-medium">+15s</span>
-                <span className="text-muted-foreground">vs previous</span>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.timeChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Scans Over Time */}
-        <Card className="mb-8">
+        <Card className="mb-8 border-2">
           <CardHeader>
-            <CardTitle>Scans Over Time</CardTitle>
-            <CardDescription>QR scans and conversion rate trends</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  Scan Activity Trend
+                </CardTitle>
+                <CardDescription>Performance over {getTimeRangeLabel().toLowerCase()}</CardDescription>
+              </div>
+              <Badge variant="outline" className="gap-1">
+                <Activity className="h-3 w-3 animate-pulse" />
+                Live Data
+              </Badge>
+            </div>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={380}>
               <AreaChart data={timeSeriesData}>
                 <defs>
                   <linearGradient id="colorQr1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
                     <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorQr2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--secondary))" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="hsl(var(--success))" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="hsl(var(--success))" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                <YAxis stroke="hsl(var(--muted-foreground))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                <XAxis 
+                  dataKey="date" 
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={12}
+                />
+                <YAxis 
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={12}
+                />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    border: '2px solid hsl(var(--border))',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                   }}
                 />
-                <Legend />
+                <Legend wrapperStyle={{ paddingTop: '20px' }} />
                 <Area 
                   type="monotone" 
                   dataKey="qr1" 
                   stroke="hsl(var(--primary))" 
+                  strokeWidth={2}
                   fillOpacity={1} 
                   fill="url(#colorQr1)"
-                  name="QR #1 Scans"
+                  name="Initial Scans"
                 />
                 <Area 
                   type="monotone" 
                   dataKey="qr2" 
-                  stroke="hsl(var(--secondary))" 
+                  stroke="hsl(var(--success))" 
+                  strokeWidth={2}
                   fillOpacity={1} 
                   fill="url(#colorQr2)"
-                  name="QR #2 Verifications"
+                  name="Verifications"
                 />
               </AreaChart>
             </ResponsiveContainer>
