@@ -12,7 +12,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-secondary via-background to-muted p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <SEO title="404 - Page Not Found" description="The page you're looking for doesn't exist" />
       
       <div className="text-center max-w-md animate-fade-in">

@@ -154,7 +154,7 @@ export default function NFCAnalyticsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-background">
       <SEO 
         title="NFC Analytics - AuthIt"
         description="Comprehensive analytics for NFC tag scans and performance"

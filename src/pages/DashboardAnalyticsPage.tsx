@@ -152,7 +152,7 @@ const DashboardAnalyticsPage = () => {
         </div>
 
         {/* Filters Section */}
-        <Card className="p-6 mb-8 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border-2">
+        <Card className="p-6 mb-8 bg-card border-2">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
             {/* Time Range Selector */}
             <div className="flex-1">

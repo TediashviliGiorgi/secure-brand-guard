@@ -206,7 +206,7 @@ export default function NFCTagDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-background">
       <SEO 
         title={`NFC Tag ${tagId} - AuthIt`}
         description="Detailed view of NFC tag with scan history and analytics"

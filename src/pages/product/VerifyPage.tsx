@@ -216,7 +216,7 @@ export default function VerifyPage() {
   // Scenario B: Suspicious
   if (result.status === 'suspicious') {
     return (
-      <div className="min-h-screen bg-amber-50 dark:bg-amber-950/20">
+      <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 max-w-2xl">
           <div className="text-center space-y-6 animate-fade-in">
             <div className="inline-block p-4 rounded-full bg-amber-100 dark:bg-amber-900">
@@ -360,7 +360,7 @@ export default function VerifyPage() {
 
   // Scenario C: Invalid
   return (
-    <div className="min-h-screen bg-red-50 dark:bg-red-950/20">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         <div className="text-center space-y-6 animate-fade-in">
           <div className="inline-block p-4 rounded-full bg-red-100 dark:bg-red-900">
