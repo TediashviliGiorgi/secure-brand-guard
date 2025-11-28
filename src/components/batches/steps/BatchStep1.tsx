@@ -3,6 +3,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { GEORGIAN_REGIONS } from '@/lib/validators';
+import { CostCalculatorSidebar } from '../CostCalculatorSidebar';
 
 const CATEGORIES = ['Wine', 'Spirits', 'Cheese', 'Olive Oil', 'Honey', 'Other'];
 const GRAPE_VARIETIES = [
@@ -26,9 +27,11 @@ interface Step1Props {
 
 export const BatchStep1 = ({ form }: Step1Props) => {
   const selectedCategory = form.watch('category');
+  const quantity = form.watch('numberOfUnits') || 0;
 
   return (
-    <div className="space-y-6">
+    <div className="grid lg:grid-cols-[1fr,380px] gap-8">
+      <div className="space-y-6">
       <FormField
         control={form.control}
         name="productName"
@@ -193,6 +196,11 @@ export const BatchStep1 = ({ form }: Step1Props) => {
           </FormItem>
         )}
       />
+      </div>
+      
+      <div className="hidden lg:block">
+        <CostCalculatorSidebar quantity={quantity} />
+      </div>
     </div>
   );
 };
