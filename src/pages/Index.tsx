@@ -233,7 +233,7 @@ const Index = () => {
               <CardTitle>Starter</CardTitle>
               <CardDescription>Perfect for small producers</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">10 ₾</span>
+                <span className="text-4xl font-bold">$0.01</span>
                 <span className="text-muted-foreground">/unit</span>
               </div>
             </CardHeader>
@@ -263,7 +263,7 @@ const Index = () => {
               <CardTitle>Professional</CardTitle>
               <CardDescription>For growing brands</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">8 ₾</span>
+                <span className="text-4xl font-bold">$0.02</span>
                 <span className="text-muted-foreground">/unit</span>
               </div>
             </CardHeader>
@@ -292,7 +292,7 @@ const Index = () => {
               <CardTitle>Enterprise</CardTitle>
               <CardDescription>For large operations</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">6 ₾</span>
+                <span className="text-4xl font-bold">$0.025</span>
                 <span className="text-muted-foreground">/unit</span>
               </div>
             </CardHeader>
