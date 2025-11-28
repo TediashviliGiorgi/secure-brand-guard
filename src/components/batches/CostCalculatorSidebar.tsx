@@ -42,14 +42,14 @@ export const CostCalculatorSidebar = ({ quantity }: CostCalculatorSidebarProps) 
                     <span className="font-medium text-sm">QR Only</span>
                   </div>
                   <Badge variant="outline" className="text-xs">
-                    {qrCost.perUnit.min}-{qrCost.perUnit.max} ₾
+                    ${qrCost.perUnit.avg.toFixed(3)}/unit
                   </Badge>
                 </div>
                 <div className="text-lg font-bold text-primary">
-                  {qrCost.avgTotal.toLocaleString()} ₾
+                  ${qrCost.avgTotal.toFixed(2)}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Range: {qrCost.minTotal.toLocaleString()} - {qrCost.maxTotal.toLocaleString()} ₾
+                  Starter Plan
                 </div>
               </div>
 
@@ -61,14 +61,14 @@ export const CostCalculatorSidebar = ({ quantity }: CostCalculatorSidebarProps) 
                     <span className="font-medium text-sm">NFC Only</span>
                   </div>
                   <Badge variant="outline" className="text-xs">
-                    {nfcCost.perUnit.min}-{nfcCost.perUnit.max} ₾
+                    ${nfcCost.perUnit.avg.toFixed(3)}/unit
                   </Badge>
                 </div>
                 <div className="text-lg font-bold text-amber-600">
-                  {nfcCost.avgTotal.toLocaleString()} ₾
+                  ${nfcCost.avgTotal.toFixed(2)}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Range: {nfcCost.minTotal.toLocaleString()} - {nfcCost.maxTotal.toLocaleString()} ₾
+                  Professional Plan
                 </div>
               </div>
 
@@ -80,14 +80,14 @@ export const CostCalculatorSidebar = ({ quantity }: CostCalculatorSidebarProps) 
                     <span className="font-medium text-sm">QR + NFC</span>
                   </div>
                   <Badge variant="outline" className="text-xs">
-                    {bothCost.perUnit.min}-{bothCost.perUnit.max} ₾
+                    ${bothCost.perUnit.avg.toFixed(3)}/unit
                   </Badge>
                 </div>
                 <div className="text-lg font-bold">
-                  {bothCost.avgTotal.toLocaleString()} ₾
+                  ${bothCost.avgTotal.toFixed(2)}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Range: {bothCost.minTotal.toLocaleString()} - {bothCost.maxTotal.toLocaleString()} ₾
+                  Enterprise Plan
                 </div>
               </div>
 
