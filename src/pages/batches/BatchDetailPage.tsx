@@ -12,6 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { BatchAnalytics } from '@/components/batches/BatchAnalytics';
+import { BatchSecurity } from '@/components/batches/BatchSecurity';
+import { BatchBottles } from '@/components/batches/BatchBottles';
 
 export default function BatchDetailPage() {
   const { id } = useParams();
@@ -293,38 +296,17 @@ export default function BatchDetailPage() {
 
           {/* Analytics Tab */}
           <TabsContent value="analytics">
-            <Card>
-              <CardHeader>
-                <CardTitle>Analytics Dashboard</CardTitle>
-              </CardHeader>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                Analytics dashboard coming soon...
-              </CardContent>
-            </Card>
+            <BatchAnalytics batchId={batch.id} />
           </TabsContent>
 
           {/* Security Tab */}
           <TabsContent value="security">
-            <Card>
-              <CardHeader>
-                <CardTitle>Security Monitoring</CardTitle>
-              </CardHeader>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                Security monitoring coming soon...
-              </CardContent>
-            </Card>
+            <BatchSecurity batchId={batch.id} />
           </TabsContent>
 
           {/* Bottles Tab */}
           <TabsContent value="bottles">
-            <Card>
-              <CardHeader>
-                <CardTitle>Individual Bottle Tracking</CardTitle>
-              </CardHeader>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                Bottle tracking coming soon...
-              </CardContent>
-            </Card>
+            <BatchBottles batchId={batch.id} totalBottles={batch.numberOfUnits} />
           </TabsContent>
         </Tabs>
       </div>
