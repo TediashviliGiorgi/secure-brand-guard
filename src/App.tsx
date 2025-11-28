@@ -12,6 +12,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 import CreateBatchPage from "./pages/batches/CreateBatchPage";
 import BatchDetailPage from "./pages/batches/BatchDetailPage";
+import BatchComparisonPage from "./pages/batches/BatchComparisonPage";
 import ProductStoryPage from "./pages/product/ProductStoryPage";
 import VerifyPage from "./pages/product/VerifyPage";
 import SecurityMonitoringPage from "./pages/security/SecurityMonitoringPage";
@@ -75,7 +76,15 @@ const App = () => (
             } 
           />
           <Route 
-            path="/dashboard/security" 
+            path="/dashboard/batches/compare" 
+            element={
+              <ProtectedRoute>
+                <BatchComparisonPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/security"
             element={
               <ProtectedRoute>
                 <SecurityMonitoringPage />
