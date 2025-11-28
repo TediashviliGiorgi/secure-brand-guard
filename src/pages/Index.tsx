@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { SEO } from '@/components/ui/seo';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
+import HeroVisualization from '@/components/HeroVisualization';
 
 const Index = () => {
   const navLinks = [
@@ -90,25 +91,33 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-background">
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
-          <div className="max-w-3xl mx-auto text-center space-y-8">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              Protect Your Brand from <span className="text-primary">Counterfeiting</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Digital authentication & marketing platform with QR codes and NFC tags. 
-              Build trust, engage customers, and eliminate fake products.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link to="/register">
-                <Button size="lg" className="text-base w-full sm:w-auto">
-                  Start Free Trial
-                  <ArrowRight className="w-4 h-4 ml-2" />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Text content */}
+            <div className="space-y-8 text-center lg:text-left">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                Protect Your Brand from <span className="text-primary">Counterfeiting</span>
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Digital authentication & marketing platform with QR codes and NFC tags. 
+                Build trust, engage customers, and eliminate fake products.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 pt-4">
+                <Link to="/register">
+                  <Button size="lg" className="text-base w-full sm:w-auto">
+                    Start Free Trial
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Button size="lg" variant="outline" className="text-base w-full sm:w-auto">
+                  <Play className="w-4 h-4 mr-2" />
+                  Watch Demo
                 </Button>
-              </Link>
-              <Button size="lg" variant="outline" className="text-base w-full sm:w-auto">
-                <Play className="w-4 h-4 mr-2" />
-                Watch Demo
-              </Button>
+              </div>
+            </div>
+
+            {/* Right side - Interactive visualization */}
+            <div className="hidden lg:block">
+              <HeroVisualization />
             </div>
           </div>
         </div>
