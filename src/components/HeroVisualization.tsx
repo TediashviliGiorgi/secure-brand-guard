@@ -113,19 +113,19 @@ const HeroVisualization = () => {
         </div>
 
         {/* Secondary orbit with elegant icons */}
-        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '50s', animationDirection: 'reverse' }}>
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '80s', animationDirection: 'reverse' }}>
           {/* Link - Top Right */}
           <div className="absolute top-12 right-12">
-            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-700">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <Link2 className="w-6 h-6 text-accent relative z-10" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* Fingerprint - Bottom Left */}
           <div className="absolute bottom-12 left-12">
-            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-700">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <Fingerprint className="w-6 h-6 text-accent relative z-10" strokeWidth={1.5} />
             </div>
           </div>
