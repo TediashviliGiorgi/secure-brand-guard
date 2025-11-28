@@ -1,4 +1,5 @@
 import { Lock, Shield, Key, Link2, QrCode, Fingerprint } from 'lucide-react';
+import earthGlobe from '@/assets/earth-globe.png';
 
 const HeroVisualization = () => {
   return (
@@ -8,56 +9,29 @@ const HeroVisualization = () => {
       <div className="relative z-10">
         {/* Globe container with rotation - BIGGER */}
         <div className="relative w-80 h-80 animate-float">
-          {/* Main globe sphere - Realistic Earth */}
-          <div className="absolute inset-0 rounded-full shadow-2xl border border-blue-400/40" 
+          {/* Main globe sphere - Using reference image */}
+          <div className="absolute inset-0 rounded-full shadow-2xl overflow-hidden border-4 border-primary/30" 
                style={{
-                 background: 'radial-gradient(circle at 30% 30%, #4a90e2 0%, #2171c7 30%, #1557a0 60%, #0d3d73 100%)',
+                 backgroundImage: `url(${earthGlobe})`,
+                 backgroundSize: 'cover',
+                 backgroundPosition: 'center',
                }}>
             
             {/* Realistic shine/light reflection from top-left */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 20%, transparent 40%)',
+                   background: 'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.08) 20%, transparent 40%)',
                  }} />
-            
-            {/* Subtle cloud layer effect */}
-            <div className="absolute inset-0 rounded-full overflow-hidden opacity-20">
-              <div className="absolute top-8 left-12 w-32 h-16 bg-white/60 rounded-full blur-xl" />
-              <div className="absolute top-32 right-16 w-28 h-20 bg-white/50 rounded-full blur-xl" />
-              <div className="absolute bottom-20 left-24 w-24 h-14 bg-white/50 rounded-full blur-xl" />
-            </div>
-            
-            {/* Latitude/Longitude grid lines - subtle and realistic */}
-            <svg className="absolute inset-0 w-full h-full opacity-30 animate-spin-slow" style={{ animationDuration: '80s' }}>
-              <defs>
-                <pattern id="globe-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5"/>
-                </pattern>
-              </defs>
-              <circle cx="160" cy="160" r="155" fill="url(#globe-grid)" />
-              
-              {/* Equator line */}
-              <line x1="5" y1="160" x2="315" y2="160" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-              
-              {/* Tropics */}
-              <ellipse cx="160" cy="160" rx="155" ry="130" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
-              <ellipse cx="160" cy="160" rx="155" ry="90" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
-              
-              {/* Prime meridian and other meridians */}
-              <ellipse cx="160" cy="160" rx="8" ry="155" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-              <ellipse cx="160" cy="160" rx="50" ry="155" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
-              <ellipse cx="160" cy="160" rx="100" ry="155" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
-            </svg>
 
             {/* Deep shadow on bottom right for 3D effect */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 75% 75%, transparent 40%, rgba(0,0,0,0.4) 100%)',
+                   background: 'radial-gradient(circle at 75% 75%, transparent 40%, rgba(0,0,0,0.3) 100%)',
                  }} />
 
             {/* Atmosphere glow */}
-            <div className="absolute -inset-2 rounded-full bg-blue-400/20 blur-xl -z-10" />
-            <div className="absolute -inset-4 rounded-full bg-blue-500/10 blur-2xl -z-20" />
+            <div className="absolute -inset-2 rounded-full bg-primary/20 blur-xl -z-10" />
+            <div className="absolute -inset-4 rounded-full bg-primary/10 blur-2xl -z-20" />
           </div>
         </div>
 
