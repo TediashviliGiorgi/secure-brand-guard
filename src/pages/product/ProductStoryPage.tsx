@@ -12,6 +12,7 @@ import { mockBatch, mockReviews, mockSimilarProducts } from '@/lib/mockBatchData
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { AISommelierChat } from '@/components/product/AISommelierChat';
 
 export default function ProductStoryPage() {
   const { batchId } = useParams();
@@ -411,6 +412,18 @@ export default function ProductStoryPage() {
           </p>
         </div>
       </footer>
+
+      {/* AI Sommelier Chat */}
+      <AISommelierChat 
+        productName={mockBatch.productName}
+        productInfo={{
+          description: mockBatch.description,
+          region: mockBatch.region,
+          vintageYear: mockBatch.vintageYear,
+          awards: mockBatch.awards,
+          pairings: mockBatch.foodPairings
+        }}
+      />
     </div>
   );
 }
