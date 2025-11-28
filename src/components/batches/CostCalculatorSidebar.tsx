@@ -20,8 +20,11 @@ export const CostCalculatorSidebar = ({ quantity }: CostCalculatorSidebarProps) 
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
             <TrendingUp className="h-4 w-4 text-primary" />
-            Cost Projections
+            Generation Cost Calculator
           </CardTitle>
+          <p className="text-xs text-muted-foreground mt-1">
+            Per-unit charges when generating QR/NFC codes
+          </p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="text-sm text-muted-foreground">
