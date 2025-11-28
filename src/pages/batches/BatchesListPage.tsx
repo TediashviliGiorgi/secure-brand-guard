@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Table,
   TableBody,
@@ -14,7 +15,7 @@ import {
 } from '@/components/ui/table';
 import { 
   Package, Plus, Search, TrendingUp, Shield, ArrowLeft,
-  Eye, AlertTriangle, QrCode, Radio
+  Eye, AlertTriangle, QrCode, Radio, GitCompare
 } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
 
@@ -79,9 +80,24 @@ export default function BatchesListPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
   
   // Get technology filter from URL
   const technologyFilter = searchParams.get('technology') as 'qr' | 'nfc' | null;
+
+  const toggleBatchSelection = (batchId: string) => {
+    setSelectedBatches(prev => 
+      prev.includes(batchId)
+        ? prev.filter(id => id !== batchId)
+        : [...prev, batchId]
+    );
+  };
+
+  const handleCompare = () => {
+    if (selectedBatches.length >= 2) {
+      navigate(`/dashboard/batches/compare?batches=${selectedBatches.join(',')}`);
+    }
+  };
 
   const filteredBatches = mockBatches.filter(batch => {
     const matchesSearch = 
@@ -137,10 +153,21 @@ export default function BatchesListPage() {
               {!technologyFilter && 'Manage all your product batches'}
             </p>
           </div>
-          <Button onClick={() => navigate('/dashboard/batches/create' + (technologyFilter ? `?type=${technologyFilter}` : ''))}>
-            <Plus className="mr-2 h-4 w-4" />
-            Create New Batch
-          </Button>
+          <div className="flex gap-2">
+            {selectedBatches.length >= 2 && (
+              <Button 
+                variant="outline"
+                onClick={handleCompare}
+              >
+                <GitCompare className="mr-2 h-4 w-4" />
+                Compare ({selectedBatches.length})
+              </Button>
+            )}
+            <Button onClick={() => navigate('/dashboard/batches/create' + (technologyFilter ? `?type=${technologyFilter}` : ''))}>
+              <Plus className="mr-2 h-4 w-4" />
+              Create New Batch
+            </Button>
+          </div>
         </div>
 
         {/* Technology filter tabs */}
@@ -204,6 +231,18 @@ export default function BatchesListPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-12">
+                      <Checkbox
+                        checked={selectedBatches.length === filteredBatches.length && filteredBatches.length > 0}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            setSelectedBatches(filteredBatches.map(b => b.id));
+                          } else {
+                            setSelectedBatches([]);
+                          }
+                        }}
+                      />
+                    </TableHead>
                     <TableHead>Product</TableHead>
                     <TableHead>Batch Number</TableHead>
                     <TableHead>Technology</TableHead>
@@ -219,6 +258,12 @@ export default function BatchesListPage() {
                 <TableBody>
                   {filteredBatches.map((batch) => (
                     <TableRow key={batch.id} className="hover:bg-muted/50">
+                      <TableCell>
+                        <Checkbox
+                          checked={selectedBatches.includes(batch.id)}
+                          onCheckedChange={() => toggleBatchSelection(batch.id)}
+                        />
+                      </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <img
