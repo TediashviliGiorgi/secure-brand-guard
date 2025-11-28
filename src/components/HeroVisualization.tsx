@@ -1,5 +1,4 @@
 import { Lock, Shield, Key, Link2, QrCode, Fingerprint } from 'lucide-react';
-import earthGlobe from '@/assets/earth-globe.png';
 
 const HeroVisualization = () => {
   return (
@@ -12,30 +11,69 @@ const HeroVisualization = () => {
       <div className="relative z-10">
         {/* Globe container with float animation */}
         <div className="relative w-96 h-96 animate-float">
-          {/* Main globe sphere with glassmorphism */}
-          <div className="absolute inset-0 rounded-full overflow-hidden backdrop-blur-sm border border-primary/20" 
+          {/* Modern abstract globe sphere */}
+          <div className="absolute inset-0 rounded-full overflow-hidden backdrop-blur-sm border border-primary/30" 
                style={{
-                 backgroundImage: `url(${earthGlobe})`,
-                 backgroundSize: 'cover',
-                 backgroundPosition: 'center',
-                 boxShadow: '0 25px 50px -12px hsl(var(--primary) / 0.25), inset 0 -10px 30px rgba(0,0,0,0.3)',
+                 background: 'radial-gradient(circle at 35% 35%, hsl(var(--primary) / 0.4) 0%, hsl(var(--primary) / 0.6) 30%, hsl(var(--primary) / 0.8) 60%, hsl(var(--primary)) 100%)',
+                 boxShadow: '0 25px 50px -12px hsl(var(--primary) / 0.4), inset 0 -15px 40px hsl(var(--primary) / 0.3)',
                }}>
+            
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 rounded-full opacity-60"
+                 style={{
+                   background: 'conic-gradient(from 180deg at 50% 50%, hsl(var(--accent) / 0.3) 0deg, transparent 60deg, hsl(var(--primary) / 0.4) 180deg, transparent 240deg, hsl(var(--accent) / 0.3) 360deg)',
+                   animation: 'spin 20s linear infinite',
+                 }} />
+            
+            {/* Abstract landmass patterns */}
+            <svg className="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 400 400">
+              <defs>
+                <radialGradient id="globeGradient" cx="50%" cy="50%">
+                  <stop offset="0%" style={{ stopColor: 'white', stopOpacity: 0.6 }} />
+                  <stop offset="70%" style={{ stopColor: 'white', stopOpacity: 0.3 }} />
+                  <stop offset="100%" style={{ stopColor: 'white', stopOpacity: 0 }} />
+                </radialGradient>
+              </defs>
+              
+              {/* Abstract continent shapes */}
+              <g className="animate-spin-slow" style={{ animationDuration: '60s', transformOrigin: 'center' }}>
+                <path d="M150,80 Q160,70 180,75 L190,85 Q200,90 195,100 L185,110 Q175,115 160,110 Z" fill="url(#globeGradient)" />
+                <path d="M220,120 Q235,115 250,125 L260,140 Q265,155 255,165 L240,170 Q225,172 215,160 Z" fill="url(#globeGradient)" />
+                <path d="M100,200 Q120,190 140,195 L155,210 Q160,225 150,240 L130,250 Q110,255 95,240 Z" fill="url(#globeGradient)" />
+                <path d="M250,220 Q270,215 285,225 L295,245 Q298,260 285,270 L265,275 Q245,278 235,265 Z" fill="url(#globeGradient)" />
+                <path d="M180,280 Q200,270 220,275 L235,290 Q240,310 225,320 L205,325 Q185,328 175,315 Z" fill="url(#globeGradient)" />
+              </g>
+              
+              {/* Latitude/longitude grid */}
+              <g className="opacity-20" stroke="white" strokeWidth="1" fill="none">
+                <circle cx="200" cy="200" r="180" />
+                <ellipse cx="200" cy="200" rx="180" ry="90" />
+                <ellipse cx="200" cy="200" rx="180" ry="60" />
+                <ellipse cx="200" cy="200" rx="90" ry="180" />
+                <ellipse cx="200" cy="200" rx="60" ry="180" />
+                <line x1="20" y1="200" x2="380" y2="200" />
+              </g>
+            </svg>
             
             {/* Glass shine effect from top-left */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 30% 20%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 25%, transparent 50%)',
+                   background: 'radial-gradient(circle at 30% 20%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 25%, transparent 50%)',
                  }} />
 
             {/* Subtle inner shadow for depth */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 70% 70%, transparent 50%, rgba(0,0,0,0.2) 100%)',
+                   background: 'radial-gradient(circle at 70% 70%, transparent 50%, rgba(0,0,0,0.25) 100%)',
                  }} />
 
-            {/* Premium atmosphere glow */}
-            <div className="absolute -inset-4 rounded-full bg-primary/15 blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
-            <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl" />
+            {/* Premium atmosphere glow with animation */}
+            <div className="absolute -inset-4 rounded-full bg-primary/20 blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
+            <div className="absolute -inset-8 rounded-full opacity-60" 
+                 style={{
+                   background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), hsl(var(--accent) / 0.1))',
+                   filter: 'blur(40px)',
+                 }} />
           </div>
         </div>
 
