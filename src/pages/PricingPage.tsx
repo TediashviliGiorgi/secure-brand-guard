@@ -25,8 +25,8 @@ const PricingPage = () => {
   // Calculate ROI
   const annualProduction = production[0];
   const avgPrice = pricePerUnit[0];
-  const authItCostPerUnit = annualProduction < 15000 ? 10 : annualProduction < 50000 ? 8 : 6;
-  const authItCost = (annualProduction * authItCostPerUnit) / 100; // convert tetri to lari
+  const authItCostPerUnit = annualProduction < 15000 ? 0.01 : annualProduction < 50000 ? 0.02 : 0.025;
+  const authItCost = annualProduction * authItCostPerUnit;
   const revenue = annualProduction * avgPrice;
   const potentialFraudLoss = revenue * 0.05;
   const netBenefit = potentialFraudLoss - authItCost;
@@ -106,25 +106,18 @@ const PricingPage = () => {
                 <CardTitle>Starter</CardTitle>
                 <CardDescription>For small producers</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">10</span>
-                  <span className="text-muted-foreground"> tetri/unit</span>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Setup: 500₾
+                  <span className="text-4xl font-bold">$0.01</span>
+                  <span className="text-muted-foreground">/unit</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-muted-foreground mb-6">
-                  5,000-15,000 units/year
+                  Up to 15,000 units/year
                 </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Dual QR system</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">3 languages</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -160,11 +153,8 @@ const PricingPage = () => {
                 <CardTitle>Professional</CardTitle>
                 <CardDescription>For growing brands</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">8</span>
-                  <span className="text-muted-foreground"> tetri/unit</span>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Setup: 1,000₾
+                  <span className="text-4xl font-bold">$0.02</span>
+                  <span className="text-muted-foreground">/unit</span>
                 </div>
               </CardHeader>
               <CardContent>
@@ -175,10 +165,6 @@ const PricingPage = () => {
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Everything in Starter</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">5 languages</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -213,11 +199,8 @@ const PricingPage = () => {
                 <CardTitle>Enterprise</CardTitle>
                 <CardDescription>For large operations</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">6</span>
-                  <span className="text-muted-foreground"> tetri/unit</span>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Setup: 2,500₾
+                  <span className="text-4xl font-bold">$0.025</span>
+                  <span className="text-muted-foreground">/unit</span>
                 </div>
               </CardHeader>
               <CardContent>
@@ -228,10 +211,6 @@ const PricingPage = () => {
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-sm">Everything in Professional</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">Unlimited languages</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -326,15 +305,15 @@ const PricingPage = () => {
                 <div className="grid md:grid-cols-2 gap-6 pt-6 border-t">
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">AuthIt Cost</div>
-                    <div className="text-2xl font-bold">{authItCost.toLocaleString()}₾</div>
+                    <div className="text-2xl font-bold">${authItCost.toLocaleString()}</div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Potential Fraud Loss (5%)</div>
-                    <div className="text-2xl font-bold text-destructive">{potentialFraudLoss.toLocaleString()}₾</div>
+                    <div className="text-2xl font-bold text-destructive">${potentialFraudLoss.toLocaleString()}</div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Net Benefit</div>
-                    <div className="text-2xl font-bold text-primary">{netBenefit.toLocaleString()}₾</div>
+                    <div className="text-2xl font-bold text-primary">${netBenefit.toLocaleString()}</div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">ROI</div>
@@ -353,10 +332,11 @@ const PricingPage = () => {
           <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
-              <AccordionTrigger>What's included in the setup fee?</AccordionTrigger>
+              <AccordionTrigger>How does the pricing work?</AccordionTrigger>
               <AccordionContent>
-                The setup fee covers initial account configuration, QR code generation system setup, 
-                brand customization, and onboarding training for your team.
+                Pricing is simple and transparent - you pay per unit protected. The rate depends on your 
+                annual production volume: $0.01/unit for Starter (up to 15,000 units), $0.02/unit for 
+                Professional (15,000-50,000 units), and $0.025/unit for Enterprise (50,000+ units). No setup fees, no hidden costs.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">

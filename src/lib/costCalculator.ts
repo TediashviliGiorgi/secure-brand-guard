@@ -1,9 +1,9 @@
-// Shared cost calculation utilities for batch protection methods
+// Shared cost calculation utilities for platform subscription pricing
 
 export const PROTECTION_METHOD_RATES = {
-  qr: { min: 6, max: 10, avg: 8 },
-  nfc: { min: 50, max: 200, avg: 100 },
-  both: { min: 56, max: 210, avg: 108 }
+  qr: { min: 0.01, max: 0.01, avg: 0.01 },      // Starter: $0.01/unit
+  nfc: { min: 0.02, max: 0.02, avg: 0.02 },     // Professional: $0.02/unit
+  both: { min: 0.025, max: 0.025, avg: 0.025 }  // Enterprise: $0.025/unit
 } as const;
 
 export type ProtectionMethod = keyof typeof PROTECTION_METHOD_RATES;
