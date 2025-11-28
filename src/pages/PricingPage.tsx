@@ -106,14 +106,18 @@ const PricingPage = () => {
                 <CardTitle>Starter</CardTitle>
                 <CardDescription>For small producers</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">$0.01</span>
-                  <span className="text-muted-foreground">/unit</span>
+                  <span className="text-4xl font-bold">
+                    ${billing === "monthly" ? "29" : "290"}
+                  </span>
+                  <span className="text-muted-foreground">
+                    /{billing === "monthly" ? "mo" : "yr"}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground mt-2">
+                  + $0.01 per unit generated
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-muted-foreground mb-6">
-                  Up to 15,000 units/year
-                </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -153,14 +157,18 @@ const PricingPage = () => {
                 <CardTitle>Professional</CardTitle>
                 <CardDescription>For growing brands</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">$0.02</span>
-                  <span className="text-muted-foreground">/unit</span>
+                  <span className="text-4xl font-bold">
+                    ${billing === "monthly" ? "99" : "990"}
+                  </span>
+                  <span className="text-muted-foreground">
+                    /{billing === "monthly" ? "mo" : "yr"}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground mt-2">
+                  + $0.02 per unit generated
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-muted-foreground mb-6">
-                  15,000-50,000 units/year
-                </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -199,14 +207,18 @@ const PricingPage = () => {
                 <CardTitle>Enterprise</CardTitle>
                 <CardDescription>For large operations</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">$0.025</span>
-                  <span className="text-muted-foreground">/unit</span>
+                  <span className="text-4xl font-bold">
+                    ${billing === "monthly" ? "299" : "2990"}
+                  </span>
+                  <span className="text-muted-foreground">
+                    /{billing === "monthly" ? "mo" : "yr"}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground mt-2">
+                  + $0.025 per unit generated
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-muted-foreground mb-6">
-                  50,000+ units/year
-                </div>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -334,9 +346,9 @@ const PricingPage = () => {
             <AccordionItem value="item-1">
               <AccordionTrigger>How does the pricing work?</AccordionTrigger>
               <AccordionContent>
-                Pricing is simple and transparent - you pay per unit protected. The rate depends on your 
-                annual production volume: $0.01/unit for Starter (up to 15,000 units), $0.02/unit for 
-                Professional (15,000-50,000 units), and $0.025/unit for Enterprise (50,000+ units). No setup fees, no hidden costs.
+                We have a two-part pricing model: a monthly/annual platform subscription for access to features, 
+                plus per-unit generation costs when you create QR codes or NFC tags. Starter: $29/mo + $0.01/unit, 
+                Professional: $99/mo + $0.02/unit, Enterprise: $299/mo + $0.025/unit. Annual plans save 20%.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">

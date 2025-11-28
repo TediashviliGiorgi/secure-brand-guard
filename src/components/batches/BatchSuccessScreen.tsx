@@ -77,18 +77,32 @@ export const BatchSuccessScreen = ({
               {/* QR Code Download */}
               {(technology === 'qr' || technology === 'both') && (
                 <>
+                  <Alert className="bg-blue-500/10 border-blue-500/50">
+                    <AlertCircle className="h-4 w-4 text-blue-600" />
+                    <AlertDescription className="text-xs">
+                      <strong>Main QR Code:</strong> Download the batch-level QR code for outer packaging/labels (same for all bottles)
+                    </AlertDescription>
+                  </Alert>
+                  
                   <Button size="lg" className="w-full" disabled>
                     <Download className="mr-2 h-5 w-5" />
-                    Download QR Code Labels
+                    Download Main QR Code (Packaging)
+                  </Button>
+                  
+                  <Separator className="my-2" />
+                  
+                  <Button size="lg" className="w-full" variant="outline" disabled>
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Individual Bottle QR Codes
                   </Button>
                   
                   {technology === 'qr' && (
                     <div className="grid grid-cols-2 gap-3">
-                      <Button variant="outline" size="lg" disabled>
+                      <Button variant="outline" size="sm" disabled>
                         <FileText className="mr-2 h-4 w-4" />
                         A4 PDF
                       </Button>
-                      <Button variant="outline" size="lg" disabled>
+                      <Button variant="outline" size="sm" disabled>
                         <Package className="mr-2 h-4 w-4" />
                         Roll PDF
                       </Button>

@@ -233,8 +233,11 @@ const Index = () => {
               <CardTitle>Starter</CardTitle>
               <CardDescription>Perfect for small producers</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">$0.01</span>
-                <span className="text-muted-foreground">/unit</span>
+                <span className="text-4xl font-bold">$29</span>
+                <span className="text-muted-foreground">/mo</span>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                + $0.01 per unit generated
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -263,8 +266,11 @@ const Index = () => {
               <CardTitle>Professional</CardTitle>
               <CardDescription>For growing brands</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">$0.02</span>
-                <span className="text-muted-foreground">/unit</span>
+                <span className="text-4xl font-bold">$99</span>
+                <span className="text-muted-foreground">/mo</span>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                + $0.02 per unit generated
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -292,8 +298,11 @@ const Index = () => {
               <CardTitle>Enterprise</CardTitle>
               <CardDescription>For large operations</CardDescription>
               <div className="mt-4">
-                <span className="text-4xl font-bold">$0.025</span>
-                <span className="text-muted-foreground">/unit</span>
+                <span className="text-4xl font-bold">$299</span>
+                <span className="text-muted-foreground">/mo</span>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                + $0.025 per unit generated
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
