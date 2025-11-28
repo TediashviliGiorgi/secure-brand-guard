@@ -3,42 +3,46 @@ import { Lock, Shield, Key, Link2, QrCode, Fingerprint } from 'lucide-react';
 const HeroVisualization = () => {
   return (
     <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
-        </div>
-      </div>
 
       {/* Central Earth Globe */}
       <div className="relative z-10">
         {/* Globe container with rotation */}
         <div className="relative w-64 h-64 animate-float">
-          {/* Main globe sphere */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-primary/50 to-primary/70 shadow-2xl">
+          {/* Main globe sphere - more defined Earth look */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 shadow-2xl border-2 border-primary/30">
             {/* Globe shine effect */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-50" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/30 to-transparent" />
             
-            {/* Grid lines on globe */}
-            <svg className="absolute inset-0 w-full h-full animate-spin-slow" style={{ animationDuration: '40s' }}>
+            {/* Latitude/Longitude grid lines */}
+            <svg className="absolute inset-0 w-full h-full animate-spin-slow" style={{ animationDuration: '50s' }}>
               <defs>
-                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5"/>
+                <pattern id="globe-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.3"/>
                 </pattern>
               </defs>
-              <circle cx="50%" cy="50%" r="45%" fill="url(#grid)" />
+              <circle cx="128" cy="128" r="120" fill="url(#globe-grid)" />
+              {/* Equator line */}
+              <line x1="8" y1="128" x2="248" y2="128" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.4" />
+              {/* Prime meridian */}
+              <ellipse cx="128" cy="128" rx="6" ry="120" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.4" />
             </svg>
 
-            {/* Continents/landmass simulation */}
-            <div className="absolute inset-0 rounded-full overflow-hidden opacity-40">
-              <div className="absolute top-8 left-12 w-16 h-12 bg-white/30 rounded-full blur-sm" />
-              <div className="absolute top-20 right-16 w-20 h-14 bg-white/30 rounded-full blur-sm" />
-              <div className="absolute bottom-16 left-20 w-14 h-10 bg-white/30 rounded-full blur-sm" />
+            {/* Continents/landmass - more visible */}
+            <div className="absolute inset-0 rounded-full overflow-hidden">
+              {/* North America */}
+              <div className="absolute top-12 left-16 w-20 h-16 bg-green-600/60 rounded-tl-3xl rounded-br-2xl border border-green-700/40" />
+              {/* Europe/Africa */}
+              <div className="absolute top-16 right-12 w-16 h-24 bg-green-600/60 rounded-tr-2xl rounded-bl-3xl border border-green-700/40" />
+              {/* South America */}
+              <div className="absolute top-32 left-20 w-12 h-20 bg-green-600/60 rounded-bl-3xl border border-green-700/40" />
+              {/* Asia */}
+              <div className="absolute top-20 right-16 w-24 h-20 bg-green-600/60 rounded-tr-3xl border border-green-700/40" />
+              {/* Australia */}
+              <div className="absolute bottom-20 right-20 w-14 h-12 bg-green-600/60 rounded-full border border-green-700/40" />
             </div>
 
-            {/* Inner glow */}
-            <div className="absolute inset-2 rounded-full bg-primary/20 blur-md" />
+            {/* Atmosphere glow */}
+            <div className="absolute -inset-1 rounded-full bg-primary/10 blur-lg -z-10" />
           </div>
         </div>
 
@@ -90,19 +94,26 @@ const HeroVisualization = () => {
           </div>
         </div>
 
-        {/* Connecting lines/network effect */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none -z-10" style={{ width: '400px', height: '400px', left: '-68px', top: '-68px' }}>
+        {/* Connecting lines/network effect - more visible */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ width: '400px', height: '400px', left: '-68px', top: '-68px' }}>
           <defs>
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.2 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0 }} />
+              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.6 }} />
+              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.8 }} />
+              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.6 }} />
             </linearGradient>
           </defs>
-          <g className="animate-pulse" style={{ animationDuration: '5s' }}>
-            <line x1="200" y1="68" x2="200" y2="200" stroke="url(#lineGradient)" strokeWidth="1" strokeDasharray="4,4" />
-            <line x1="332" y1="200" x2="200" y2="200" stroke="url(#lineGradient)" strokeWidth="1" strokeDasharray="4,4" />
-            <line x1="200" y1="332" x2="200" y2="200" stroke="url(#lineGradient)" strokeWidth="1" strokeDasharray="4,4" />
-            <line x1="68" y1="200" x2="200" y2="200" stroke="url(#lineGradient)" strokeWidth="1" strokeDasharray="4,4" />
+          {/* Network lines connecting to security icons */}
+          <g className="animate-pulse" style={{ animationDuration: '3s' }}>
+            <line x1="200" y1="68" x2="200" y2="140" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
+            <line x1="332" y1="200" x2="260" y2="200" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
+            <line x1="200" y1="332" x2="200" y2="260" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
+            <line x1="68" y1="200" x2="140" y2="200" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
+          </g>
+          {/* Diagonal connections */}
+          <g className="animate-pulse" style={{ animationDuration: '4s', animationDelay: '0.5s' }}>
+            <line x1="250" y1="150" x2="220" y2="180" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
+            <line x1="150" y1="250" x2="180" y2="220" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
           </g>
         </svg>
 
@@ -128,7 +139,7 @@ const HeroVisualization = () => {
         <div className="px-6 py-2 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
           <p className="text-sm font-medium text-primary flex items-center gap-2">
             <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-            Secured by Blockchain Technology
+            Protected by Advanced Encryption
           </p>
         </div>
       </div>
