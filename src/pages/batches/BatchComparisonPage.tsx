@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   ArrowLeft,
   Package,
@@ -17,8 +18,10 @@ import {
   Clock,
   Users,
   MapPin,
+  Calendar,
 } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface BatchComparisonData {
   id: string;
@@ -39,6 +42,53 @@ interface BatchComparisonData {
   verificationRate: number;
   securityScore: number;
 }
+
+// Mock historical data for time-based comparison
+const mockHistoricalData = {
+  '7d': [
+    { date: 'Day 1', 'AUTH-2024-001': 12000, 'AUTH-2024-002': 7800, 'AUTH-2023-045': 23000 },
+    { date: 'Day 2', 'AUTH-2024-001': 12200, 'AUTH-2024-002': 8000, 'AUTH-2023-045': 23400 },
+    { date: 'Day 3', 'AUTH-2024-001': 12400, 'AUTH-2024-002': 8100, 'AUTH-2023-045': 23600 },
+    { date: 'Day 4', 'AUTH-2024-001': 12550, 'AUTH-2024-002': 8200, 'AUTH-2023-045': 23800 },
+    { date: 'Day 5', 'AUTH-2024-001': 12700, 'AUTH-2024-002': 8300, 'AUTH-2023-045': 23950 },
+    { date: 'Day 6', 'AUTH-2024-001': 12800, 'AUTH-2024-002': 8400, 'AUTH-2023-045': 24050 },
+    { date: 'Day 7', 'AUTH-2024-001': 12847, 'AUTH-2024-002': 8456, 'AUTH-2023-045': 24123 },
+  ],
+  '30d': [
+    { date: 'Week 1', 'AUTH-2024-001': 10000, 'AUTH-2024-002': 6000, 'AUTH-2023-045': 20000 },
+    { date: 'Week 2', 'AUTH-2024-001': 11200, 'AUTH-2024-002': 7000, 'AUTH-2023-045': 21500 },
+    { date: 'Week 3', 'AUTH-2024-001': 12200, 'AUTH-2024-002': 7800, 'AUTH-2023-045': 23000 },
+    { date: 'Week 4', 'AUTH-2024-001': 12847, 'AUTH-2024-002': 8456, 'AUTH-2023-045': 24123 },
+  ],
+  '90d': [
+    { date: 'Month 1', 'AUTH-2024-001': 5000, 'AUTH-2024-002': 3000, 'AUTH-2023-045': 15000 },
+    { date: 'Month 2', 'AUTH-2024-001': 9000, 'AUTH-2024-002': 6000, 'AUTH-2023-045': 20000 },
+    { date: 'Month 3', 'AUTH-2024-001': 12847, 'AUTH-2024-002': 8456, 'AUTH-2023-045': 24123 },
+  ],
+};
+
+const mockSecurityHistoricalData = {
+  '7d': [
+    { date: 'Day 1', 'AUTH-2024-001': 91, 'AUTH-2024-002': 95, 'AUTH-2023-045': 97 },
+    { date: 'Day 2', 'AUTH-2024-001': 91, 'AUTH-2024-002': 95, 'AUTH-2023-045': 97 },
+    { date: 'Day 3', 'AUTH-2024-001': 91, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+    { date: 'Day 4', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+    { date: 'Day 5', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+    { date: 'Day 6', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+    { date: 'Day 7', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+  ],
+  '30d': [
+    { date: 'Week 1', 'AUTH-2024-001': 88, 'AUTH-2024-002': 93, 'AUTH-2023-045': 95 },
+    { date: 'Week 2', 'AUTH-2024-001': 90, 'AUTH-2024-002': 94, 'AUTH-2023-045': 96 },
+    { date: 'Week 3', 'AUTH-2024-001': 91, 'AUTH-2024-002': 95, 'AUTH-2023-045': 97 },
+    { date: 'Week 4', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+  ],
+  '90d': [
+    { date: 'Month 1', 'AUTH-2024-001': 85, 'AUTH-2024-002': 90, 'AUTH-2023-045': 92 },
+    { date: 'Month 2', 'AUTH-2024-001': 89, 'AUTH-2024-002': 94, 'AUTH-2023-045': 96 },
+    { date: 'Month 3', 'AUTH-2024-001': 92, 'AUTH-2024-002': 96, 'AUTH-2023-045': 98 },
+  ],
+};
 
 // Mock data - in real app, fetch based on selected batch IDs
 const mockComparisonData: BatchComparisonData[] = [
@@ -104,6 +154,7 @@ const mockComparisonData: BatchComparisonData[] = [
 export default function BatchComparisonPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d');
   
   // Get batch IDs from URL params
   const batchIds = searchParams.get('batches')?.split(',') || [];
@@ -112,6 +163,15 @@ export default function BatchComparisonPage() {
   const comparisonBatches = mockComparisonData.filter(batch => 
     batchIds.includes(batch.id)
   );
+
+  const historicalData = mockHistoricalData[timeRange];
+  const securityHistoricalData = mockSecurityHistoricalData[timeRange];
+
+  const batchColors = {
+    'AUTH-2024-001': 'hsl(var(--chart-1))',
+    'AUTH-2024-002': 'hsl(var(--chart-2))',
+    'AUTH-2023-045': 'hsl(var(--chart-3))',
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -171,14 +231,42 @@ export default function BatchComparisonPage() {
         </div>
 
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Batch Comparison</h1>
-          <p className="text-muted-foreground">
-            Compare metrics, security, and performance across {comparisonBatches.length} batches
-          </p>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Batch Comparison</h1>
+              <p className="text-muted-foreground">
+                Compare metrics, security, and performance across {comparisonBatches.length} batches
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <div className="flex gap-2">
+                {(['7d', '30d', '90d'] as const).map((range) => (
+                  <Button
+                    key={range}
+                    variant={timeRange === range ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setTimeRange(range)}
+                  >
+                    {range === '7d' ? '7 Days' : range === '30d' ? '30 Days' : '90 Days'}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Basic Information */}
-        <Card className="mb-6">
+        {/* Time-Based Comparison Tabs */}
+        <Tabs defaultValue="snapshot" className="mb-6">
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
+            <TabsTrigger value="snapshot">Snapshot Comparison</TabsTrigger>
+            <TabsTrigger value="trends">Performance Trends</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="snapshot" className="space-y-6 mt-6">
+
+            {/* Basic Information */}
+            <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Package className="h-5 w-5 text-primary" />
@@ -244,8 +332,8 @@ export default function BatchComparisonPage() {
           </CardContent>
         </Card>
 
-        {/* Performance Metrics */}
-        <Card className="mb-6">
+            {/* Performance Metrics */}
+            <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
@@ -397,8 +485,8 @@ export default function BatchComparisonPage() {
           </CardContent>
         </Card>
 
-        {/* Security Analysis */}
-        <Card>
+            {/* Security Analysis */}
+            <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-primary" />
@@ -476,37 +564,168 @@ export default function BatchComparisonPage() {
           </CardContent>
         </Card>
 
-        {/* Summary */}
-        <Card className="mt-6">
-          <CardContent className="pt-6">
-            <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <TrendingUp className="h-5 w-5 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h4 className="font-semibold mb-1">Comparison Insights</h4>
-                <p className="text-sm text-muted-foreground">
-                  Best performing batch: <span className="font-medium text-foreground">
-                    {comparisonBatches.reduce((best, current) => 
-                      current.conversionRate > best.conversionRate ? current : best
-                    ).product}
-                  </span> with {comparisonBatches.reduce((best, current) => 
-                    current.conversionRate > best.conversionRate ? current : best
-                  ).conversionRate}% conversion rate
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Most secure batch: <span className="font-medium text-foreground">
-                    {comparisonBatches.reduce((best, current) => 
-                      current.securityScore > best.securityScore ? current : best
-                    ).product}
-                  </span> with {comparisonBatches.reduce((best, current) => 
-                    current.securityScore > best.securityScore ? current : best
-                  ).securityScore}% security score
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            {/* Summary */}
+            <Card className="mt-6">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <TrendingUp className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold mb-1">Comparison Insights</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Best performing batch: <span className="font-medium text-foreground">
+                        {comparisonBatches.reduce((best, current) => 
+                          current.conversionRate > best.conversionRate ? current : best
+                        ).product}
+                      </span> with {comparisonBatches.reduce((best, current) => 
+                        current.conversionRate > best.conversionRate ? current : best
+                      ).conversionRate}% conversion rate
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Most secure batch: <span className="font-medium text-foreground">
+                        {comparisonBatches.reduce((best, current) => 
+                          current.securityScore > best.securityScore ? current : best
+                        ).product}
+                      </span> with {comparisonBatches.reduce((best, current) => 
+                        current.securityScore > best.securityScore ? current : best
+                      ).securityScore}% security score
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="trends" className="space-y-6 mt-6">
+            {/* Scan Volume Trends */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Scan Volume Trends
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <LineChart data={historicalData}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis 
+                      dataKey="date" 
+                      className="text-xs"
+                      tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <YAxis 
+                      className="text-xs"
+                      tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Legend />
+                    {comparisonBatches.map((batch) => (
+                      <Line
+                        key={batch.id}
+                        type="monotone"
+                        dataKey={batch.id}
+                        name={batch.product}
+                        stroke={batchColors[batch.id as keyof typeof batchColors]}
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        activeDot={{ r: 6 }}
+                      />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Security Score Trends */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-primary" />
+                  Security Score Evolution
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={350}>
+                  <LineChart data={securityHistoricalData}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis 
+                      dataKey="date" 
+                      className="text-xs"
+                      tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <YAxis 
+                      className="text-xs"
+                      domain={[80, 100]}
+                      tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                    />
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                      }}
+                    />
+                    <Legend />
+                    {comparisonBatches.map((batch) => (
+                      <Line
+                        key={batch.id}
+                        type="monotone"
+                        dataKey={batch.id}
+                        name={batch.product}
+                        stroke={batchColors[batch.id as keyof typeof batchColors]}
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        activeDot={{ r: 6 }}
+                      />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Trend Analysis Summary */}
+            <Card>
+              <CardContent className="pt-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-success/10 rounded-lg">
+                        <TrendingUp className="h-5 w-5 text-success" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-1">Growth Leader</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Fastest growing batch over the selected period based on scan volume
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Shield className="h-5 w-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-1">Security Improvement</h4>
+                        <p className="text-sm text-muted-foreground">
+                          All batches show consistent security score improvement over time
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
