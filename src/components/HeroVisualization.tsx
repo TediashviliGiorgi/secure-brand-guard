@@ -3,132 +3,153 @@ import earthGlobe from '@/assets/earth-globe.png';
 
 const HeroVisualization = () => {
   return (
-    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
 
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5" />
+      
       {/* Central Earth Globe */}
       <div className="relative z-10">
-        {/* Globe container with rotation - BIGGER */}
-        <div className="relative w-80 h-80 animate-float">
-          {/* Main globe sphere - Using reference image */}
-          <div className="absolute inset-0 rounded-full shadow-2xl overflow-hidden border-4 border-primary/30" 
+        {/* Globe container with float animation */}
+        <div className="relative w-96 h-96 animate-float">
+          {/* Main globe sphere with glassmorphism */}
+          <div className="absolute inset-0 rounded-full overflow-hidden backdrop-blur-sm border border-primary/20" 
                style={{
                  backgroundImage: `url(${earthGlobe})`,
                  backgroundSize: 'cover',
                  backgroundPosition: 'center',
+                 boxShadow: '0 25px 50px -12px hsl(var(--primary) / 0.25), inset 0 -10px 30px rgba(0,0,0,0.3)',
                }}>
             
-            {/* Realistic shine/light reflection from top-left */}
+            {/* Glass shine effect from top-left */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.08) 20%, transparent 40%)',
+                   background: 'radial-gradient(circle at 30% 20%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 25%, transparent 50%)',
                  }} />
 
-            {/* Deep shadow on bottom right for 3D effect */}
+            {/* Subtle inner shadow for depth */}
             <div className="absolute inset-0 rounded-full"
                  style={{
-                   background: 'radial-gradient(circle at 75% 75%, transparent 40%, rgba(0,0,0,0.3) 100%)',
+                   background: 'radial-gradient(circle at 70% 70%, transparent 50%, rgba(0,0,0,0.2) 100%)',
                  }} />
 
-            {/* Atmosphere glow */}
-            <div className="absolute -inset-2 rounded-full bg-primary/20 blur-xl -z-10" />
-            <div className="absolute -inset-4 rounded-full bg-primary/10 blur-2xl -z-20" />
+            {/* Premium atmosphere glow */}
+            <div className="absolute -inset-4 rounded-full bg-primary/15 blur-2xl animate-pulse" style={{ animationDuration: '4s' }} />
+            <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl" />
           </div>
         </div>
 
-        {/* Orbiting encryption symbols - adjusted for bigger globe */}
-        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '30s' }}>
+        {/* Modern orbiting security icons */}
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '40s' }}>
           {/* Shield - Top */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-            <div className="p-4 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 shadow-lg animate-float-delay-1">
-              <Shield className="w-7 h-7 text-primary" />
+          <div className="absolute -top-16 left-1/2 -translate-x-1/2">
+            <div className="group relative p-5 rounded-2xl bg-background/40 backdrop-blur-md border border-primary/20 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 animate-float-delay-1">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Shield className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* Lock - Right */}
-          <div className="absolute top-1/2 -right-12 -translate-y-1/2">
-            <div className="p-4 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 shadow-lg animate-float-delay-2">
-              <Lock className="w-7 h-7 text-primary" />
+          <div className="absolute top-1/2 -right-16 -translate-y-1/2">
+            <div className="group relative p-5 rounded-2xl bg-background/40 backdrop-blur-md border border-primary/20 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 animate-float-delay-2">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Lock className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* Key - Bottom */}
-          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2">
-            <div className="p-4 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 shadow-lg animate-float-delay-3">
-              <Key className="w-7 h-7 text-primary" />
+          <div className="absolute -bottom-16 left-1/2 -translate-x-1/2">
+            <div className="group relative p-5 rounded-2xl bg-background/40 backdrop-blur-md border border-primary/20 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 animate-float-delay-3">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Key className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* QR Code - Left */}
-          <div className="absolute top-1/2 -left-12 -translate-y-1/2">
-            <div className="p-4 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 shadow-lg animate-float-delay-4">
-              <QrCode className="w-7 h-7 text-primary" />
+          <div className="absolute top-1/2 -left-16 -translate-y-1/2">
+            <div className="group relative p-5 rounded-2xl bg-background/40 backdrop-blur-md border border-primary/20 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 animate-float-delay-4">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <QrCode className="w-8 h-8 text-primary relative z-10" strokeWidth={1.5} />
             </div>
           </div>
         </div>
 
-        {/* Secondary orbit with different speed - adjusted for bigger globe */}
-        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '45s', animationDirection: 'reverse' }}>
-          {/* Link/Chain - Top Right */}
-          <div className="absolute top-8 right-8">
-            <div className="p-3 rounded-full bg-accent/20 backdrop-blur-sm border border-accent/30 shadow-lg animate-pulse" style={{ animationDuration: '3s' }}>
-              <Link2 className="w-6 h-6 text-accent" />
+        {/* Secondary orbit with elegant icons */}
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '50s', animationDirection: 'reverse' }}>
+          {/* Link - Top Right */}
+          <div className="absolute top-12 right-12">
+            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Link2 className="w-6 h-6 text-accent relative z-10" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* Fingerprint - Bottom Left */}
-          <div className="absolute bottom-8 left-8">
-            <div className="p-3 rounded-full bg-accent/20 backdrop-blur-sm border border-accent/30 shadow-lg animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }}>
-              <Fingerprint className="w-6 h-6 text-accent" />
+          <div className="absolute bottom-12 left-12">
+            <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Fingerprint className="w-6 h-6 text-accent relative z-10" strokeWidth={1.5} />
             </div>
           </div>
         </div>
 
-        {/* Connecting lines/network effect - adjusted for bigger globe */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ width: '500px', height: '500px', left: '-100px', top: '-100px' }}>
+        {/* Elegant connection lines */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ width: '600px', height: '600px', left: '-150px', top: '-150px' }}>
           <defs>
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.6 }} />
-              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.8 }} />
-              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.6 }} />
+              <stop offset="0%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.3 }} />
+              <stop offset="50%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.6 }} />
+              <stop offset="100%" style={{ stopColor: 'hsl(var(--primary))', stopOpacity: 0.3 }} />
             </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
           </defs>
-          {/* Network lines connecting to security icons */}
-          <g className="animate-pulse" style={{ animationDuration: '3s' }}>
-            <line x1="250" y1="52" x2="250" y2="140" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
-            <line x1="448" y1="250" x2="360" y2="250" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
-            <line x1="250" y1="448" x2="250" y2="360" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
-            <line x1="52" y1="250" x2="140" y2="250" stroke="url(#lineGradient)" strokeWidth="2" strokeDasharray="6,4" />
-          </g>
-          {/* Diagonal connections */}
-          <g className="animate-pulse" style={{ animationDuration: '4s', animationDelay: '0.5s' }}>
-            <line x1="330" y1="170" x2="280" y2="220" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
-            <line x1="170" y1="330" x2="220" y2="280" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="4,3" opacity="0.7" />
+          {/* Main network lines */}
+          <g className="animate-pulse" style={{ animationDuration: '4s' }} filter="url(#glow)">
+            <line x1="300" y1="34" x2="300" y2="150" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="8,4" />
+            <line x1="566" y1="300" x2="450" y2="300" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="8,4" />
+            <line x1="300" y1="566" x2="300" y2="450" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="8,4" />
+            <line x1="34" y1="300" x2="150" y2="300" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="8,4" />
           </g>
         </svg>
 
-        {/* Data particles floating around */}
+        {/* Floating particles with varied sizes */}
         <div className="absolute inset-0 -z-20">
-          {[...Array(12)].map((_, i) => (
+          {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1.5 h-1.5 bg-primary/40 rounded-full animate-float-particle"
+              className="absolute rounded-full animate-float-particle"
               style={{
+                width: `${2 + Math.random() * 4}px`,
+                height: `${2 + Math.random() * 4}px`,
+                background: i % 2 === 0 ? 'hsl(var(--primary) / 0.3)' : 'hsl(var(--accent) / 0.3)',
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${5 + Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 8}s`,
+                boxShadow: '0 0 10px currentColor',
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* Bottom text label */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <div className="px-6 py-2 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
-          <p className="text-sm font-medium text-primary flex items-center gap-2">
-            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-            Protected by Advanced Encryption
+      {/* Modern status badge */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20">
+        <div className="group px-8 py-3 rounded-full bg-background/60 backdrop-blur-md border border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300">
+          <p className="text-sm font-semibold text-foreground flex items-center gap-3">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+            </span>
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Protected by Advanced Encryption
+            </span>
           </p>
         </div>
       </div>
