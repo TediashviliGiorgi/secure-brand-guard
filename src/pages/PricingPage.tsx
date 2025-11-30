@@ -5,15 +5,17 @@ import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Check, X } from "lucide-react";
+import { Check, X, Calculator } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { CostBreakdownModal } from "@/components/pricing/CostBreakdownModal";
 
 
 const PricingPage = () => {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [production, setProduction] = useState([25000]);
   const [pricePerUnit, setPricePerUnit] = useState([50]);
+  const [showCostBreakdown, setShowCostBreakdown] = useState(false);
 
   const navLinks = [
     { label: 'Features', href: '/features' },
@@ -72,6 +74,19 @@ const PricingPage = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Choose the plan that fits your business needs
           </p>
+
+          {/* Cost Breakdown Button */}
+          <div className="mb-6">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => setShowCostBreakdown(true)}
+              className="gap-2"
+            >
+              <Calculator className="w-5 h-5" />
+              See Detailed Cost Breakdown
+            </Button>
+          </div>
           
           {/* Billing Toggle */}
           <div className="inline-flex items-center gap-4 p-1 bg-muted rounded-lg">
@@ -402,6 +417,12 @@ const PricingPage = () => {
           © 2025 AuthIt. All rights reserved.
         </div>
       </footer>
+
+      {/* Cost Breakdown Modal */}
+      <CostBreakdownModal 
+        open={showCostBreakdown} 
+        onOpenChange={setShowCostBreakdown} 
+      />
     </div>
   );
 };
