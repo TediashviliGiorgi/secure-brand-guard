@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { MetricCardSkeleton } from '@/components/ui/metric-card-skeleton';
+import { MiniChartSkeleton } from '@/components/ui/chart-skeleton';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 
@@ -84,6 +86,14 @@ export const AnalyticsOverview = () => {
   const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
   const [activeMethod, setActiveMethod] = useState<'all' | 'qr' | 'nfc'>('all');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, [timeRange, activeMethod]);
 
   // Generate dynamic analytics data based on selected time range
   const analytics = {
@@ -120,7 +130,26 @@ export const AnalyticsOverview = () => {
     );
   };
 
-  const renderMetricsSection = (data: typeof analytics.all, trendData: typeof scanTrendData.all) => (
+  const renderMetricsSection = (data: typeof analytics.all, trendData: typeof scanTrendData.all) => {
+    if (isLoading) {
+      return (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            {[...Array(4)].map((_, i) => (
+              <MetricCardSkeleton key={i} />
+            ))}
+          </div>
+          <MiniChartSkeleton />
+          <div className="space-y-2">
+            {[...Array(3)].map((_, i) => (
+              <MetricCardSkeleton key={i} />
+            ))}
+          </div>
+        </>
+      );
+    }
+
+    return (
     <>
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-2 gap-3">
@@ -268,7 +297,8 @@ export const AnalyticsOverview = () => {
         </div>
       </div>
     </>
-  );
+    );
+  };
 
   return (
     <Card className="border-green-500/20 bg-card">

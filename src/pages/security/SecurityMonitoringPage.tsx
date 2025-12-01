@@ -11,10 +11,12 @@ import {
   MapPin, Download, Settings, Bell, Mail, Smartphone, Activity, Clock, 
   Calendar, Filter, QrCode, Radio, Eye, Zap
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { SecurityWidgetSkeleton, SecurityListSkeleton } from '@/components/ui/security-widget-skeleton';
+import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 type MethodFilter = 'all' | 'qr' | 'nfc';
@@ -145,6 +147,14 @@ export default function SecurityMonitoringPage() {
   const [smsAlerts, setSmsAlerts] = useState(true);
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [methodFilter, setMethodFilter] = useState<MethodFilter>('all');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 1100);
+    return () => clearTimeout(timer);
+  }, [timeRange, methodFilter]);
 
   // Generate dynamic data based on filters
   const alerts = generateAlerts(timeRange, methodFilter);
@@ -308,6 +318,15 @@ export default function SecurityMonitoringPage() {
 
         {/* Security Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {isLoading ? (
+            <>
+              <SecurityWidgetSkeleton />
+              <SecurityWidgetSkeleton />
+              <SecurityWidgetSkeleton />
+              <SecurityWidgetSkeleton />
+            </>
+          ) : (
+            <>
           <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
             <div className="p-6">
@@ -367,6 +386,8 @@ export default function SecurityMonitoringPage() {
               </div>
             </div>
           </Card>
+            </>
+          )}
         </div>
 
         {/* Health Score */}
@@ -396,6 +417,9 @@ export default function SecurityMonitoringPage() {
             </Badge>
           </div>
 
+          {isLoading ? (
+            <SecurityListSkeleton />
+          ) : (
           <div className="space-y-4">
             {alerts.map((alert) => (
               <Card key={alert.id} className={`p-6 ${getPriorityColor(alert.priority)}`}>
@@ -455,6 +479,7 @@ export default function SecurityMonitoringPage() {
               </Card>
             ))}
           </div>
+          )}
         </section>
 
         {/* Charts */}

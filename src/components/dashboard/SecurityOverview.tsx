@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { SecurityWidgetSkeleton, SecurityAlertSkeleton } from '@/components/ui/security-widget-skeleton';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 
@@ -75,6 +76,14 @@ export const SecurityOverview = () => {
   const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
   const [activeMethod, setActiveMethod] = useState<'all' | 'qr' | 'nfc'>('all');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 900);
+    return () => clearTimeout(timer);
+  }, [timeRange, activeMethod]);
 
   // Generate dynamic security data based on selected time range
   const security = {
@@ -125,7 +134,26 @@ export const SecurityOverview = () => {
     }
   };
 
-  const renderSecuritySection = (data: typeof security.all) => (
+  const renderSecuritySection = (data: typeof security.all) => {
+    if (isLoading) {
+      return (
+        <>
+          <SecurityWidgetSkeleton />
+          <div className="grid grid-cols-3 gap-2">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="space-y-2 p-3 rounded-lg skeleton h-20" />
+            ))}
+          </div>
+          <div className="space-y-2">
+            {[...Array(3)].map((_, i) => (
+              <SecurityAlertSkeleton key={i} />
+            ))}
+          </div>
+        </>
+      );
+    }
+
+    return (
     <>
       {/* Security Health Score - Prominent */}
       <div className={cn(
@@ -292,7 +320,8 @@ export const SecurityOverview = () => {
         </div>
       )}
     </>
-  );
+    );
+  };
 
   return (
     <Card className="border-red-500/20 bg-card">

@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { QrCode, Radio, Shield, TrendingUp, TrendingDown, DollarSign, Package } from 'lucide-react';
 import { mockBatch } from '@/lib/mockBatchData';
+import { MetricCardSkeleton } from '@/components/ui/metric-card-skeleton';
 
 // Create array from single mock batch for statistics
 const mockBatches = [
@@ -11,6 +13,14 @@ const mockBatches = [
 ];
 
 export const BatchStatistics = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 600);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Calculate statistics from mock data
   const totalBatches = mockBatches.length;
   const qrBatches = mockBatches.filter(b => b.protectionMethod === 'qr').length;
@@ -52,7 +62,14 @@ export const BatchStatistics = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        
+        {isLoading ? (
+          <>
+            {[...Array(4)].map((_, i) => (
+              <MetricCardSkeleton key={i} />
+            ))}
+          </>
+        ) : (
+          <>
         {/* Total Batches by Method */}
         <Card>
           <CardHeader className="pb-3">
@@ -155,6 +172,8 @@ export const BatchStatistics = () => {
             </div>
           </CardContent>
         </Card>
+          </>
+        )}
       </div>
     </section>
   );
