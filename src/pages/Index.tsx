@@ -89,11 +89,11 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-background">
+      <section className="relative overflow-hidden bg-background section-fade-in">
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Text content */}
-            <div className="space-y-8 text-center lg:text-left">
+            <div className="space-y-8 text-center lg:text-left stagger-fade-in">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                 Protect Your Brand from <span className="text-primary">Counterfeiting</span>
               </h1>
@@ -124,7 +124,7 @@ const Index = () => {
       </section>
 
       {/* Problem Statement */}
-      <section className="bg-muted/30 py-12">
+      <section className="bg-muted/30 py-12 section-fade-in">
         <div className="container mx-auto px-4 text-center">
           <p className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
             Global brands lose €2.3B annually to counterfeiting
@@ -134,7 +134,7 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4 py-20 section-fade-in">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -143,7 +143,7 @@ const Index = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <Card className="text-center">
+          <Card className="text-center stagger-fade-in">
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <QrCode className="w-8 h-8 text-primary" />
@@ -157,7 +157,7 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center">
+          <Card className="text-center stagger-fade-in">
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-primary" />
@@ -171,7 +171,7 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center">
+          <Card className="text-center stagger-fade-in">
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-8 h-8 text-primary" />
@@ -188,7 +188,7 @@ const Index = () => {
       </section>
 
       {/* Key Features */}
-      <section id="features" className="bg-muted/30 py-20">
+      <section id="features" className="bg-muted/30 py-20 section-fade-in">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>

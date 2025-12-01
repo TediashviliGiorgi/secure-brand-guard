@@ -58,10 +58,10 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 page-transition">
         
         {/* Welcome Section */}
-        <div className="mb-8">
+        <div className="mb-8 slide-up">
           <h2 className="text-3xl font-bold mb-2">
             Welcome, {user?.companyName || 'Company'}!
           </h2>
@@ -77,7 +77,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           
           {/* Card 1: Create Batch - PRIMARY ACTION */}
-          <Card className="border-2 border-primary shadow-xl">
+          <Card className="border-2 border-primary shadow-xl card-interactive stagger-fade-in">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* Card 2: Manage Batches */}
-          <Card>
+          <Card className="card-interactive stagger-fade-in">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
@@ -169,19 +169,23 @@ export default function DashboardPage() {
 
         {/* Analytics and Security Overview - Full width comprehensive sections */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <AnalyticsOverview />
-          <SecurityOverview />
+          <div className="stagger-fade-in">
+            <AnalyticsOverview />
+          </div>
+          <div className="stagger-fade-in">
+            <SecurityOverview />
+          </div>
         </div>
 
         {/* Advanced Tools Section */}
         <Separator className="my-8" />
         
-        <section className="mb-8">
+        <section className="mb-8 section-fade-in">
           <h3 className="text-xl font-bold mb-4 text-muted-foreground">Advanced Tools</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             
             {/* Browse QR Codes */}
-            <Card className="bg-muted/30">
+            <Card className="bg-muted/30 stagger-fade-in">
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <QrCode className="h-4 w-4" />
@@ -204,7 +208,7 @@ export default function DashboardPage() {
             </Card>
 
             {/* Browse NFC Tags */}
-            <Card className="bg-muted/30">
+            <Card className="bg-muted/30 stagger-fade-in">
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <Radio className="h-4 w-4" />
@@ -227,7 +231,7 @@ export default function DashboardPage() {
             </Card>
 
             {/* Reports */}
-            <Card className="bg-muted/30">
+            <Card className="bg-muted/30 stagger-fade-in">
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <FileText className="h-4 w-4" />

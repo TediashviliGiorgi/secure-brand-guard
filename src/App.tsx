@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
 import Index from "./pages/Index";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -39,6 +40,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <DynamicBreadcrumb />
           <div className="pb-20">
             <Routes>
           <Route path="/" element={<Index />} />
