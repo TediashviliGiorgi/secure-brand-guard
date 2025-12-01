@@ -141,7 +141,6 @@ export default function CreateBatchPage() {
         batchId={batchId}
         productName={formData.productName || ''}
         numberOfUnits={formData.numberOfUnits || 0}
-        technology="qr"
         onNavigateToDashboard={() => navigate('/dashboard')}
         onNavigateToBatches={() => navigate('/dashboard/batches')}
       />

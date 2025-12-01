@@ -362,7 +362,7 @@ const PricingPage = () => {
               <AccordionTrigger>How does the pricing work?</AccordionTrigger>
               <AccordionContent>
                 We have a two-part pricing model: a monthly/annual platform subscription for access to features, 
-                plus per-unit generation costs when you create QR codes or NFC tags. Starter: $29/mo + $0.01/unit, 
+                plus per-unit generation costs when you create Dual QR codes. Starter: $29/mo + $0.01/unit, 
                 Professional: $99/mo + $0.02/unit, Enterprise: $299/mo + $0.025/unit. Annual plans save 20%.
               </AccordionContent>
             </AccordionItem>

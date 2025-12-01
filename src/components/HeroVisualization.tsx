@@ -4,15 +4,12 @@ const HeroVisualization = () => {
   return (
     <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
 
-      {/* Ambient background effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5" />
-      
       {/* Central Earth Globe */}
       <div className="relative z-10">
         {/* Globe container with float animation */}
-        <div className="relative w-96 h-96 animate-float">
+        <div className="relative w-64 h-64 animate-float">
           {/* Modern abstract globe sphere */}
-          <div className="absolute inset-0 rounded-full overflow-hidden backdrop-blur-sm border border-primary/30" 
+          <div className="absolute inset-0 rounded-full overflow-hidden backdrop-blur-sm border border-primary/30"
                style={{
                  background: 'radial-gradient(circle at 35% 35%, hsl(var(--primary) / 0.4) 0%, hsl(var(--primary) / 0.6) 30%, hsl(var(--primary) / 0.8) 60%, hsl(var(--primary)) 100%)',
                  boxShadow: '0 25px 50px -12px hsl(var(--primary) / 0.4), inset 0 -15px 40px hsl(var(--primary) / 0.3)',
@@ -36,7 +33,7 @@ const HeroVisualization = () => {
               </defs>
               
               {/* Abstract continent shapes */}
-              <g className="animate-spin-slow" style={{ animationDuration: '60s', transformOrigin: 'center' }}>
+              <g className="animate-spin-slow" style={{ animationDuration: '120s', transformOrigin: 'center' }}>
                 <path d="M150,80 Q160,70 180,75 L190,85 Q200,90 195,100 L185,110 Q175,115 160,110 Z" fill="url(#globeGradient)" />
                 <path d="M220,120 Q235,115 250,125 L260,140 Q265,155 255,165 L240,170 Q225,172 215,160 Z" fill="url(#globeGradient)" />
                 <path d="M100,200 Q120,190 140,195 L155,210 Q160,225 150,240 L130,250 Q110,255 95,240 Z" fill="url(#globeGradient)" />
@@ -78,7 +75,7 @@ const HeroVisualization = () => {
         </div>
 
         {/* Modern orbiting security icons */}
-        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '40s' }}>
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '100s' }}>
           {/* Shield - Top */}
           <div className="absolute -top-16 left-1/2 -translate-x-1/2">
             <div className="group relative p-5 rounded-2xl bg-background/40 backdrop-blur-md border border-primary/20 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 animate-float-delay-1">
@@ -113,7 +110,7 @@ const HeroVisualization = () => {
         </div>
 
         {/* Secondary orbit with elegant icons */}
-        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '80s', animationDirection: 'reverse' }}>
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '150s', animationDirection: 'reverse' }}>
           {/* Link - Top Right */}
           <div className="absolute top-12 right-12">
             <div className="group relative p-4 rounded-xl bg-background/30 backdrop-blur-md border border-accent/15 shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-700">

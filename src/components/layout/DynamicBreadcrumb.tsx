@@ -16,10 +16,8 @@ const routeNameMap: Record<string, string> = {
   analytics: "Analytics",
   security: "Security",
   settings: "Settings",
-  nfc: "NFC Management",
   tags: "Tags",
   compare: "Compare",
-  "nfc-analytics": "NFC Analytics",
 };
 
 export const DynamicBreadcrumb = () => {
