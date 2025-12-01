@@ -72,33 +72,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-      },
-      fontSize: {
-        'xs': '0.688rem',    /* 11px - 15% smaller */
-        'sm': '0.813rem',    /* 13px - 15% smaller */
-        'base': '0.875rem',  /* 14px - 12% smaller */
-        'lg': '1rem',        /* 16px - 11% smaller */
-        'xl': '1.125rem',    /* 18px - 11% smaller */
-        '2xl': '1.313rem',   /* 21px - 12% smaller */
-        '3xl': '1.688rem',   /* 27px - 10% smaller */
-        '4xl': '2rem',       /* 32px - 11% smaller */
-        '5xl': '2.625rem',   /* 42px - 12% smaller */
-      },
-      spacing: {
-        '0.5': '0.1rem',
-        '1': '0.225rem',
-        '2': '0.45rem',
-        '3': '0.675rem',
-        '4': '0.9rem',
-        '5': '1.125rem',
-        '6': '1.35rem',
-        '8': '1.8rem',
-        '10': '2.25rem',
-        '12': '2.7rem',
-        '16': '3.6rem',
-        '20': '4.5rem',
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
