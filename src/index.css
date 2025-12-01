@@ -10,47 +10,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Clean institutional blue-gray and white design system */
-    /* Pure white background for maximum cleanliness */
-    --background: 0 0% 100%;
-    --foreground: 215 20% 25%;
+    /* Clean institutional design with sky-blue accents and glassmorphism */
+    /* Subtle sky-blue gradient background */
+    --background: 210 40% 98%;
+    --foreground: 215 25% 25%;
 
-    /* Crisp white cards with subtle shadows */
+    /* Glass-effect cards with subtle backdrop */
     --card: 0 0% 100%;
-    --card-foreground: 215 20% 25%;
+    --card-foreground: 215 25% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 20% 25%;
+    --popover-foreground: 215 25% 25%;
 
-    /* Primary: Professional blue-gray slate-600 #475569 */
-    --primary: 215 20% 36%;
+    /* Primary: Professional sky-blue (more vibrant) */
+    --primary: 200 85% 45%;
     --primary-foreground: 0 0% 100%;
 
-    /* Primary hover: Slightly darker slate-700 */
-    --primary-hover: 215 25% 27%;
+    /* Primary hover: Deeper sky-blue */
+    --primary-hover: 200 85% 38%;
 
-    /* Secondary: Muted blue-gray slate-500 */
-    --secondary: 215 16% 47%;
+    /* Secondary: Soft blue-gray */
+    --secondary: 210 30% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Muted: Very light blue-gray slate-50 */
-    --muted: 210 20% 98%;
-    --muted-foreground: 215 16% 47%;
+    /* Muted: Very light sky-blue */
+    --muted: 210 40% 97%;
+    --muted-foreground: 215 20% 45%;
 
-    /* Accent: Clean slate-100 for subtle highlights */
-    --accent: 214 20% 96%;
-    --accent-foreground: 215 20% 36%;
+    /* Accent: Light sky-blue for highlights */
+    --accent: 200 95% 95%;
+    --accent-foreground: 200 85% 45%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders: Very subtle slate-200 */
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 215 20% 36%;
+    /* Borders: Subtle blue-gray */
+    --border: 210 30% 88%;
+    --input: 210 30% 88%;
+    --ring: 200 85% 45%;
 
-    /* Slightly larger radius for modern institutional feel */
-    --radius: 0.75rem;
+    /* Modern glassmorphism radius */
+    --radius: 1rem;
 
     /* Success state: Professional green */
     --success: 142 71% 45%;
@@ -60,19 +60,19 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Info: Very light blue-gray */
-    --info-bg: 214 20% 96%;
-    --info-foreground: 215 20% 36%;
+    /* Info: Light sky-blue */
+    --info-bg: 200 95% 95%;
+    --info-foreground: 200 85% 40%;
 
-    /* Sidebar: Clean white with blue-gray accents */
+    /* Sidebar: Clean with sky-blue accents */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 215 20% 25%;
-    --sidebar-primary: 215 20% 36%;
+    --sidebar-foreground: 215 25% 25%;
+    --sidebar-primary: 200 85% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 214 20% 96%;
-    --sidebar-accent-foreground: 215 20% 36%;
-    --sidebar-border: 214 20% 90%;
-    --sidebar-ring: 215 20% 36%;
+    --sidebar-accent: 200 95% 95%;
+    --sidebar-accent-foreground: 200 85% 45%;
+    --sidebar-border: 210 30% 88%;
+    --sidebar-ring: 200 85% 45%;
   }
 
   .dark {
@@ -215,6 +215,43 @@ All colors MUST be HSL.
   /* Clean section dividers */
   .section-divider {
     @apply border-t border-border/30 my-12;
+  }
+
+  /* Glassmorphism effects */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-primary/10 rounded-2xl shadow-xl;
+    @apply transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply bg-white/90 border-primary/20 shadow-2xl;
+    transform: translateY(-2px);
+  }
+
+  .glass-header {
+    @apply bg-white/60 backdrop-blur-lg border-b border-primary/10;
+  }
+
+  .glass-button {
+    @apply bg-primary/10 backdrop-blur-sm hover:bg-primary/20;
+    @apply border border-primary/20 transition-all duration-200;
+  }
+
+  /* Icon accent colors */
+  .icon-primary {
+    @apply text-primary;
+  }
+
+  .icon-secondary {
+    @apply text-secondary;
+  }
+
+  .icon-accent {
+    @apply text-accent-foreground;
   }
 
   .skeleton {
