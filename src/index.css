@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Fonts loaded via index.html for institutional design */
 
 @tailwind base;
 @tailwind components;
@@ -128,8 +128,18 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    font-size: 14px; /* 10% smaller base font */
+    line-height: 1.5;
   }
+
+  /* Institutional typography scale (10-15% smaller) */
+  h1 { font-size: 2rem; font-weight: 600; line-height: 1.2; }
+  h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+  h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+  h4 { font-size: 1rem; font-weight: 500; line-height: 1.4; }
+  h5 { font-size: 0.875rem; font-weight: 500; line-height: 1.4; }
+  h6 { font-size: 0.75rem; font-weight: 500; line-height: 1.4; }
 
   /* Smooth scrolling */
   html {
