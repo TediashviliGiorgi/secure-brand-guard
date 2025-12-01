@@ -19,7 +19,7 @@ import { SecurityWidgetSkeleton, SecurityListSkeleton } from '@/components/ui/se
 import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
-type MethodFilter = 'all' | 'qr' | 'nfc';
+type MethodFilter = 'all' | 'qr';
 
 interface Alert {
   id: string;
@@ -39,7 +39,7 @@ interface Alert {
 
 // Dynamic data generators
 const generateAlerts = (range: TimeRange, method: MethodFilter): Alert[] => {
-  const multiplier = method === 'all' ? 1 : method === 'qr' ? 0.7 : 0.3;
+  const multiplier = method === 'all' ? 1 : 1; // Only QR now
   const baseCount = range === '24h' ? 1 : range === '7d' ? 3 : range === '30d' ? 5 : 8;
   const count = Math.floor(baseCount * multiplier);
   
@@ -85,7 +85,7 @@ const generateAlerts = (range: TimeRange, method: MethodFilter): Alert[] => {
 };
 
 const generateVerificationData = (range: TimeRange, method: MethodFilter) => {
-  const multiplier = method === 'all' ? 1 : method === 'qr' ? 0.69 : 0.31;
+  const multiplier = method === 'all' ? 1 : 1; // Only QR now
   
   switch (range) {
     case '24h':
@@ -279,28 +279,21 @@ export default function SecurityMonitoringPage() {
               </div>
             </div>
 
-            {/* Method Filter */}
+            {/* Method Filter - Removed since only QR */}
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-3">
                 <Filter className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-muted-foreground">Protection Method</span>
+                <span className="text-sm font-medium text-muted-foreground">Dual QR System</span>
               </div>
-              <Tabs value={methodFilter} onValueChange={(v) => setMethodFilter(v as MethodFilter)} className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="all" className="gap-1.5">
-                    <Activity className="h-3.5 w-3.5" />
-                    All
-                  </TabsTrigger>
-                  <TabsTrigger value="qr" className="gap-1.5">
-                    <QrCode className="h-3.5 w-3.5" />
-                    QR
-                  </TabsTrigger>
-                  <TabsTrigger value="nfc" className="gap-1.5">
-                    <Radio className="h-3.5 w-3.5" />
-                    NFC
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+              <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                <div className="flex items-center gap-2">
+                  <QrCode className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">All batches use Dual QR authentication</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Visible QR (marketing) + Hidden QR (security)
+                </p>
+              </div>
             </div>
 
             {/* Active Filters Display */}

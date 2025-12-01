@@ -1,119 +1,116 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { QrCode, Radio, Shield, TrendingUp } from 'lucide-react';
-import { calculateCost, getRecommendation } from '@/lib/costCalculator';
-import { Separator } from '@/components/ui/separator';
+import { Lightbulb, QrCode } from 'lucide-react';
+import { calculateDualQRCost, getDualQRRecommendation } from '@/lib/costCalculator';
 
 interface CostCalculatorSidebarProps {
   quantity: number;
 }
 
 export const CostCalculatorSidebar = ({ quantity }: CostCalculatorSidebarProps) => {
-  const qrCost = calculateCost('qr', quantity);
-  const nfcCost = calculateCost('nfc', quantity);
-  const bothCost = calculateCost('both', quantity);
-  const recommendation = getRecommendation(quantity);
+  const cost = calculateDualQRCost(quantity);
+  const recommendation = getDualQRRecommendation(quantity);
 
   return (
-    <div className="sticky top-4">
-      <Card className="border-primary/20 shadow-lg">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-primary" />
-            Generation Cost Calculator
-          </CardTitle>
-          <p className="text-xs text-muted-foreground mt-1">
-            Per-unit charges when generating QR/NFC codes
-          </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="text-sm text-muted-foreground">
-            {quantity > 0 ? (
-              <>For <strong className="text-foreground">{quantity.toLocaleString()}</strong> units:</>
-            ) : (
-              <>Enter quantity to see costs</>
-            )}
+    <Card className="sticky top-6">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <QrCode className="h-5 w-5 text-primary" />
+          Dual QR Cost Estimate
+        </CardTitle>
+        <CardDescription>
+          Real-time cost calculation for {quantity.toLocaleString()} bottles
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* Dual QR System */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b">
+            <div>
+              <div className="font-semibold text-lg mb-1">Dual QR System</div>
+              <div className="text-sm text-muted-foreground">
+                Visible QR + Hidden QR
+              </div>
+            </div>
+            <Badge className="bg-primary">
+              Included
+            </Badge>
           </div>
 
-          {quantity > 0 && (
-            <>
-              {/* QR Option */}
-              <div className="space-y-2 p-3 rounded-lg bg-muted/50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <QrCode className="h-4 w-4 text-primary" />
-                    <span className="font-medium text-sm">QR Only</span>
-                  </div>
-                  <Badge variant="outline" className="text-xs">
-                    ${qrCost.perUnit.avg.toFixed(3)}/unit
-                  </Badge>
-                </div>
-                <div className="text-lg font-bold text-primary">
-                  ${qrCost.avgTotal.toFixed(2)}
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  Starter Plan
-                </div>
-              </div>
+          {/* Cost per bottle */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Cost per bottle:</span>
+              <span className="font-semibold">
+                {cost.perUnit.min.toFixed(2)} - {cost.perUnit.max.toFixed(2)} ₾
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Average per bottle:</span>
+              <span className="font-semibold text-primary">
+                {cost.perUnit.avg.toFixed(2)} ₾
+              </span>
+            </div>
+          </div>
 
-              {/* NFC Option */}
-              <div className="space-y-2 p-3 rounded-lg bg-muted/50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Radio className="h-4 w-4 text-amber-600" />
-                    <span className="font-medium text-sm">NFC Only</span>
-                  </div>
-                  <Badge variant="outline" className="text-xs">
-                    ${nfcCost.perUnit.avg.toFixed(3)}/unit
-                  </Badge>
-                </div>
-                <div className="text-lg font-bold text-amber-600">
-                  ${nfcCost.avgTotal.toFixed(2)}
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  Professional Plan
-                </div>
-              </div>
+          {/* Total cost */}
+          <div className="pt-3 border-t">
+            <div className="flex justify-between items-baseline mb-1">
+              <span className="text-sm text-muted-foreground">Total Cost:</span>
+              <span className="text-2xl font-bold text-primary">
+                {cost.avgTotal.toLocaleString()} ₾
+              </span>
+            </div>
+            <div className="text-xs text-muted-foreground text-right">
+              Range: {cost.minTotal.toLocaleString()} - {cost.maxTotal.toLocaleString()} ₾
+            </div>
+          </div>
 
-              {/* Both Option */}
-              <div className="space-y-2 p-3 rounded-lg bg-gradient-to-br from-primary/5 to-amber-500/5 border border-primary/20">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4" />
-                    <span className="font-medium text-sm">QR + NFC</span>
-                  </div>
-                  <Badge variant="outline" className="text-xs">
-                    ${bothCost.perUnit.avg.toFixed(3)}/unit
-                  </Badge>
-                </div>
-                <div className="text-lg font-bold">
-                  ${bothCost.avgTotal.toFixed(2)}
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  Enterprise Plan
-                </div>
+          {/* What's included */}
+          <div className="space-y-2 pt-3 border-t">
+            <div className="text-sm font-medium mb-2">What's Included:</div>
+            <div className="space-y-1.5 text-sm text-muted-foreground">
+              <div className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✓</span>
+                <span>Visible QR code for marketing & engagement</span>
               </div>
-
-              <Separator />
-
-              {/* Recommendation */}
-              <div className="p-3 rounded-lg bg-blue-500/5 border border-blue-500/20">
-                <div className="text-xs font-semibold text-blue-600 mb-1">
-                  💡 Recommended
-                </div>
-                <div className="text-sm font-medium capitalize mb-1">
-                  {recommendation.recommended === 'qr' && 'QR Code System'}
-                  {recommendation.recommended === 'nfc' && 'NFC Tag System'}
-                  {recommendation.recommended === 'both' && 'QR + NFC Combo'}
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  {recommendation.reason}
-                </div>
+              <div className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✓</span>
+                <span>Hidden QR code under cork for verification</span>
               </div>
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+              <div className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✓</span>
+                <span>Unlimited scans on visible QR</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✓</span>
+                <span>One-time security verification</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✓</span>
+                <span>Real-time analytics dashboard</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recommendation */}
+        <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+          <div className="flex items-start gap-2 mb-2">
+            <Lightbulb className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+            <div className="font-medium text-sm">Recommendation</div>
+          </div>
+          <p className="text-sm text-muted-foreground">{recommendation}</p>
+        </div>
+
+        {/* Note */}
+        <div className="text-xs text-muted-foreground pt-3 border-t">
+          <p className="mb-1">
+            <strong>Note:</strong> Final pricing may vary based on your subscription tier and production volume.
+          </p>
+          <p>Contact sales for enterprise pricing.</p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

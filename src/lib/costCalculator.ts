@@ -1,12 +1,11 @@
-// Shared cost calculation utilities for platform subscription pricing
+// Shared cost calculation utilities for Dual QR system pricing
+// Dual QR: One visible QR (marketing) + One hidden QR under cork (security)
 
-export const PROTECTION_METHOD_RATES = {
-  qr: { min: 0.01, max: 0.01, avg: 0.01 },      // Starter: $0.01/unit
-  nfc: { min: 0.02, max: 0.02, avg: 0.02 },     // Professional: $0.02/unit
-  both: { min: 0.025, max: 0.025, avg: 0.025 }  // Enterprise: $0.025/unit
+export const DUAL_QR_RATE = {
+  min: 0.30, // 30 tetri per bottle
+  max: 0.40, // 40 tetri per bottle  
+  avg: 0.35  // 35 tetri average per bottle
 } as const;
-
-export type ProtectionMethod = keyof typeof PROTECTION_METHOD_RATES;
 
 export interface CostBreakdown {
   minTotal: number;
@@ -19,44 +18,27 @@ export interface CostBreakdown {
   };
 }
 
-export function calculateCost(
-  method: ProtectionMethod,
-  quantity: number
-): CostBreakdown {
-  const rate = PROTECTION_METHOD_RATES[method];
-  
+export function calculateDualQRCost(quantity: number): CostBreakdown {
   return {
-    minTotal: quantity * rate.min,
-    maxTotal: quantity * rate.max,
-    avgTotal: quantity * rate.avg,
+    minTotal: quantity * DUAL_QR_RATE.min,
+    maxTotal: quantity * DUAL_QR_RATE.max,
+    avgTotal: quantity * DUAL_QR_RATE.avg,
     perUnit: {
-      min: rate.min,
-      max: rate.max,
-      avg: rate.avg
+      min: DUAL_QR_RATE.min,
+      max: DUAL_QR_RATE.max,
+      avg: DUAL_QR_RATE.avg
     }
   };
 }
 
-export function getRecommendation(quantity: number): {
-  recommended: ProtectionMethod;
-  reason: string;
-} {
+export function getDualQRRecommendation(quantity: number): string {
   if (quantity < 1000) {
-    return {
-      recommended: 'nfc',
-      reason: 'For small batches, NFC tags provide excellent ROI despite higher per-unit cost.'
-    };
+    return 'Dual QR system provides excellent authentication for small batches with immediate deployment.';
   }
   
   if (quantity >= 1000 && quantity < 10000) {
-    return {
-      recommended: 'qr',
-      reason: 'For medium batches, QR codes offer the best balance of cost and security.'
-    };
+    return 'Dual QR system offers the best balance of cost, security, and consumer engagement for medium batches.';
   }
   
-  return {
-    recommended: 'qr',
-    reason: 'For high-volume production, QR codes are most cost-effective. Consider NFC for premium sub-lines.'
-  };
+  return 'Dual QR system is highly cost-effective for large volume production with proven anti-counterfeiting protection.';
 }

@@ -67,15 +67,11 @@ export default function BatchDetailPage() {
                 <DropdownMenuContent>
                   <DropdownMenuItem disabled>
                     <QrCode className="mr-2 h-4 w-4" />
-                    QR Codes (A4 PDF)
+                    Visible QR Codes (Main Label)
                   </DropdownMenuItem>
                   <DropdownMenuItem disabled>
                     <QrCode className="mr-2 h-4 w-4" />
-                    QR Codes (Roll PDF)
-                  </DropdownMenuItem>
-                  <DropdownMenuItem disabled>
-                    <Nfc className="mr-2 h-4 w-4" />
-                    NFC Tag IDs (CSV)
+                    Hidden QR Codes (Under Cork)
                   </DropdownMenuItem>
                   <DropdownMenuItem disabled>All Files (ZIP)</DropdownMenuItem>
                 </DropdownMenuContent>

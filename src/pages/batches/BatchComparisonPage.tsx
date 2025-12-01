@@ -301,24 +301,8 @@ export default function BatchComparisonPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">Technology</span>
                       <Badge variant="outline" className="gap-1">
-                        {batch.protectionMethod === 'qr' && (
-                          <>
-                            <QrCode className="h-3 w-3" />
-                            QR
-                          </>
-                        )}
-                        {batch.protectionMethod === 'nfc' && (
-                          <>
-                            <Radio className="h-3 w-3" />
-                            NFC
-                          </>
-                        )}
-                        {batch.protectionMethod === 'both' && (
-                          <>
-                            <Shield className="h-3 w-3" />
-                            QR+NFC
-                          </>
-                        )}
+                        <Shield className="h-3 w-3" />
+                        Dual QR
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
