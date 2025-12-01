@@ -246,7 +246,7 @@ export const CostBreakdownModal = ({ open, onOpenChange }: CostBreakdownModalPro
                   <strong className="text-foreground">Platform Subscription:</strong> Fixed monthly or annual fee for access to features, storage, support, and platform capabilities.
                 </p>
                 <p>
-                  <strong className="text-foreground">Generation Costs:</strong> Pay only when you create QR codes or NFC tag IDs. Rates: Starter ($0.01/unit), Professional ($0.02/unit), Enterprise ($0.025/unit).
+                  <strong className="text-foreground">Generation Costs:</strong> Pay only when you create Dual QR codes (visible + hidden security code). Rates: Starter ($0.01/unit), Professional ($0.02/unit), Enterprise ($0.025/unit).
                 </p>
                 <p>
                   <strong className="text-foreground">Total Cost per Unit:</strong> Combined platform and generation costs divided by your annual production volume.

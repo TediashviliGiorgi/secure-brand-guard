@@ -209,7 +209,7 @@ const DashboardAnalyticsPage = () => {
                 {getTimeRangeLabel()}
               </Badge>
               <Badge variant="secondary" className="gap-1">
-                {methodFilter === 'all' ? 'All Methods' : methodFilter === 'qr' ? 'QR Codes' : 'NFC Tags'}
+                Dual QR System
               </Badge>
             </div>
           </div>

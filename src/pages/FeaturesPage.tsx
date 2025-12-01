@@ -232,8 +232,8 @@ const FeaturesPage = () => {
                 <thead className="bg-muted">
                   <tr>
                     <th className="text-left p-4 font-semibold">Feature</th>
-                    <th className="text-center p-4 font-semibold text-primary">AuthIt</th>
-                    <th className="text-center p-4 font-semibold">NFC Tags</th>
+                    <th className="text-center p-4 font-semibold text-primary">AuthIt Dual QR</th>
+                    <th className="text-center p-4 font-semibold">Single QR Code</th>
                     <th className="text-center p-4 font-semibold">Blockchain</th>
                   </tr>
                 </thead>
@@ -241,9 +241,9 @@ const FeaturesPage = () => {
                   <tr className="border-t">
                     <td className="p-4">Cost per unit</td>
                     <td className="text-center p-4">
-                      <span className="text-primary font-semibold">6-10 tetri</span>
+                      <span className="text-primary font-semibold">30-40 tetri</span>
                     </td>
-                    <td className="text-center p-4 text-muted-foreground">50-100 tetri</td>
+                    <td className="text-center p-4 text-muted-foreground">6-10 tetri</td>
                     <td className="text-center p-4 text-muted-foreground">20-50 tetri</td>
                   </tr>
                   <tr className="border-t bg-muted/30">
@@ -261,7 +261,7 @@ const FeaturesPage = () => {
                       <Check className="w-5 h-5 text-primary inline" />
                       <span className="ml-2 text-primary font-semibold">100%</span>
                     </td>
-                    <td className="text-center p-4 text-muted-foreground">60% (NFC capable)</td>
+                    <td className="text-center p-4 text-muted-foreground">100%</td>
                     <td className="text-center p-4 text-muted-foreground">Requires app</td>
                   </tr>
                   <tr className="border-t bg-muted/30">

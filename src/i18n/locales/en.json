@@ -71,14 +71,10 @@
     "logout": "Log Out"
   },
   "protection": {
-    "qr_only": "QR Code Only",
-    "nfc_only": "NFC Tag Only",
-    "qr_nfc_both": "QR + NFC",
-    "qr_description": "Traditional QR code scanning. Perfect for most products.",
-    "nfc_description": "Near Field Communication tags. Premium authentication experience.",
-    "both_description": "Maximum security with both QR codes and NFC tags.",
+    "dual_qr": "Dual QR System",
+    "dual_qr_description": "Visible QR for marketing engagement + hidden QR under cork for security verification.",
     "method": "Protection Method",
-    "choose_method": "Choose how you want to protect your products"
+    "choose_method": "Dual QR authentication system"
   },
   "dashboard": {
     "welcome": "Welcome to AuthIt",
@@ -130,31 +126,6 @@
     "howToFind": "How to Find Your QR Codes",
     "step1": "Locate QR Code #1 (Marketing Code)",
     "step2": "Locate QR Code #2 (Security Code)"
-  },
-  "nfc": {
-    "management": "NFC Tag Management",
-    "dashboard": "NFC Dashboard",
-    "totalTags": "Total NFC Tags",
-    "activeTags": "Active Tags",
-    "suspiciousActivity": "Suspicious Activity",
-    "totalScans": "Total Scans",
-    "tagId": "Tag ID",
-    "product": "Product",
-    "batchId": "Batch ID",
-    "status": "Status",
-    "scans": "Scans",
-    "lastScan": "Last Scan",
-    "location": "Location",
-    "scanHistory": "Scan History",
-    "device": "Device",
-    "timestamp": "Timestamp",
-    "viewDetails": "View Details",
-    "exportData": "Export Data",
-    "deactivateTag": "Deactivate Tag",
-    "acrossBatches": "Across all batches",
-    "ofTotal": "of total",
-    "requiresAttention": "Requires attention",
-    "thisWeek": "this week"
   },
   "settings": {
     "title": "Settings",
