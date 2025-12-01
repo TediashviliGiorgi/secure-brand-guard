@@ -93,7 +93,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                Create a new product batch with dual QR codes or NFC tags. Choose your protection method in the setup wizard.
+                Create a new product batch with our Dual QR system: visible QR for marketing + hidden QR under cork for security.
               </p>
               <Button 
                 className="w-full" 
@@ -122,38 +122,8 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
-                View and manage all your product batches. Filter by QR or NFC, track production, and download codes.
+                View and manage all your product batches with Dual QR authentication. Track production, download QR codes, and monitor performance.
               </p>
-              
-              {/* Quick Filter Chips */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/dashboard/batches')}
-                  className="text-xs"
-                >
-                  All
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/dashboard/batches?technology=qr')}
-                  className="text-xs"
-                >
-                  <QrCode className="mr-1 h-3 w-3" />
-                  QR
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/dashboard/batches?technology=nfc')}
-                  className="text-xs"
-                >
-                  <Radio className="mr-1 h-3 w-3" />
-                  NFC
-                </Button>
-              </div>
 
               <Button 
                 variant="outline" 
@@ -207,25 +177,25 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Browse NFC Tags */}
+            {/* Verification History */}
             <Card className="bg-muted/30 stagger-fade-in">
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Radio className="h-4 w-4" />
-                  Browse NFC Tags
+                  <Shield className="h-4 w-4" />
+                  Verification History
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-xs text-muted-foreground mb-3">
-                  Search and monitor all NFC tags across batches
+                  View all security QR verifications across batches
                 </p>
                 <Button 
                   variant="ghost" 
                   size="sm"
                   className="w-full"
-                  onClick={() => navigate('/dashboard/nfc/tags')}
+                  disabled
                 >
-                  Browse Tags
+                  View History
                 </Button>
               </CardContent>
             </Card>
@@ -268,7 +238,7 @@ export default function DashboardPage() {
               <div>
                 <h4 className="font-medium mb-1">Create Your First Batch</h4>
                 <p className="text-sm text-muted-foreground">
-                  Click "Create Batch" and follow the wizard. You'll choose between QR codes, NFC tags, or both during the setup process.
+                  Click "Create Batch" and follow the wizard. Each batch includes our Dual QR system for complete brand protection.
                 </p>
               </div>
             </div>
@@ -279,7 +249,7 @@ export default function DashboardPage() {
               <div>
                 <h4 className="font-medium mb-1">Download & Apply</h4>
                 <p className="text-sm text-muted-foreground">
-                  Download your QR labels or NFC programming file. Apply codes to your products according to the placement guide.
+                  Download your dual QR label sheets. Place visible QR on main label and hidden QR under the cork according to placement guide.
                 </p>
               </div>
             </div>
