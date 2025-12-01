@@ -44,27 +44,31 @@ export default function ProductStoryPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
+      {/* Hero Section - Luxury Design */}
+      <div className="relative w-full h-[65vh] md:h-[75vh] overflow-hidden">
         <img
           src={product.mainPhoto}
           alt={product.productName}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">{product.productName}</h1>
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-lg">{product.vintageYear}</span>
-            <Separator orientation="vertical" className="h-6 bg-white/50" />
-            <div className="flex items-center gap-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-white/50'}`}
-                />
-              ))}
-              <span className="ml-2">{product.rating}</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 px-8 pb-12">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="font-serif text-5xl md:text-6xl font-bold mb-4 text-white tracking-wide leading-tight">
+              {product.productName}
+            </h1>
+            <div className="flex items-center gap-4 mb-2">
+              <span className="text-white/90 text-lg font-light tracking-wider">{product.vintageYear}</span>
+              <Separator orientation="vertical" className="h-5 bg-white/30" />
+              <div className="flex items-center gap-1.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-white/40'}`}
+                  />
+                ))}
+                <span className="ml-2 text-white/90 text-sm font-light">{product.rating}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -91,18 +95,20 @@ export default function ProductStoryPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl space-y-12">
-        {/* Verify Authenticity Section - PROMINENT */}
+      <div className="container mx-auto px-6 py-10 max-w-4xl space-y-10">
+        {/* Verify Authenticity Section - Luxury Institutional */}
         <section className="relative overflow-hidden">
-          <Card className="border-2 border-primary/20 bg-card shadow-lg">
-            <CardContent className="p-8 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="p-3 rounded-full bg-primary/10 animate-pulse">
-                  <Shield className="h-8 w-8 text-primary" />
+          <Card className="border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl">
+            <CardContent className="p-8 space-y-5">
+              <div className="flex items-start gap-5">
+                <div className="p-4 rounded-lg bg-primary/10 ring-1 ring-primary/20">
+                  <Shield className="h-7 w-7 text-primary" />
                 </div>
-                <div>
-                  <h2 className="text-3xl font-bold text-foreground">{t('verification.verifyAuthenticity')}</h2>
-                  <p className="text-muted-foreground mt-2">
+                <div className="flex-1">
+                  <h2 className="font-serif text-3xl font-semibold text-foreground mb-2 tracking-tight">
+                    {t('verification.verifyAuthenticity')}
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {t('verification.confirmAuthentic')}
                   </p>
                 </div>
@@ -110,10 +116,10 @@ export default function ProductStoryPage() {
 
               <Button 
                 size="lg" 
-                className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all"
+                className="w-full h-11 text-base font-medium shadow-lg hover:shadow-xl transition-all tracking-wide"
                 onClick={() => window.open(`/verify?token=${batchId}`, '_blank')}
               >
-                <Shield className="mr-2 h-5 w-5" />
+                <Shield className="mr-2 h-4 w-4" />
                 {t('verification.scan')}
               </Button>
 
@@ -177,15 +183,10 @@ export default function ProductStoryPage() {
           </Card>
         </section>
 
-        {/* Story Section */}
-        <section className="space-y-4">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-full bg-primary/10">
-              <span className="text-2xl">📖</span>
-            </div>
-            <h2 className="text-2xl font-bold">The Story</h2>
-          </div>
-          <p className="text-lg leading-relaxed text-muted-foreground">
+        {/* Story Section - Luxury Typography */}
+        <section className="space-y-5 py-4">
+          <h2 className="font-serif text-3xl font-semibold text-foreground tracking-tight">The Story</h2>
+          <p className="text-base leading-loose text-muted-foreground font-light">
             {product.productStory}
           </p>
         </section>
@@ -306,26 +307,26 @@ export default function ProductStoryPage() {
 
         <Separator />
 
-        {/* Visit Us */}
+        {/* Visit Us - Institutional Design */}
         <section className="space-y-4">
-          <h2 className="text-2xl font-bold">Visit Us</h2>
-          <Card className="p-6 space-y-4">
+          <h2 className="font-serif text-2xl font-semibold text-foreground tracking-tight">Visit Us</h2>
+          <Card className="p-5 space-y-4 border-border/50">
             <div>
-              <h3 className="font-semibold text-lg mb-2">{product.companyName}</h3>
-              <p className="text-muted-foreground">{product.address}</p>
+              <h3 className="font-semibold text-base mb-1.5">{product.companyName}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{product.address}</p>
             </div>
             
             <div className="space-y-2">
-              <a href={`tel:${product.phone}`} className="flex items-center gap-3 text-sm hover:text-primary transition">
-                <Phone className="h-4 w-4" />
+              <a href={`tel:${product.phone}`} className="flex items-center gap-2.5 text-xs hover:text-primary transition">
+                <Phone className="h-3.5 w-3.5" />
                 {product.phone}
               </a>
-              <a href={`mailto:${product.email}`} className="flex items-center gap-3 text-sm hover:text-primary transition">
-                <Mail className="h-4 w-4" />
+              <a href={`mailto:${product.email}`} className="flex items-center gap-2.5 text-xs hover:text-primary transition">
+                <Mail className="h-3.5 w-3.5" />
                 {product.email}
               </a>
-              <a href={product.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm hover:text-primary transition">
-                <Globe className="h-4 w-4" />
+              <a href={product.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-xs hover:text-primary transition">
+                <Globe className="h-3.5 w-3.5" />
                 Visit Website
                 <ExternalLink className="h-3 w-3" />
               </a>
@@ -353,20 +354,20 @@ export default function ProductStoryPage() {
           </Card>
         </section>
 
-        {/* Reviews */}
+        {/* Reviews - Compact Institutional */}
         <section className="space-y-4">
-          <h2 className="text-2xl font-bold">Customer Reviews</h2>
-          <div className="space-y-4">
+          <h2 className="font-serif text-2xl font-semibold text-foreground tracking-tight">Customer Reviews</h2>
+          <div className="space-y-3">
             {mockReviews.map((review) => (
               <Card key={review.id} className="p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <p className="font-medium">{review.author}</p>
+                    <p className="font-medium text-sm">{review.author}</p>
                     <div className="flex items-center gap-1 mt-1">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-3 w-3 ${i < review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`}
+                          className={`h-3 w-3 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-muted-foreground'}`}
                         />
                       ))}
                     </div>
@@ -375,7 +376,7 @@ export default function ProductStoryPage() {
                     {new Date(review.date).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">{review.comment}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{review.comment}</p>
               </Card>
             ))}
           </div>
