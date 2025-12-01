@@ -87,14 +87,10 @@
     "logout": "Se déconnecter"
   },
   "protection": {
-    "qr_only": "Code QR uniquement",
-    "nfc_only": "Tag NFC uniquement",
-    "qr_nfc_both": "QR + NFC",
-    "qr_description": "Scan traditionnel du code QR. Parfait pour la plupart des produits.",
-    "nfc_description": "Tags de communication en champ proche. Expérience d'authentification premium.",
-    "both_description": "Sécurité maximale avec codes QR et tags NFC.",
+    "dual_qr": "Système Double QR",
+    "dual_qr_description": "QR visible pour l'engagement marketing + QR caché sous le bouchon pour vérification de sécurité.",
     "method": "Méthode de protection",
-    "choose_method": "Choisissez comment vous souhaitez protéger vos produits"
+    "choose_method": "Système d'authentification Double QR"
   },
   "dashboard": {
     "welcome": "Bienvenue sur AuthIt",
@@ -157,31 +153,6 @@
     "whyTwoQR": "Pourquoi deux codes QR?",
     "qr1Description": "Code QR #1: Code marketing - Sur l'étiquette avant, grande taille, facilement visible. Étiqueté 'SCANNER POUR L'HISTOIRE DU PRODUIT'",
     "qr2Description": "Code QR #2: Code de sécurité - Caché sous le bouchon, petite taille, visible seulement après ouverture. Étiqueté 'VÉRIFIER L'AUTHENTICITÉ'"
-  },
-  "nfc": {
-    "management": "Gestion des tags NFC",
-    "dashboard": "Tableau de bord NFC",
-    "totalTags": "Total des tags NFC",
-    "activeTags": "Tags actifs",
-    "suspiciousActivity": "Activité suspecte",
-    "totalScans": "Total des scans",
-    "tagId": "ID du tag",
-    "product": "Produit",
-    "batchId": "ID du lot",
-    "status": "Statut",
-    "scans": "Scans",
-    "lastScan": "Dernier scan",
-    "location": "Localisation",
-    "scanHistory": "Historique des scans",
-    "device": "Appareil",
-    "timestamp": "Horodatage",
-    "viewDetails": "Voir les détails",
-    "exportData": "Exporter les données",
-    "deactivateTag": "Désactiver le tag",
-    "acrossBatches": "Dans tous les lots",
-    "ofTotal": "du total",
-    "requiresAttention": "Nécessite une attention",
-    "thisWeek": "cette semaine"
   },
   "settings": {
     "title": "Paramètres",

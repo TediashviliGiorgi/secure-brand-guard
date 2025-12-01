@@ -141,7 +141,7 @@ export default function CreateBatchPage() {
         batchId={batchId}
         productName={formData.productName || ''}
         numberOfUnits={formData.numberOfUnits || 0}
-        technology={formData.protectionMethod as 'qr' | 'nfc' | 'both'}
+        technology="qr"
         onNavigateToDashboard={() => navigate('/dashboard')}
         onNavigateToBatches={() => navigate('/dashboard/batches')}
       />

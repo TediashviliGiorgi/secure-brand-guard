@@ -87,14 +87,10 @@
     "logout": "Esci"
   },
   "protection": {
-    "qr_only": "Solo codice QR",
-    "nfc_only": "Solo tag NFC",
-    "qr_nfc_both": "QR + NFC",
-    "qr_description": "Scansione tradizionale del codice QR. Perfetto per la maggior parte dei prodotti.",
-    "nfc_description": "Tag di comunicazione a campo vicino. Esperienza di autenticazione premium.",
-    "both_description": "Massima sicurezza con codici QR e tag NFC.",
+    "dual_qr": "Sistema Doppio QR",
+    "dual_qr_description": "QR visibile per coinvolgimento marketing + QR nascosto sotto il tappo per verifica di sicurezza.",
     "method": "Metodo di protezione",
-    "choose_method": "Scegli come vuoi proteggere i tuoi prodotti"
+    "choose_method": "Sistema di autenticazione Doppio QR"
   },
   "dashboard": {
     "welcome": "Benvenuto in AuthIt",
@@ -157,31 +153,6 @@
     "whyTwoQR": "Perché due codici QR?",
     "qr1Description": "Codice QR #1: Codice marketing - Sull'etichetta frontale, dimensioni maggiori, facilmente visibile. Etichettato come 'SCANSIONA PER LA STORIA DEL PRODOTTO'",
     "qr2Description": "Codice QR #2: Codice di sicurezza - Nascosto sotto il tappo, dimensioni minori, visibile solo dopo l'apertura. Etichettato come 'VERIFICA AUTENTICITÀ'"
-  },
-  "nfc": {
-    "management": "Gestione tag NFC",
-    "dashboard": "Dashboard NFC",
-    "totalTags": "Totale tag NFC",
-    "activeTags": "Tag attivi",
-    "suspiciousActivity": "Attività sospetta",
-    "totalScans": "Scansioni totali",
-    "tagId": "ID tag",
-    "product": "Prodotto",
-    "batchId": "ID lotto",
-    "status": "Stato",
-    "scans": "Scansioni",
-    "lastScan": "Ultima scansione",
-    "location": "Posizione",
-    "scanHistory": "Storico scansioni",
-    "device": "Dispositivo",
-    "timestamp": "Timestamp",
-    "viewDetails": "Visualizza dettagli",
-    "exportData": "Esporta dati",
-    "deactivateTag": "Disattiva tag",
-    "acrossBatches": "In tutti i lotti",
-    "ofTotal": "del totale",
-    "requiresAttention": "Richiede attenzione",
-    "thisWeek": "questa settimana"
   },
   "settings": {
     "title": "Impostazioni",

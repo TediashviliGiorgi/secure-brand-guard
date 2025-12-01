@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Edit, Download, ExternalLink, MoreVertical, Package, BarChart3, Shield, Wine, QrCode, Nfc } from 'lucide-react';
+import { ArrowLeft, Edit, Download, ExternalLink, MoreVertical, Package, BarChart3, Shield, Wine, QrCode } from 'lucide-react';
 import { mockBatch } from '@/lib/mockBatchData';
 import {
   DropdownMenu,
