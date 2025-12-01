@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,6 +7,8 @@ import { AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, BarChart, Bar, X
 import { Download, FileText, TrendingUp, TrendingDown, Users, Eye, MousePointerClick, Clock, Calendar, Activity, QrCode, Radio, Zap, Globe, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { ChartSkeleton } from '@/components/ui/chart-skeleton';
+import { MetricCardSkeleton } from '@/components/ui/metric-card-skeleton';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 type MethodFilter = 'all' | 'qr' | 'nfc';
@@ -66,6 +68,14 @@ const generateMetrics = (range: TimeRange, method: MethodFilter) => {
 const DashboardAnalyticsPage = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [methodFilter, setMethodFilter] = useState<MethodFilter>('all');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate data loading
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, [timeRange, methodFilter]);
 
   // Generate dynamic data based on filters
   const timeSeriesData = generateTimeSeriesData(timeRange, methodFilter);
@@ -214,6 +224,14 @@ const DashboardAnalyticsPage = () => {
 
         {/* Key Metrics */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {isLoading ? (
+            <>
+              {[...Array(4)].map((_, i) => (
+                <MetricCardSkeleton key={i} />
+              ))}
+            </>
+          ) : (
+            <>
           <Card className="relative overflow-hidden border-2">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
             <CardHeader className="pb-3">
@@ -279,11 +297,16 @@ const DashboardAnalyticsPage = () => {
                 {renderTrendBadge(metrics.timeChange)}
                 <span className="text-xs text-muted-foreground">vs previous period</span>
               </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+            </>
+          )}
         </div>
 
         {/* Scans Over Time */}
+        {isLoading ? (
+          <ChartSkeleton />
+        ) : (
         <Card className="mb-8 border-2">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -354,6 +377,7 @@ const DashboardAnalyticsPage = () => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+        )}
 
         {/* Device & Browser + Top Products */}
         <div className="grid lg:grid-cols-2 gap-8 mb-8">

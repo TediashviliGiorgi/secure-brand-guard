@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -18,6 +18,8 @@ import {
   Eye, AlertTriangle, QrCode, Radio, GitCompare
 } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { BatchCardSkeleton } from '@/components/ui/batch-card-skeleton';
+import { DataTableSkeleton } from '@/components/ui/data-table-skeleton';
 
 interface BatchItem {
   id: string;
@@ -81,6 +83,13 @@ export default function BatchesListPage() {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBatches, setSelectedBatches] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Simulate data loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, [searchParams]);
   
   // Get technology filter from URL
   const technologyFilter = searchParams.get('technology') as 'qr' | 'nfc' | null;
@@ -211,7 +220,7 @@ export default function BatchesListPage() {
           </div>
         </Card>
 
-        {filteredBatches.length === 0 ? (
+        {filteredBatches.length === 0 && !isLoading ? (
           <Card className="p-12 text-center">
             <Package className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
             <h3 className="text-xl font-semibold mb-2">No batches found</h3>
@@ -225,6 +234,8 @@ export default function BatchesListPage() {
               </Button>
             )}
           </Card>
+        ) : isLoading ? (
+          <DataTableSkeleton columns={8} rows={5} />
         ) : (
           <Card>
             <div className="overflow-x-auto">
