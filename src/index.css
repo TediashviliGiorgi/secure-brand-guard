@@ -10,96 +10,106 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Modern blue color scheme for AuthIt */
+    /* Clean institutional blue-gray and white design system */
+    /* Pure white background for maximum cleanliness */
     --background: 0 0% 100%;
-    --foreground: 215 25% 27%;
+    --foreground: 215 20% 25%;
 
+    /* Crisp white cards with subtle shadows */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 215 20% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 215 20% 25%;
 
-    /* Primary: Modern blue #3B82F6 */
-    --primary: 217 91% 60%;
+    /* Primary: Professional blue-gray slate-600 #475569 */
+    --primary: 215 20% 36%;
     --primary-foreground: 0 0% 100%;
-    
-    /* Primary hover state */
-    --primary-hover: 217 91% 55%;
 
-    /* Secondary: Cyan #0EA5E9 */
-    --secondary: 199 89% 48%;
+    /* Primary hover: Slightly darker slate-700 */
+    --primary-hover: 215 25% 27%;
+
+    /* Secondary: Muted blue-gray slate-500 */
+    --secondary: 215 16% 47%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Muted: Light blue backgrounds */
-    --muted: 214 32% 91%;
+    /* Muted: Very light blue-gray slate-50 */
+    --muted: 210 20% 98%;
     --muted-foreground: 215 16% 47%;
 
-    /* Accent: Light blue accent #DBEAFE */
-    --accent: 214 100% 92%;
-    --accent-foreground: 217 91% 60%;
+    /* Accent: Clean slate-100 for subtle highlights */
+    --accent: 214 20% 96%;
+    --accent-foreground: 215 20% 36%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 85%;
-    --input: 214 32% 85%;
-    --ring: 217 91% 60%;
+    /* Borders: Very subtle slate-200 */
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 215 20% 36%;
 
-    --radius: 0.5rem;
+    /* Slightly larger radius for modern institutional feel */
+    --radius: 0.75rem;
 
-    /* Success state: Green #10B981 */
+    /* Success state: Professional green */
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Warning state: Orange #F59E0B */
+    /* Warning state: Amber */
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    /* Light blue background: #E0F2FE */
-    --info-bg: 199 95% 93%;
-    --info-foreground: 199 89% 48%;
+    /* Info: Very light blue-gray */
+    --info-bg: 214 20% 96%;
+    --info-foreground: 215 20% 36%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 215 25% 27%;
-    --sidebar-primary: 217 91% 60%;
+    /* Sidebar: Clean white with blue-gray accents */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 20% 25%;
+    --sidebar-primary: 215 20% 36%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 214 100% 92%;
-    --sidebar-accent-foreground: 217 91% 60%;
-    --sidebar-border: 214 32% 85%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-accent: 214 20% 96%;
+    --sidebar-accent-foreground: 215 20% 36%;
+    --sidebar-border: 214 20% 90%;
+    --sidebar-ring: 215 20% 36%;
   }
 
   .dark {
-    --background: 215 28% 17%;
+    /* Dark mode: Deep blue-gray slate-900 background */
+    --background: 215 25% 10%;
     --foreground: 0 0% 98%;
 
-    --card: 215 25% 20%;
+    /* Dark cards with subtle elevation */
+    --card: 215 20% 14%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 215 25% 20%;
+    --popover: 215 20% 14%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-    
-    --primary-hover: 217 91% 55%;
+    /* Primary: Lighter blue-gray for dark mode */
+    --primary: 215 16% 65%;
+    --primary-foreground: 215 25% 10%;
 
-    --secondary: 199 89% 48%;
+    --primary-hover: 215 16% 70%;
+
+    /* Secondary: Muted slate */
+    --secondary: 215 16% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 215 20% 25%;
+    --muted: 215 20% 18%;
     --muted-foreground: 215 16% 65%;
 
-    --accent: 214 100% 92%;
-    --accent-foreground: 217 91% 60%;
+    /* Accent: Subtle slate for dark mode */
+    --accent: 215 20% 18%;
+    --accent-foreground: 215 16% 75%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 215 20% 25%;
-    --input: 215 20% 25%;
-    --ring: 217 91% 60%;
+    --border: 215 20% 22%;
+    --input: 215 20% 22%;
+    --ring: 215 16% 65%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
@@ -107,17 +117,17 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --info-bg: 199 95% 20%;
-    --info-foreground: 199 89% 70%;
+    --info-bg: 215 20% 18%;
+    --info-foreground: 215 16% 75%;
 
-    --sidebar-background: 215 28% 17%;
+    --sidebar-background: 215 25% 10%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 20% 25%;
+    --sidebar-primary: 215 16% 65%;
+    --sidebar-primary-foreground: 215 25% 10%;
+    --sidebar-accent: 215 20% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 215 20% 25%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-border: 215 20% 22%;
+    --sidebar-ring: 215 16% 65%;
   }
 }
 
@@ -129,6 +139,29 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Institutional clean look with better letter spacing */
+    letter-spacing: -0.011em;
+  }
+
+  /* Professional typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-foreground;
+    letter-spacing: -0.025em;
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl;
+    font-weight: 600;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl;
+    font-weight: 600;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl;
+    font-weight: 600;
   }
 
   /* Smooth scrolling */
@@ -136,20 +169,52 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
 
-  /* Focus styles for accessibility */
+  /* Clean focus styles for institutional accessibility */
   *:focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2;
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Professional paragraphs with optimal line height */
+  p {
+    @apply leading-relaxed text-foreground/90;
   }
 }
 
-/* Micro-interactions and animations */
+/* Micro-interactions and animations - Institutional & Professional */
 @layer utilities {
+  /* Subtle professional hover effects */
   .hover-lift {
-    @apply transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
   }
 
   .hover-scale {
-    @apply transition-transform duration-200 hover:scale-[1.02];
+    @apply transition-transform duration-300 hover:scale-[1.01];
+  }
+
+  /* Clean institutional card styles */
+  .card-institutional {
+    @apply bg-card border border-border/50 rounded-lg shadow-sm;
+  }
+
+  .card-institutional-elevated {
+    @apply bg-card border border-border/50 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+
+  /* Professional button styles */
+  .btn-institutional {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply bg-primary text-primary-foreground hover:bg-primary-hover;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  .btn-institutional-outline {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground;
+  }
+
+  /* Clean section dividers */
+  .section-divider {
+    @apply border-t border-border/30 my-12;
   }
 
   .skeleton {
