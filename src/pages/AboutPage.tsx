@@ -84,9 +84,8 @@ const AboutPage = () => {
             </p>
             <p className="mb-4">
               Traditional anti-counterfeiting solutions were either too expensive, too complex, or 
-              simply didn't work well enough. NFC tags required special hardware. Blockchain solutions 
-              were overly complicated. And none of them helped brands tell their stories or engage 
-              with customers.
+              simply didn't work well enough. Many solutions required special hardware or overly 
+              complicated setups that were inaccessible to smaller brands.
             </p>
             <p className="mb-4">
               We knew there had to be a better way. A solution that was affordable, easy to implement, 

@@ -30,7 +30,7 @@ interface BatchComparisonData {
   batchNumber: string;
   status: 'active' | 'draft' | 'archived';
   bottles: number;
-  protectionMethod: 'qr' | 'nfc' | 'both';
+  protectionMethod: 'qr';
   qr1Scans: number;
   qr2Verified: number;
   conversionRate: number;
@@ -118,7 +118,7 @@ const mockComparisonData: BatchComparisonData[] = [
     batchNumber: 'AUTH-2024-002',
     status: 'active',
     bottles: 3000,
-    protectionMethod: 'nfc',
+    protectionMethod: 'qr',
     qr1Scans: 8456,
     qr2Verified: 2134,
     conversionRate: 25.2,
@@ -137,7 +137,7 @@ const mockComparisonData: BatchComparisonData[] = [
     batchNumber: 'AUTH-2023-045',
     status: 'active',
     bottles: 8000,
-    protectionMethod: 'both',
+    protectionMethod: 'qr',
     qr1Scans: 24123,
     qr2Verified: 7234,
     conversionRate: 30.0,

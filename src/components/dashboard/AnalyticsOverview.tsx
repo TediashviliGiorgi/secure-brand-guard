@@ -344,31 +344,15 @@ export const AnalyticsOverview = () => {
         </div>
 
         <Tabs defaultValue="all" className="w-full" onValueChange={(v) => setActiveMethod(v as any)}>
-          <TabsList className="grid w-full grid-cols-3 mb-4">
+          <TabsList className="grid w-full grid-cols-1 mb-4">
             <TabsTrigger value="all" className="gap-2 text-xs">
-              <Activity className="h-3.5 w-3.5" />
-              All Methods
-            </TabsTrigger>
-            <TabsTrigger value="qr" className="gap-2 text-xs">
               <QrCode className="h-3.5 w-3.5" />
-              QR Codes
-            </TabsTrigger>
-            <TabsTrigger value="nfc" className="gap-2 text-xs">
-              <Radio className="h-3.5 w-3.5" />
-              NFC Tags
+              Dual QR System
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="space-y-4">
             {renderMetricsSection(analytics.all, scanTrendData.all)}
-          </TabsContent>
-
-          <TabsContent value="qr" className="space-y-4">
-            {renderMetricsSection(analytics.qr, scanTrendData.qr)}
-          </TabsContent>
-
-          <TabsContent value="nfc" className="space-y-4">
-            {renderMetricsSection(analytics.nfc, scanTrendData.nfc)}
           </TabsContent>
         </Tabs>
 
