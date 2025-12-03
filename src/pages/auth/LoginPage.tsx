@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, LogIn } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { AuthLayout } from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +15,7 @@ import { loginSchema } from '@/lib/validators';
 import { LoginCredentials } from '@/types/auth';
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const { login, loading } = useAuth();
 
@@ -43,10 +45,10 @@ export default function LoginPage() {
       <Card className="w-full max-w-md shadow-xl border-border/50">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-2xl font-semibold tracking-tight">
-            Sign in to AuthIt
+            {t('auth.signInToAuthIt')}
           </CardTitle>
           <CardDescription className="text-muted-foreground">
-            Enter your credentials to access your account
+            {t('auth.enterCredentials')}
           </CardDescription>
         </CardHeader>
 
@@ -54,11 +56,11 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email Field */}
             <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="email">{t('auth.emailAddress')}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@company.com"
+                placeholder={t('auth.emailPlaceholder')}
                 {...register('email')}
                 className={errors.email ? 'border-destructive' : ''}
                 disabled={loading}
@@ -70,12 +72,12 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('auth.password')}</Label>
               <div className="relative">
                 <Input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
+                  placeholder={t('auth.enterPassword')}
                   {...register('password')}
                   className={errors.password ? 'border-destructive pr-10' : 'pr-10'}
                   disabled={loading}
@@ -111,14 +113,14 @@ export default function LoginPage() {
                   htmlFor="remember"
                   className="text-sm font-normal cursor-pointer"
                 >
-                  Remember me
+                  {t('auth.rememberMe')}
                 </Label>
               </div>
               <Link
                 to="/forgot-password"
                 className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
               >
-                Forgot password?
+                {t('auth.forgotPassword')}
               </Link>
             </div>
 
@@ -132,12 +134,12 @@ export default function LoginPage() {
               {loading ? (
                 <>
                   <span className="animate-spin mr-2">⏳</span>
-                  Signing in...
+                  {t('auth.signingIn')}
                 </>
               ) : (
                 <>
                   <LogIn className="w-4 h-4 mr-2" />
-                  Sign In
+                  {t('auth.signIn')}
                 </>
               )}
             </Button>
@@ -146,10 +148,10 @@ export default function LoginPage() {
 
         <CardFooter className="flex flex-col space-y-4 border-t pt-6">
           <p className="text-sm text-muted-foreground text-center">
-            Don't have an account?{' '}
+            {t('auth.dontHaveAccount')}{' '}
             <Link to="/register">
               <Button variant="link" className="px-0 h-auto font-medium">
-                Sign up
+                {t('auth.getStarted')}
               </Button>
             </Link>
           </p>

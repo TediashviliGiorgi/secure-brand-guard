@@ -3,12 +3,15 @@ import { Shield, QrCode, Lock, BarChart3, Globe, DollarSign, ArrowRight, Play, C
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { SEO } from '@/components/ui/seo';
+import { useTranslation } from 'react-i18next';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
 import HeroVisualization from '@/components/HeroVisualization';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Index = () => {
+  const { t } = useTranslation();
+
   // Scroll animation hooks for different sections
   const problemSection = useScrollAnimation();
   const howItWorksSection = useScrollAnimation();
@@ -18,41 +21,41 @@ const Index = () => {
   const finalCTASection = useScrollAnimation();
 
   const navLinks = [
-    { label: 'Features', href: '/features' },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
+    { label: t('nav.features'), href: '/features' },
+    { label: t('nav.pricing'), href: '/pricing' },
+    { label: t('nav.about'), href: '/about' },
+    { label: t('nav.contact'), href: '/contact' },
   ];
   const features = [
     {
       icon: QrCode,
-      title: 'QR & NFC Protection',
-      description: 'Dual authentication with QR codes and NFC tags for maximum security and flexibility'
+      title: t('landing.features.qrNFC'),
+      description: t('landing.features.qrNFCDesc')
     },
     {
       icon: BarChart3,
-      title: 'Real-time Analytics',
-      description: 'Track scans, verify authenticity, and understand customer engagement instantly'
+      title: t('landing.features.analytics'),
+      description: t('landing.features.analyticsDesc')
     },
     {
       icon: Shield,
-      title: 'Security Monitoring',
-      description: 'Advanced fraud detection alerts you to potential counterfeiting attempts'
+      title: t('landing.features.security'),
+      description: t('landing.features.securityDesc')
     },
     {
       icon: Globe,
-      title: 'Multi-language',
-      description: 'Support for Georgian, English, and Russian to reach global markets'
+      title: t('landing.features.multilang'),
+      description: t('landing.features.multilangDesc')
     },
     {
       icon: CheckCircle2,
-      title: 'One-time Verification',
-      description: 'Each security code works once - impossible to duplicate or counterfeit'
+      title: t('landing.features.oneTime'),
+      description: t('landing.features.oneTimeDesc')
     },
     {
       icon: DollarSign,
-      title: 'Cost-effective',
-      description: 'Affordable pricing per unit with no setup fees or monthly minimums'
+      title: t('landing.features.costEffective'),
+      description: t('landing.features.costEffectiveDesc')
     },
   ];
 
@@ -87,10 +90,10 @@ const Index = () => {
         ))}
         <LanguageSelector />
         <Link to="/login">
-          <Button variant="outline" size="sm">Sign In</Button>
+          <Button variant="outline" size="sm">{t('nav.signIn')}</Button>
         </Link>
         <Link to="/register">
-          <Button size="sm">Get Started</Button>
+          <Button size="sm">{t('nav.getStarted')}</Button>
         </Link>
       </div>
           </div>
@@ -104,22 +107,21 @@ const Index = () => {
             {/* Left side - Text content */}
             <div className="space-y-8 text-center lg:text-left stagger-fade-in">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                Protect Your Brand from <span className="text-primary">Counterfeiting</span>
+                {t('landing.hero.title')} <span className="text-primary">{t('landing.hero.titleHighlight')}</span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                Digital authentication & marketing platform with QR codes and NFC tags. 
-                Build trust, engage customers, and eliminate fake products.
+                {t('landing.hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 pt-4">
                 <Link to="/register">
                   <Button size="lg" className="text-base w-full sm:w-auto">
-                    Start Free Trial
+                    {t('landing.hero.startTrial')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
                 <Button size="lg" variant="outline" className="text-base w-full sm:w-auto">
                   <Play className="w-4 h-4 mr-2" />
-                  Watch Demo
+                  {t('landing.hero.watchDemo')}
                 </Button>
               </div>
             </div>
@@ -141,9 +143,9 @@ const Index = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <p className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-            Global brands lose €2.3B annually to counterfeiting
+            {t('landing.problem.stat')}
           </p>
-          <p className="text-muted-foreground">Don't let this happen to your business</p>
+          <p className="text-muted-foreground">{t('landing.problem.cta')}</p>
         </div>
       </section>
 
@@ -155,9 +157,9 @@ const Index = () => {
         }`}
       >
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('landing.howItWorks.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Simple three-step system to protect and promote your brand
+            {t('landing.howItWorks.subtitle')}
           </p>
         </div>
 
@@ -169,11 +171,11 @@ const Index = () => {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <QrCode className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>QR #1: Marketing</CardTitle>
+              <CardTitle>{t('landing.howItWorks.qr1Title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Share your brand story with beautiful, engaging product pages that customers love to explore
+                {t('landing.howItWorks.qr1Description')}
               </p>
             </CardContent>
           </Card>
@@ -185,11 +187,11 @@ const Index = () => {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>QR #2: Security</CardTitle>
+              <CardTitle>{t('landing.howItWorks.qr2Title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                One-time verification hidden under the seal prevents counterfeiting and builds consumer trust
+                {t('landing.howItWorks.qr2Description')}
               </p>
             </CardContent>
           </Card>
@@ -201,11 +203,11 @@ const Index = () => {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle>Dashboard</CardTitle>
+              <CardTitle>{t('landing.howItWorks.dashboardTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Real-time analytics show where products are scanned, verified, and potential fraud detected
+                {t('landing.howItWorks.dashboardDescription')}
               </p>
             </CardContent>
           </Card>
@@ -222,9 +224,9 @@ const Index = () => {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('landing.features.title')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to protect and promote your brand in one platform
+              {t('landing.features.subtitle')}
             </p>
           </div>
 
@@ -264,37 +266,37 @@ const Index = () => {
         }`}
       >
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('landing.pricing.title')}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Pay only for what you use. No setup fees, no monthly minimums.
+            {t('landing.pricing.subtitle')}
           </p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <Card className="border-border/50">
             <CardHeader>
-              <CardTitle>Starter</CardTitle>
-              <CardDescription>Perfect for small producers</CardDescription>
+              <CardTitle>{t('landing.pricing.starter')}</CardTitle>
+              <CardDescription>{t('landing.pricing.starterDesc')}</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$29</span>
-                <span className="text-muted-foreground">/mo</span>
+                <span className="text-muted-foreground">{t('landing.pricing.perMonth')}</span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">
-                + $0.01 per unit generated
+                + $0.01 {t('landing.pricing.perUnit')}
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Dual QR system</span>
+                <span>{t('landing.pricing.dualQR')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Product story pages</span>
+                <span>{t('landing.pricing.productPages')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Basic analytics</span>
+                <span>{t('landing.pricing.basicAnalytics')}</span>
               </div>
             </CardContent>
           </Card>
@@ -302,68 +304,68 @@ const Index = () => {
           <Card className="border-primary shadow-lg relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                Most Popular
+                {t('landing.pricing.mostPopular')}
               </span>
             </div>
             <CardHeader>
-              <CardTitle>Professional</CardTitle>
-              <CardDescription>For growing brands</CardDescription>
+              <CardTitle>{t('landing.pricing.professional')}</CardTitle>
+              <CardDescription>{t('landing.pricing.professionalDesc')}</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$99</span>
-                <span className="text-muted-foreground">/mo</span>
+                <span className="text-muted-foreground">{t('landing.pricing.perMonth')}</span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">
-                + $0.02 per unit generated
+                + $0.02 {t('landing.pricing.perUnit')}
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Everything in Starter</span>
+                <span>{t('landing.pricing.everythingStarter')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Advanced analytics</span>
+                <span>{t('landing.pricing.advancedAnalytics')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Security monitoring</span>
+                <span>{t('landing.pricing.securityMonitoring')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Priority support</span>
+                <span>{t('landing.pricing.prioritySupport')}</span>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-border/50">
             <CardHeader>
-              <CardTitle>Enterprise</CardTitle>
-              <CardDescription>For large operations</CardDescription>
+              <CardTitle>{t('landing.pricing.enterprise')}</CardTitle>
+              <CardDescription>{t('landing.pricing.enterpriseDesc')}</CardDescription>
               <div className="mt-4">
                 <span className="text-4xl font-bold">$299</span>
-                <span className="text-muted-foreground">/mo</span>
+                <span className="text-muted-foreground">{t('landing.pricing.perMonth')}</span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">
-                + $0.025 per unit generated
+                + $0.025 {t('landing.pricing.perUnit')}
               </div>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Everything in Professional</span>
+                <span>{t('landing.pricing.everythingPro')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Custom branding</span>
+                <span>{t('landing.pricing.customBranding')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>API access</span>
+                <span>{t('landing.pricing.apiAccess')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-success" />
-                <span>Dedicated account manager</span>
+                <span>{t('landing.pricing.accountManager')}</span>
               </div>
             </CardContent>
           </Card>
@@ -371,7 +373,7 @@ const Index = () => {
         
         <div className="text-center mt-8">
           <Link to="/pricing">
-            <Button variant="link">View Full Pricing →</Button>
+            <Button variant="link">{t('landing.pricing.viewFullPricing')}</Button>
           </Link>
         </div>
       </section>
@@ -384,7 +386,7 @@ const Index = () => {
         }`}
       >
         <div className="container mx-auto px-4 text-center">
-          <p className="text-lg text-muted-foreground mb-8">Trusted by brands worldwide</p>
+          <p className="text-lg text-muted-foreground mb-8">{t('landing.social.trusted')}</p>
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-50">
             <div className="text-2xl font-semibold">Brand Logo 1</div>
             <div className="text-2xl font-semibold">Brand Logo 2</div>
@@ -403,13 +405,13 @@ const Index = () => {
       >
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">Ready to Protect Your Brand?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">{t('landing.cta.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Start your free trial today. No credit card required.
+              {t('landing.cta.subtitle')}
             </p>
             <Link to="/register">
               <Button size="lg" className="text-base">
-                Get Started Now
+                {t('landing.cta.getStarted')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -422,41 +424,41 @@ const Index = () => {
         <div className="container mx-auto px-4 py-12">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="font-semibold mb-4">Company</h3>
+              <h3 className="font-semibold mb-4">{t('landing.footer.company')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/about" className="hover:text-foreground transition-colors">About</Link></li>
-                <li><Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
+                <li><Link to="/about" className="hover:text-foreground transition-colors">{t('landing.footer.about')}</Link></li>
+                <li><Link to="/contact" className="hover:text-foreground transition-colors">{t('landing.footer.contact')}</Link></li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
+              <h3 className="font-semibold mb-4">{t('landing.footer.product')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/features" className="hover:text-foreground transition-colors">Features</Link></li>
-                <li><Link to="/pricing" className="hover:text-foreground transition-colors">Pricing</Link></li>
+                <li><Link to="/features" className="hover:text-foreground transition-colors">{t('landing.footer.features')}</Link></li>
+                <li><Link to="/pricing" className="hover:text-foreground transition-colors">{t('landing.footer.pricing')}</Link></li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
+              <h3 className="font-semibold mb-4">{t('landing.footer.resources')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">FAQ</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">{t('landing.footer.blog')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">{t('landing.footer.faq')}</a></li>
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
+              <h3 className="font-semibold mb-4">{t('landing.footer.legal')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">{t('landing.footer.privacy')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">{t('landing.footer.terms')}</a></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-border/40 pt-8 text-center">
             <p className="text-sm text-muted-foreground mb-4">
-              &copy; {new Date().getFullYear()} AuthIt. All rights reserved.
+              &copy; {new Date().getFullYear()} AuthIt. {t('landing.footer.rights')}
             </p>
             <div className="flex items-center justify-center gap-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
