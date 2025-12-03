@@ -153,5 +153,92 @@
     "exportData": "Export Data",
     "deactivateAccount": "Deactivate Account",
     "deleteAccount": "Delete Account"
+  },
+  "landing": {
+    "hero": {
+      "title": "Protect Your Brand from",
+      "titleHighlight": "Counterfeiting",
+      "subtitle": "Digital authentication & marketing platform with QR codes and NFC tags. Build trust, engage customers, and eliminate fake products.",
+      "startTrial": "Start Free Trial",
+      "watchDemo": "Watch Demo"
+    },
+    "problem": {
+      "stat": "Global brands lose €2.3B annually to counterfeiting",
+      "cta": "Don't let this happen to your business"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple three-step system to protect and promote your brand",
+      "qr1Title": "QR #1: Marketing",
+      "qr1Description": "Share your brand story with beautiful, engaging product pages that customers love to explore",
+      "qr2Title": "QR #2: Security",
+      "qr2Description": "One-time verification hidden under the seal prevents counterfeiting and builds consumer trust",
+      "dashboardTitle": "Dashboard",
+      "dashboardDescription": "Real-time analytics show where products are scanned, verified, and potential fraud detected"
+    },
+    "features": {
+      "title": "Powerful Features",
+      "subtitle": "Everything you need to protect and promote your brand in one platform",
+      "qrNFC": "QR & NFC Protection",
+      "qrNFCDesc": "Dual authentication with QR codes and NFC tags for maximum security and flexibility",
+      "analytics": "Real-time Analytics",
+      "analyticsDesc": "Track scans, verify authenticity, and understand customer engagement instantly",
+      "security": "Security Monitoring",
+      "securityDesc": "Advanced fraud detection alerts you to potential counterfeiting attempts",
+      "multilang": "Multi-language",
+      "multilangDesc": "Support for Georgian, English, and Russian to reach global markets",
+      "oneTime": "One-time Verification",
+      "oneTimeDesc": "Each security code works once - impossible to duplicate or counterfeit",
+      "costEffective": "Cost-effective",
+      "costEffectiveDesc": "Affordable pricing per unit with no setup fees or monthly minimums"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "subtitle": "Pay only for what you use. No setup fees, no monthly minimums.",
+      "starter": "Starter",
+      "starterDesc": "Perfect for small producers",
+      "perMonth": "/mo",
+      "perUnit": "per unit generated",
+      "dualQR": "Dual QR system",
+      "productPages": "Product story pages",
+      "basicAnalytics": "Basic analytics",
+      "professional": "Professional",
+      "professionalDesc": "For growing brands",
+      "mostPopular": "Most Popular",
+      "everythingStarter": "Everything in Starter",
+      "advancedAnalytics": "Advanced analytics",
+      "securityMonitoring": "Security monitoring",
+      "prioritySupport": "Priority support",
+      "enterprise": "Enterprise",
+      "enterpriseDesc": "For large operations",
+      "everythingPro": "Everything in Professional",
+      "customBranding": "Custom branding",
+      "apiAccess": "API access",
+      "accountManager": "Dedicated account manager",
+      "viewFullPricing": "View Full Pricing →"
+    },
+    "social": {
+      "trusted": "Trusted by brands worldwide"
+    },
+    "cta": {
+      "title": "Ready to Protect Your Brand?",
+      "subtitle": "Start your free trial today. No credit card required.",
+      "getStarted": "Get Started Now"
+    },
+    "footer": {
+      "company": "Company",
+      "about": "About",
+      "contact": "Contact",
+      "product": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "resources": "Resources",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "legal": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "rights": "All rights reserved."
+    }
   }
 }

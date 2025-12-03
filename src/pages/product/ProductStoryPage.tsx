@@ -4,9 +4,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { 
-  ArrowLeft, Share2, MapPin, Award, ChevronDown, 
-  Phone, Mail, Globe, ExternalLink, Star, CheckCircle2, Shield 
+import {
+  ArrowLeft, Share2, MapPin, Award, ChevronDown,
+  Phone, Mail, Globe, ExternalLink, Star, CheckCircle2, Shield,
+  X, ChevronLeft, ChevronRight, ZoomIn
 } from 'lucide-react';
 import { mockBatch, mockReviews, mockSimilarProducts } from '@/lib/mockBatchData';
 import { useState } from 'react';
@@ -19,10 +20,35 @@ export default function ProductStoryPage() {
   const product = mockBatch;
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<number>(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const { t } = useTranslation();
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section);
+  };
+
+  const openLightbox = (index: number) => {
+    setSelectedImage(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const nextImage = () => {
+    if (product.galleryPhotos) {
+      setSelectedImage((prev) => (prev + 1) % product.galleryPhotos.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (product.galleryPhotos) {
+      setSelectedImage((prev) =>
+        prev === 0 ? product.galleryPhotos.length - 1 : prev - 1
+      );
+    }
   };
 
   return (
@@ -302,29 +328,150 @@ export default function ProductStoryPage() {
           )}
         </section>
 
-        {/* Photo Gallery - Vintage Styling */}
+        {/* Premium Futuristic Gallery */}
         {product.galleryPhotos && product.galleryPhotos.length > 0 && (
-          <section className="space-y-8 animate-fadeInUp">
+          <section className="space-y-10 animate-fadeInUp">
             <div className="vintage-divider"></div>
             <div className="text-center">
               <div className="vintage-ornament mb-4">◈</div>
               <h2 className="vintage-heading text-4xl">Gallery</h2>
               <div className="vintage-ornament mt-4">✦</div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {product.galleryPhotos.map((photo, index) => (
-                <div key={index} className="group relative overflow-hidden rounded-2xl shadow-vintage-lg hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.25)] transition-all duration-500">
+
+            {/* Main Featured Image */}
+            <div className="relative group">
+              <div className="vintage-card overflow-hidden p-0 shadow-vintage-lg hover:shadow-[0_40px_80px_-20px_rgba(251,191,36,0.3)] transition-all duration-700">
+                <div className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-gradient-to-br from-[hsl(var(--vintage-charcoal))]/5 to-[hsl(var(--vintage-gold))]/5">
                   <img
-                    src={photo}
-                    alt={`Gallery ${index + 1}`}
-                    className="w-full h-64 object-cover cursor-pointer transform transition-transform duration-700 group-hover:scale-110"
+                    src={product.galleryPhotos[selectedImage]}
+                    alt={`Gallery ${selectedImage + 1}`}
+                    className="w-full h-full object-contain transform transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Futuristic Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Zoom Button */}
+                  <button
+                    onClick={() => openLightbox(selectedImage)}
+                    className="absolute top-6 right-6 p-4 rounded-full bg-[hsl(var(--vintage-gold))]/90 backdrop-blur-md text-white hover:bg-[hsl(var(--vintage-gold))] transition-all duration-300 hover:scale-110 shadow-vintage-lg opacity-0 group-hover:opacity-100"
+                  >
+                    <ZoomIn className="w-6 h-6" />
+                  </button>
+
+                  {/* Navigation Arrows */}
+                  {product.galleryPhotos.length > 1 && (
+                    <>
+                      <button
+                        onClick={prevImage}
+                        className="absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 shadow-vintage hover:scale-110"
+                      >
+                        <ChevronLeft className="w-6 h-6 text-[hsl(var(--vintage-gold))]" />
+                      </button>
+                      <button
+                        onClick={nextImage}
+                        className="absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 shadow-vintage hover:scale-110"
+                      >
+                        <ChevronRight className="w-6 h-6 text-[hsl(var(--vintage-gold))]" />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Image Counter */}
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-white/90 backdrop-blur-md shadow-vintage">
+                    <p className="vintage-heading text-sm">
+                      {selectedImage + 1} / {product.galleryPhotos.length}
+                    </p>
+                  </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Thumbnail Grid */}
+            <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
+              {product.galleryPhotos.map((photo, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`relative group/thumb overflow-hidden rounded-xl transition-all duration-500 ${
+                    selectedImage === index
+                      ? 'ring-4 ring-[hsl(var(--vintage-gold))] shadow-vintage-lg scale-105'
+                      : 'hover:scale-105 hover:shadow-vintage'
+                  }`}
+                >
+                  <div className="aspect-square overflow-hidden bg-[hsl(var(--vintage-cream))]">
+                    <img
+                      src={photo}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover/thumb:scale-110"
+                    />
+                  </div>
+                  {selectedImage === index && (
+                    <div className="absolute inset-0 bg-[hsl(var(--vintage-gold))]/20 border-2 border-[hsl(var(--vintage-gold))]"></div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/60 to-transparent opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300"></div>
+                </button>
               ))}
             </div>
+
             <div className="vintage-divider"></div>
           </section>
+        )}
+
+        {/* Lightbox Modal */}
+        {lightboxOpen && product.galleryPhotos && (
+          <div
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
+            onClick={closeLightbox}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Navigation Arrows */}
+            {product.galleryPhotos.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
+                  className="absolute left-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+                >
+                  <ChevronLeft className="w-8 h-8" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
+                  className="absolute right-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+                >
+                  <ChevronRight className="w-8 h-8" />
+                </button>
+              </>
+            )}
+
+            {/* Main Image */}
+            <div className="relative max-w-7xl max-h-[90vh] w-full" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={product.galleryPhotos[selectedImage]}
+                alt={`Gallery ${selectedImage + 1}`}
+                className="w-full h-full object-contain rounded-2xl shadow-2xl"
+              />
+
+              {/* Image Info */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-8 py-4 rounded-full bg-white/10 backdrop-blur-xl text-white shadow-2xl">
+                <p className="font-serif text-lg">
+                  {selectedImage + 1} / {product.galleryPhotos.length}
+                </p>
+              </div>
+            </div>
+          </div>
         )}
 
         {product.traditionalMethods && (
