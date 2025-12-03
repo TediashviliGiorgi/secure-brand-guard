@@ -119,13 +119,24 @@
   },
   "verification": {
     "title": "Verify Authenticity",
-    "scan": "Scan QR Code #2",
+    "verifyAuthenticity": "Verify Authenticity",
+    "confirmAuthentic": "Scan the hidden QR code to confirm this product is authentic and directly from the producer",
+    "scan": "Scan Security QR Code",
     "authentic": "Authentic Product",
     "suspicious": "Suspicious Activity",
     "invalid": "Invalid Product",
-    "howToFind": "How to Find Your QR Codes",
-    "step1": "Locate QR Code #1 (Marketing Code)",
-    "step2": "Locate QR Code #2 (Security Code)"
+    "howToFind": "How to Find QR Codes?",
+    "howToFindIt": "How to find it?",
+    "qrInstructions": "Our Dual QR Authentication System",
+    "step1": "QR Code #1 - Marketing (Visible on Label)",
+    "step2": "QR Code #2 - Security (Hidden Under Cork/Seal)",
+    "qr1Location": "Visible on the main product label - easy to spot",
+    "qr1Purpose": "Shares your brand story, product details, and origin",
+    "qr2Location": "Hidden under the cork or seal - must open bottle to access",
+    "qr2Purpose": "One-time security verification that proves authenticity",
+    "whyTwoQR": "Why Two QR Codes?",
+    "qr1Description": "QR #1 (Marketing): Engages customers with your brand story before purchase",
+    "qr2Description": "QR #2 (Security): Verifies authenticity after opening - cannot be counterfeited"
   },
   "settings": {
     "title": "Settings",
