@@ -6,8 +6,17 @@ import { SEO } from '@/components/ui/seo';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
 import HeroVisualization from '@/components/HeroVisualization';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Index = () => {
+  // Scroll animation hooks for different sections
+  const problemSection = useScrollAnimation();
+  const howItWorksSection = useScrollAnimation();
+  const featuresSection = useScrollAnimation();
+  const pricingSection = useScrollAnimation();
+  const socialProofSection = useScrollAnimation();
+  const finalCTASection = useScrollAnimation();
+
   const navLinks = [
     { label: 'Features', href: '/features' },
     { label: 'Pricing', href: '/pricing' },
@@ -124,7 +133,12 @@ const Index = () => {
       </section>
 
       {/* Problem Statement */}
-      <section className="bg-muted/30 py-12 section-fade-in">
+      <section
+        ref={problemSection.elementRef}
+        className={`bg-muted/30 py-12 transition-all duration-700 ${
+          problemSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="container mx-auto px-4 text-center">
           <p className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
             Global brands lose €2.3B annually to counterfeiting
@@ -134,16 +148,23 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="container mx-auto px-4 py-20 section-fade-in">
+      <section
+        ref={howItWorksSection.elementRef}
+        className={`container mx-auto px-4 py-20 transition-all duration-700 ${
+          howItWorksSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Simple three-step system to protect and promote your brand
           </p>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <Card className="text-center stagger-fade-in">
+          <Card className={`text-center transition-all duration-700 ${
+            howItWorksSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+          }`} style={{animationDelay: '0.1s'}}>
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <QrCode className="w-8 h-8 text-primary" />
@@ -157,7 +178,9 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center stagger-fade-in">
+          <Card className={`text-center transition-all duration-700 ${
+            howItWorksSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+          }`} style={{animationDelay: '0.2s'}}>
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-primary" />
@@ -171,7 +194,9 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="text-center stagger-fade-in">
+          <Card className={`text-center transition-all duration-700 ${
+            howItWorksSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+          }`} style={{animationDelay: '0.3s'}}>
             <CardHeader>
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-8 h-8 text-primary" />
@@ -188,7 +213,13 @@ const Index = () => {
       </section>
 
       {/* Key Features */}
-      <section id="features" className="bg-muted/30 py-20 section-fade-in">
+      <section
+        id="features"
+        ref={featuresSection.elementRef}
+        className={`bg-muted/30 py-20 transition-all duration-700 ${
+          featuresSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
@@ -196,12 +227,18 @@ const Index = () => {
               Everything you need to protect and promote your brand in one platform
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {features.map((feature) => {
+            {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={feature.title} className="border-border/50">
+                <Card
+                  key={feature.title}
+                  className={`border-border/50 transition-all duration-700 ${
+                    featuresSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+                  }`}
+                  style={{animationDelay: `${index * 0.1}s`}}
+                >
                   <CardHeader>
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary" />
@@ -219,7 +256,13 @@ const Index = () => {
       </section>
 
       {/* Pricing Preview */}
-      <section id="pricing" className="container mx-auto px-4 py-20">
+      <section
+        id="pricing"
+        ref={pricingSection.elementRef}
+        className={`container mx-auto px-4 py-20 transition-all duration-700 ${
+          pricingSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -334,7 +377,12 @@ const Index = () => {
       </section>
 
       {/* Social Proof */}
-      <section className="bg-muted/30 py-16">
+      <section
+        ref={socialProofSection.elementRef}
+        className={`bg-muted/30 py-16 transition-all duration-700 ${
+          socialProofSection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="container mx-auto px-4 text-center">
           <p className="text-lg text-muted-foreground mb-8">Trusted by brands worldwide</p>
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-50">
@@ -347,7 +395,12 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="relative overflow-hidden py-20 bg-background">
+      <section
+        ref={finalCTASection.elementRef}
+        className={`relative overflow-hidden py-20 bg-background transition-all duration-700 ${
+          finalCTASection.isVisible ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">Ready to Protect Your Brand?</h2>
