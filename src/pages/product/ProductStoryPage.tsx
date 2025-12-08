@@ -1,16 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   ArrowLeft, Share2, MapPin, Award, ChevronDown,
   Phone, Mail, Globe, ExternalLink, Star, CheckCircle2, Shield,
-  X, ChevronLeft, ChevronRight, ZoomIn
+  X, ChevronLeft, ChevronRight, ZoomIn, Wine, Grape, Thermometer, Clock
 } from 'lucide-react';
 import { mockBatch, mockReviews, mockSimilarProducts } from '@/lib/mockBatchData';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { AISommelierChat } from '@/components/product/AISommelierChat';
@@ -22,7 +20,12 @@ export default function ProductStoryPage() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -52,342 +55,394 @@ export default function ProductStoryPage() {
   };
 
   return (
-    <div className="min-h-screen vintage-premium">
-      {/* Premium Header with Vintage Styling */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b-2 border-[hsl(var(--vintage-gold))]/20 shadow-vintage">
+    <div className="min-h-screen luxury-dark-theme luxury-particles">
+      {/* Ambient Glow Effects */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[hsl(var(--luxury-gold))] opacity-[0.03] blur-[150px] animate-luxury-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--luxury-gold))] opacity-[0.02] blur-[120px] animate-luxury-pulse" style={{ animationDelay: '2s' }} />
+      </div>
+
+      {/* Premium Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-2xl border-b border-[hsl(var(--luxury-gold))]/10 bg-[hsl(var(--luxury-dark))]/80">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => window.history.back()}
-            className="hover:bg-[hsl(var(--vintage-gold))]/10 transition-all duration-300"
+            className="text-[hsl(var(--luxury-champagne))] hover:text-[hsl(var(--luxury-gold))] hover:bg-[hsl(var(--luxury-gold))]/10 transition-all duration-500"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            <span className="font-vintage">{t('common.back')}</span>
+            <span className="font-serif tracking-wide">{t('common.back')}</span>
           </Button>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <LanguageSelector />
             <Button
               variant="ghost"
               size="icon"
-              className="hover:bg-[hsl(var(--vintage-gold))]/10 transition-all duration-300"
+              className="text-[hsl(var(--luxury-gold))] hover:bg-[hsl(var(--luxury-gold))]/10 transition-all duration-500 animate-luxury-glow rounded-full"
             >
-              <Share2 className="h-4 w-4 text-[hsl(var(--vintage-gold))]" />
+              <Share2 className="h-4 w-4" />
             </Button>
           </div>
         </div>
-        <div className="vintage-ornament text-center pb-2">✦</div>
       </header>
 
-      {/* Premium Hero Section with Elegant Overlay */}
-      <div className="relative w-full h-[65vh] md:h-[75vh] overflow-hidden shadow-vintage-lg">
-        <img
-          src={product.mainPhoto}
-          alt={product.productName}
-          className="w-full h-full object-cover scale-105 transition-transform duration-700 hover:scale-100"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/80 via-[hsl(var(--vintage-charcoal))]/40 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)]" />
+      {/* Hero Section with Parallax Effect */}
+      <div className="relative w-full h-[80vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={product.mainPhoto}
+            alt={product.productName}
+            className={`w-full h-full object-cover transition-all duration-[2000ms] ${isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}
+          />
+          {/* Cinematic Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--luxury-dark))] via-[hsl(var(--luxury-dark))]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--luxury-dark))]/40 via-transparent to-[hsl(var(--luxury-dark))]/40" />
+          {/* Vignette Effect */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,hsl(var(--luxury-dark))_100%)] opacity-60" />
+        </div>
 
-        {/* Elegant Content Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-          <div className="container mx-auto max-w-4xl">
-            <div className="vintage-ornament mb-4 animate-fadeInUp">◈</div>
-            <h1 className="vintage-heading text-5xl md:text-7xl text-white mb-4 animate-fadeInUp" style={{animationDelay: '0.1s'}}>
-              {product.productName}
+        {/* Hero Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+          <div className="container mx-auto max-w-5xl">
+            {/* Animated Gold Line */}
+            <div className={`w-24 h-[2px] bg-gradient-to-r from-[hsl(var(--luxury-gold))] to-transparent mb-8 transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 w-24' : 'opacity-0 w-0'}`} />
+            
+            {/* Product Name with Shimmer */}
+            <h1 className={`text-5xl md:text-7xl lg:text-8xl font-serif tracking-wide mb-6 transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <span className="animate-shimmer-gold">{product.productName}</span>
             </h1>
-            <div className="flex items-center gap-4 mb-6 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
-              <span className="vintage-gold-accent text-2xl md:text-3xl font-serif">{product.vintageYear}</span>
-              <Separator orientation="vertical" className="h-8 bg-[hsl(var(--vintage-gold))]/50" />
+            
+            {/* Vintage & Rating */}
+            <div className={`flex flex-wrap items-center gap-6 mb-8 transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <span className="text-4xl md:text-5xl font-serif text-[hsl(var(--luxury-gold))]">{product.vintageYear}</span>
+              <div className="w-[1px] h-10 bg-[hsl(var(--luxury-gold))]/30" />
               <div className="flex items-center gap-2">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
-                    className={`h-5 w-5 transition-all duration-300 ${
+                    className={`h-5 w-5 transition-all duration-500 ${
                       i < Math.floor(product.rating)
-                        ? 'fill-[hsl(var(--vintage-gold))] text-[hsl(var(--vintage-gold))]'
-                        : 'text-white/30'
+                        ? 'fill-[hsl(var(--luxury-gold))] text-[hsl(var(--luxury-gold))] animate-luxury-pulse'
+                        : 'text-[hsl(var(--luxury-champagne))]/20'
                     }`}
+                    style={{ animationDelay: `${i * 0.2}s` }}
                   />
                 ))}
-                <span className="ml-2 text-white font-serif text-lg">{product.rating}</span>
+                <span className="ml-3 text-2xl text-[hsl(var(--luxury-champagne))] font-serif">{product.rating}</span>
               </div>
             </div>
-            <div className="vintage-ornament animate-fadeInUp" style={{animationDelay: '0.3s'}}>✦ ✦ ✦</div>
-          </div>
-        </div>
-      </div>
 
-      {/* Premium Info Bar with Gold Accents */}
-      <div className="border-b-2 border-[hsl(var(--vintage-gold))]/20 bg-white/50 backdrop-blur-sm shadow-vintage">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-wrap gap-6 justify-center items-center">
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-[hsl(var(--vintage-gold))]" />
-              <span className="vintage-text text-base font-medium">{product.region}, Georgia</span>
+            {/* Quick Info Pills */}
+            <div className={`flex flex-wrap gap-3 transition-all duration-1000 delay-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <Badge className="bg-[hsl(var(--luxury-gold))]/10 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-champagne))] px-4 py-2 backdrop-blur-sm">
+                <MapPin className="h-3 w-3 mr-2" />
+                {product.region}
+              </Badge>
+              {product.traditionalMethod && (
+                <Badge className="bg-[hsl(var(--luxury-gold))]/10 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-champagne))] px-4 py-2 backdrop-blur-sm animate-border-glow">
+                  🏺 Traditional
+                </Badge>
+              )}
+              {product.organicCertification && (
+                <Badge className="bg-[hsl(var(--luxury-gold))]/10 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-champagne))] px-4 py-2 backdrop-blur-sm">
+                  🌱 Organic
+                </Badge>
+              )}
             </div>
-            {product.traditionalMethod && (
-              <Badge variant="outline" className="border-[hsl(var(--vintage-gold))]/40 text-[hsl(var(--vintage-bronze))] bg-[hsl(var(--vintage-cream))]">
-                🏺 Traditional Method
-              </Badge>
-            )}
-            {product.organicCertification && (
-              <Badge variant="outline" className="border-[hsl(var(--vintage-gold))]/40 text-[hsl(var(--vintage-bronze))] bg-[hsl(var(--vintage-cream))]">
-                🌱 Organic
-              </Badge>
-            )}
-            {product.docStatus && (
-              <Badge variant="outline" className="border-[hsl(var(--vintage-gold))]/40 text-[hsl(var(--vintage-bronze))] bg-[hsl(var(--vintage-cream))]">
-                {product.docStatus}
-              </Badge>
-            )}
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 max-w-5xl space-y-16">
-        {/* Premium Verify Authenticity Section */}
-        <section className="relative overflow-hidden animate-fadeInUp">
-          <div className="vintage-card vintage-card-hover p-10 space-y-8">
-            <div className="text-center">
-              <div className="vintage-ornament mb-6">◈ ✦ ◈</div>
-              <div className="flex justify-center mb-6">
+      {/* Floating Stats Bar */}
+      <div className="relative -mt-16 z-10 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="luxury-card p-6 grid grid-cols-2 md:grid-cols-4 gap-6 animate-luxury-glow">
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 mb-3 group-hover:bg-[hsl(var(--luxury-gold))]/20 transition-all duration-500">
+                <Wine className="h-5 w-5 text-[hsl(var(--luxury-gold))] animate-float" />
+              </div>
+              <p className="text-sm text-[hsl(var(--luxury-champagne))]/60 font-serif">Type</p>
+              <p className="text-lg text-[hsl(var(--luxury-pearl))] font-serif">Red Wine</p>
+            </div>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 mb-3 group-hover:bg-[hsl(var(--luxury-gold))]/20 transition-all duration-500">
+                <Grape className="h-5 w-5 text-[hsl(var(--luxury-gold))] animate-float" style={{ animationDelay: '1s' }} />
+              </div>
+              <p className="text-sm text-[hsl(var(--luxury-champagne))]/60 font-serif">Grape</p>
+              <p className="text-lg text-[hsl(var(--luxury-pearl))] font-serif">Saperavi</p>
+            </div>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 mb-3 group-hover:bg-[hsl(var(--luxury-gold))]/20 transition-all duration-500">
+                <Thermometer className="h-5 w-5 text-[hsl(var(--luxury-gold))] animate-float" style={{ animationDelay: '2s' }} />
+              </div>
+              <p className="text-sm text-[hsl(var(--luxury-champagne))]/60 font-serif">Serve</p>
+              <p className="text-lg text-[hsl(var(--luxury-pearl))] font-serif">16-18°C</p>
+            </div>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[hsl(var(--luxury-gold))]/10 mb-3 group-hover:bg-[hsl(var(--luxury-gold))]/20 transition-all duration-500">
+                <Clock className="h-5 w-5 text-[hsl(var(--luxury-gold))] animate-float" style={{ animationDelay: '3s' }} />
+              </div>
+              <p className="text-sm text-[hsl(var(--luxury-champagne))]/60 font-serif">Aging</p>
+              <p className="text-lg text-[hsl(var(--luxury-pearl))] font-serif">18 Months</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-20 max-w-5xl space-y-20">
+        {/* Verify Authenticity Section */}
+        <section className="relative">
+          <div className="luxury-card luxury-card-hover p-10 relative overflow-hidden">
+            {/* Animated Background Glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--luxury-gold))]/5 via-transparent to-[hsl(var(--luxury-gold))]/5 animate-luxury-pulse" />
+            
+            <div className="relative z-10 text-center space-y-8">
+              {/* Pulsing Shield Icon */}
+              <div className="inline-flex items-center justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-[hsl(var(--vintage-gold))]/20 rounded-full blur-2xl animate-pulse"></div>
-                  <div className="relative p-5 rounded-full bg-gradient-to-br from-[hsl(var(--vintage-gold))]/10 to-[hsl(var(--vintage-bronze))]/10 border-2 border-[hsl(var(--vintage-gold))]/30">
-                    <Shield className="h-12 w-12 text-[hsl(var(--vintage-gold))]" />
+                  <div className="absolute inset-0 rounded-full bg-[hsl(var(--luxury-gold))] blur-2xl opacity-30 animate-luxury-pulse" />
+                  <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-[hsl(var(--luxury-gold))]/20 to-transparent border border-[hsl(var(--luxury-gold))]/30 flex items-center justify-center animate-border-glow">
+                    <Shield className="h-12 w-12 text-[hsl(var(--luxury-gold))] animate-float" />
                   </div>
                 </div>
               </div>
-              <h2 className="vintage-heading text-4xl md:text-5xl mb-4">{t('verification.verifyAuthenticity')}</h2>
-              <p className="vintage-text text-xl text-[hsl(var(--vintage-charcoal))]/70 max-w-2xl mx-auto">
-                {t('verification.confirmAuthentic')}
-              </p>
-            </div>
+              
+              <div>
+                <h2 className="luxury-heading text-4xl md:text-5xl mb-4">{t('verification.verifyAuthenticity')}</h2>
+                <p className="luxury-text text-xl max-w-2xl mx-auto">{t('verification.confirmAuthentic')}</p>
+              </div>
 
-            <Button
-              size="lg"
-              className="w-full text-lg py-8 bg-gradient-to-r from-[hsl(var(--vintage-gold))] to-[hsl(var(--vintage-bronze))] hover:from-[hsl(var(--vintage-bronze))] hover:to-[hsl(var(--vintage-gold))] text-white shadow-vintage-lg hover:shadow-[0_30px_60px_-15px_rgba(251,191,36,0.4)] transition-all duration-500 font-serif"
-              onClick={() => window.open(`/verify?token=${batchId}`, '_blank')}
-            >
-              <Shield className="mr-3 h-6 w-6" />
-              {t('verification.scan')}
-            </Button>
+              <Button
+                size="lg"
+                className="text-lg px-12 py-7 bg-gradient-to-r from-[hsl(var(--luxury-gold-dim))] via-[hsl(var(--luxury-gold))] to-[hsl(var(--luxury-gold-dim))] hover:from-[hsl(var(--luxury-gold))] hover:via-[hsl(var(--luxury-champagne))] hover:to-[hsl(var(--luxury-gold))] text-[hsl(var(--luxury-dark))] font-serif tracking-wider transition-all duration-700 shadow-[0_0_40px_-10px_hsl(var(--luxury-gold)/0.5)] hover:shadow-[0_0_60px_-10px_hsl(var(--luxury-gold)/0.7)]"
+                onClick={() => window.open(`/verify?token=${batchId}`, '_blank')}
+              >
+                <Shield className="mr-3 h-5 w-5" />
+                {t('verification.scan')}
+              </Button>
 
-              {/* Collapsible Instructions */}
               <Collapsible open={showInstructions} onOpenChange={setShowInstructions}>
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full max-w-md mx-auto justify-between text-[hsl(var(--luxury-champagne))] hover:text-[hsl(var(--luxury-gold))] hover:bg-[hsl(var(--luxury-gold))]/10 border border-[hsl(var(--luxury-gold))]/20"
+                  >
                     {t('verification.howToFindIt')}
-                    <ChevronDown className={`h-4 w-4 transition-transform ${showInstructions ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-500 ${showInstructions ? 'rotate-180' : ''}`} />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4 space-y-6 pt-4 border-t">
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3">{t('verification.qrInstructions')}</h3>
+                <CollapsibleContent className="mt-6 space-y-6 pt-6 border-t border-[hsl(var(--luxury-gold))]/20">
+                  <div className="max-w-2xl mx-auto">
+                    <h3 className="luxury-heading text-lg mb-6 text-center">{t('verification.qrInstructions')}</h3>
                     
-                    {/* QR Code #1 */}
-                    <div className="flex gap-4 p-4 rounded-lg bg-muted/50 mb-3">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-xl">
-                        1
+                    <div className="space-y-4">
+                      <div className="flex gap-5 p-5 rounded-xl bg-[hsl(var(--luxury-slate))]/50 border border-[hsl(var(--luxury-gold))]/10 group hover:border-[hsl(var(--luxury-gold))]/30 transition-all duration-500">
+                        <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(var(--luxury-gold))] to-[hsl(var(--luxury-gold-dim))] flex items-center justify-center font-serif text-2xl text-[hsl(var(--luxury-dark))] animate-luxury-glow">
+                          1
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="luxury-heading text-lg mb-1">{t('verification.step1')}</h4>
+                          <p className="luxury-text text-sm opacity-70">{t('verification.qr1Location')}</p>
+                          <p className="luxury-text text-sm opacity-50 italic mt-1">{t('verification.qr1Purpose')}</p>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold mb-1">{t('verification.step1')}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{t('verification.qr1Location')}</p>
-                        <p className="text-sm text-muted-foreground italic">{t('verification.qr1Purpose')}</p>
+
+                      <div className="flex gap-5 p-5 rounded-xl bg-[hsl(var(--luxury-slate))]/50 border border-[hsl(var(--luxury-gold))]/10 group hover:border-[hsl(var(--luxury-gold))]/30 transition-all duration-500">
+                        <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(var(--luxury-gold))] to-[hsl(var(--luxury-gold-dim))] flex items-center justify-center font-serif text-2xl text-[hsl(var(--luxury-dark))] animate-luxury-glow" style={{ animationDelay: '1s' }}>
+                          2
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="luxury-heading text-lg mb-1">{t('verification.step2')}</h4>
+                          <p className="luxury-text text-sm opacity-70">{t('verification.qr2Location')}</p>
+                          <p className="luxury-text text-sm opacity-50 italic mt-1">{t('verification.qr2Purpose')}</p>
+                        </div>
                       </div>
                     </div>
 
-                    {/* QR Code #2 */}
-                    <div className="flex gap-4 p-4 rounded-lg bg-muted/50">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-xl">
-                        2
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold mb-1">{t('verification.step2')}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{t('verification.qr2Location')}</p>
-                        <p className="text-sm text-muted-foreground italic">{t('verification.qr2Purpose')}</p>
-                      </div>
-                    </div>
-
-                    {/* Why Two QR Codes */}
-                    <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/20">
-                      <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <div className="mt-8 p-6 rounded-xl bg-[hsl(var(--luxury-gold))]/5 border border-[hsl(var(--luxury-gold))]/20">
+                      <h4 className="luxury-heading text-lg mb-4 flex items-center gap-3">
                         <span className="text-2xl">💡</span>
                         {t('verification.whyTwoQR')}
                       </h4>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li className="flex gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                          <span>{t('verification.qr1Description')}</span>
+                      <ul className="space-y-3">
+                        <li className="flex gap-3 items-start">
+                          <CheckCircle2 className="h-5 w-5 text-[hsl(var(--luxury-gold))] flex-shrink-0 mt-0.5" />
+                          <span className="luxury-text text-sm">{t('verification.qr1Description')}</span>
                         </li>
-                        <li className="flex gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                          <span>{t('verification.qr2Description')}</span>
+                        <li className="flex gap-3 items-start">
+                          <CheckCircle2 className="h-5 w-5 text-[hsl(var(--luxury-gold))] flex-shrink-0 mt-0.5" />
+                          <span className="luxury-text text-sm">{t('verification.qr2Description')}</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
+            </div>
           </div>
         </section>
 
-        {/* Story Section - Vintage Styling */}
-        <section className="space-y-6 animate-fadeInUp">
-          <div className="vintage-divider"></div>
-          <div className="text-center mb-6">
-            <div className="vintage-ornament mb-4">◈</div>
-            <h2 className="vintage-heading text-4xl mb-2">The Story</h2>
-            <div className="vintage-ornament">✦</div>
+        {/* Story Section */}
+        <section className="space-y-8">
+          <div className="luxury-divider" />
+          <div className="text-center">
+            <h2 className="luxury-heading text-4xl md:text-5xl mb-4">The Story</h2>
+            <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
           </div>
-          <p className="vintage-text text-xl leading-relaxed text-center max-w-3xl mx-auto">
+          <p className="luxury-text text-xl md:text-2xl leading-relaxed text-center max-w-3xl mx-auto">
             {product.productStory}
           </p>
-          <div className="vintage-divider"></div>
+          <div className="luxury-divider" />
         </section>
 
-        {/* Product Details - Vintage Expandable Cards */}
-        <section className="space-y-4 animate-fadeInUp">
-          <div className="vintage-card overflow-hidden vintage-card-hover">
+        {/* Product Details Accordion */}
+        <section className="space-y-4">
+          {/* Details */}
+          <div className="luxury-card overflow-hidden luxury-card-hover">
             <button
               onClick={() => toggleSection('details')}
-              className="w-full p-6 flex items-center justify-between hover:bg-[hsl(var(--vintage-gold))]/5 transition-all duration-300"
+              className="w-full p-6 flex items-center justify-between text-left hover:bg-[hsl(var(--luxury-gold))]/5 transition-all duration-500"
             >
               <div className="flex items-center gap-4">
                 <span className="text-3xl">🍇</span>
-                <h3 className="vintage-heading text-xl">Product Details</h3>
+                <h3 className="luxury-heading text-xl">Product Details</h3>
               </div>
-              <ChevronDown className={`h-6 w-6 text-[hsl(var(--vintage-gold))] transition-transform duration-300 ${expandedSection === 'details' ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-6 w-6 text-[hsl(var(--luxury-gold))] transition-transform duration-500 ${expandedSection === 'details' ? 'rotate-180' : ''}`} />
             </button>
-            {expandedSection === 'details' && (
-              <div className="p-6 pt-0 space-y-4 border-t-2 border-[hsl(var(--vintage-gold))]/20">
-                <p className="vintage-text text-lg leading-relaxed">{product.characteristics}</p>
+            <div className={`overflow-hidden transition-all duration-700 ${expandedSection === 'details' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className="p-6 pt-0 space-y-4 border-t border-[hsl(var(--luxury-gold))]/20">
+                <p className="luxury-text text-lg leading-relaxed">{product.characteristics}</p>
                 {product.servingRecommendation && (
-                  <div className="mt-4 p-5 bg-[hsl(var(--vintage-cream))] rounded-xl border border-[hsl(var(--vintage-gold))]/20">
-                    <p className="vintage-text"><strong className="vintage-heading">Serving:</strong> {product.servingRecommendation}</p>
+                  <div className="p-5 bg-[hsl(var(--luxury-slate))]/50 rounded-xl border border-[hsl(var(--luxury-gold))]/10">
+                    <p className="luxury-text"><strong className="luxury-heading text-base">Serving:</strong> {product.servingRecommendation}</p>
                   </div>
                 )}
               </div>
-            )}
+            </div>
           </div>
 
+          {/* Awards */}
           {product.awards && product.awards.length > 0 && (
-            <div className="vintage-card overflow-hidden vintage-card-hover">
+            <div className="luxury-card overflow-hidden luxury-card-hover">
               <button
                 onClick={() => toggleSection('awards')}
-                className="w-full p-6 flex items-center justify-between hover:bg-[hsl(var(--vintage-gold))]/5 transition-all duration-300"
+                className="w-full p-6 flex items-center justify-between text-left hover:bg-[hsl(var(--luxury-gold))]/5 transition-all duration-500"
               >
                 <div className="flex items-center gap-4">
-                  <Award className="h-6 w-6 text-[hsl(var(--vintage-gold))]" />
-                  <h3 className="vintage-heading text-xl">Awards & Recognition</h3>
+                  <Award className="h-7 w-7 text-[hsl(var(--luxury-gold))]" />
+                  <h3 className="luxury-heading text-xl">Awards & Recognition</h3>
                 </div>
-                <ChevronDown className={`h-6 w-6 text-[hsl(var(--vintage-gold))] transition-transform duration-300 ${expandedSection === 'awards' ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`h-6 w-6 text-[hsl(var(--luxury-gold))] transition-transform duration-500 ${expandedSection === 'awards' ? 'rotate-180' : ''}`} />
               </button>
-              {expandedSection === 'awards' && (
-                <div className="p-6 pt-0 space-y-3 border-t-2 border-[hsl(var(--vintage-gold))]/20">
+              <div className={`overflow-hidden transition-all duration-700 ${expandedSection === 'awards' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                <div className="p-6 pt-0 space-y-3 border-t border-[hsl(var(--luxury-gold))]/20">
                   {product.awards.map((award, index) => (
-                    <div key={index} className="flex items-center gap-4 p-4 rounded-lg bg-[hsl(var(--vintage-cream))] border border-[hsl(var(--vintage-gold))]/20 transition-all duration-300 hover:shadow-vintage">
-                      <span className="text-3xl">
+                    <div 
+                      key={index} 
+                      className="flex items-center gap-4 p-4 rounded-xl bg-[hsl(var(--luxury-slate))]/50 border border-[hsl(var(--luxury-gold))]/10 hover:border-[hsl(var(--luxury-gold))]/30 transition-all duration-500 group"
+                    >
+                      <span className="text-3xl group-hover:animate-float">
                         {award.medalType === 'gold' ? '🥇' : award.medalType === 'silver' ? '🥈' : '🥉'}
                       </span>
                       <div>
-                        <p className="vintage-heading font-medium">{award.name}</p>
-                        <p className="vintage-text text-sm">{award.year}</p>
+                        <p className="luxury-heading text-base">{award.name}</p>
+                        <p className="luxury-text text-sm opacity-60">{award.year}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
           )}
 
+          {/* Food Pairings */}
           {product.foodPairings && product.foodPairings.length > 0 && (
-            <div className="vintage-card overflow-hidden vintage-card-hover">
+            <div className="luxury-card overflow-hidden luxury-card-hover">
               <button
                 onClick={() => toggleSection('pairing')}
-                className="w-full p-6 flex items-center justify-between hover:bg-[hsl(var(--vintage-gold))]/5 transition-all duration-300"
+                className="w-full p-6 flex items-center justify-between text-left hover:bg-[hsl(var(--luxury-gold))]/5 transition-all duration-500"
               >
                 <div className="flex items-center gap-4">
                   <span className="text-3xl">🍽️</span>
-                  <h3 className="vintage-heading text-xl">Food Pairing</h3>
+                  <h3 className="luxury-heading text-xl">Food Pairing</h3>
                 </div>
-                <ChevronDown className={`h-6 w-6 text-[hsl(var(--vintage-gold))] transition-transform duration-300 ${expandedSection === 'pairing' ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`h-6 w-6 text-[hsl(var(--luxury-gold))] transition-transform duration-500 ${expandedSection === 'pairing' ? 'rotate-180' : ''}`} />
               </button>
-              {expandedSection === 'pairing' && (
-                <div className="p-6 pt-0 border-t-2 border-[hsl(var(--vintage-gold))]/20">
+              <div className={`overflow-hidden transition-all duration-700 ${expandedSection === 'pairing' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                <div className="p-6 pt-0 border-t border-[hsl(var(--luxury-gold))]/20">
                   <div className="flex flex-wrap gap-3">
                     {product.foodPairings.map((food, index) => (
-                      <Badge key={index} className="bg-[hsl(var(--vintage-cream))] text-[hsl(var(--vintage-bronze))] border border-[hsl(var(--vintage-gold))]/30 px-4 py-2 text-base font-vintage hover:bg-[hsl(var(--vintage-gold))]/20 transition-all duration-300">{food}</Badge>
+                      <Badge 
+                        key={index} 
+                        className="bg-[hsl(var(--luxury-gold))]/10 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-champagne))] px-5 py-2.5 text-base font-serif hover:bg-[hsl(var(--luxury-gold))]/20 transition-all duration-500 cursor-default"
+                      >
+                        {food}
+                      </Badge>
                     ))}
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           )}
         </section>
 
-        {/* Premium Futuristic Gallery */}
+        {/* Gallery Section */}
         {product.galleryPhotos && product.galleryPhotos.length > 0 && (
-          <section className="space-y-10 animate-fadeInUp">
-            <div className="vintage-divider"></div>
+          <section className="space-y-10">
+            <div className="luxury-divider" />
             <div className="text-center">
-              <div className="vintage-ornament mb-4">◈</div>
-              <h2 className="vintage-heading text-4xl">Gallery</h2>
-              <div className="vintage-ornament mt-4">✦</div>
+              <h2 className="luxury-heading text-4xl md:text-5xl mb-4">Gallery</h2>
+              <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
             </div>
 
-            {/* Main Featured Image */}
+            {/* Main Image */}
             <div className="relative group">
-              <div className="vintage-card overflow-hidden p-0 shadow-vintage-lg hover:shadow-[0_40px_80px_-20px_rgba(251,191,36,0.3)] transition-all duration-700">
-                <div className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-gradient-to-br from-[hsl(var(--vintage-charcoal))]/5 to-[hsl(var(--vintage-gold))]/5">
+              <div className="luxury-card overflow-hidden p-0 shadow-[0_40px_100px_-25px_rgba(0,0,0,0.5)] hover:shadow-[0_50px_120px_-25px_rgba(0,0,0,0.6)] transition-all duration-700">
+                <div className="relative h-[50vh] md:h-[70vh] overflow-hidden">
                   <img
                     src={product.galleryPhotos[selectedImage]}
                     alt={`Gallery ${selectedImage + 1}`}
-                    className="w-full h-full object-contain transform transition-all duration-700"
+                    className="w-full h-full object-contain transform transition-all duration-1000 group-hover:scale-105"
                   />
-
-                  {/* Futuristic Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--luxury-dark))] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                   {/* Zoom Button */}
                   <button
                     onClick={() => openLightbox(selectedImage)}
-                    className="absolute top-6 right-6 p-4 rounded-full bg-[hsl(var(--vintage-gold))]/90 backdrop-blur-md text-white hover:bg-[hsl(var(--vintage-gold))] transition-all duration-300 hover:scale-110 shadow-vintage-lg opacity-0 group-hover:opacity-100"
+                    className="absolute top-6 right-6 p-4 rounded-full bg-[hsl(var(--luxury-gold))]/90 text-[hsl(var(--luxury-dark))] hover:bg-[hsl(var(--luxury-gold))] transition-all duration-500 hover:scale-110 opacity-0 group-hover:opacity-100 shadow-lg"
                   >
-                    <ZoomIn className="w-6 h-6" />
+                    <ZoomIn className="w-5 h-5" />
                   </button>
 
-                  {/* Navigation Arrows */}
+                  {/* Navigation */}
                   {product.galleryPhotos.length > 1 && (
                     <>
                       <button
                         onClick={prevImage}
-                        className="absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 shadow-vintage hover:scale-110"
+                        className="absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-[hsl(var(--luxury-dark))]/80 backdrop-blur-md hover:bg-[hsl(var(--luxury-dark))] border border-[hsl(var(--luxury-gold))]/30 transition-all duration-500 hover:scale-110"
                       >
-                        <ChevronLeft className="w-6 h-6 text-[hsl(var(--vintage-gold))]" />
+                        <ChevronLeft className="w-6 h-6 text-[hsl(var(--luxury-gold))]" />
                       </button>
                       <button
                         onClick={nextImage}
-                        className="absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/90 backdrop-blur-md hover:bg-white transition-all duration-300 shadow-vintage hover:scale-110"
+                        className="absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-[hsl(var(--luxury-dark))]/80 backdrop-blur-md hover:bg-[hsl(var(--luxury-dark))] border border-[hsl(var(--luxury-gold))]/30 transition-all duration-500 hover:scale-110"
                       >
-                        <ChevronRight className="w-6 h-6 text-[hsl(var(--vintage-gold))]" />
+                        <ChevronRight className="w-6 h-6 text-[hsl(var(--luxury-gold))]" />
                       </button>
                     </>
                   )}
 
-                  {/* Image Counter */}
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-white/90 backdrop-blur-md shadow-vintage">
-                    <p className="vintage-heading text-sm">
-                      {selectedImage + 1} / {product.galleryPhotos.length}
-                    </p>
+                  {/* Counter */}
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-[hsl(var(--luxury-dark))]/80 backdrop-blur-md border border-[hsl(var(--luxury-gold))]/30">
+                    <p className="luxury-heading text-sm">{selectedImage + 1} / {product.galleryPhotos.length}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Thumbnail Grid */}
+            {/* Thumbnails */}
             <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
               {product.galleryPhotos.map((photo, index) => (
                 <button
@@ -395,215 +450,177 @@ export default function ProductStoryPage() {
                   onClick={() => setSelectedImage(index)}
                   className={`relative group/thumb overflow-hidden rounded-xl transition-all duration-500 ${
                     selectedImage === index
-                      ? 'ring-4 ring-[hsl(var(--vintage-gold))] shadow-vintage-lg scale-105'
-                      : 'hover:scale-105 hover:shadow-vintage'
+                      ? 'ring-2 ring-[hsl(var(--luxury-gold))] shadow-[0_0_30px_-5px_hsl(var(--luxury-gold)/0.3)] scale-105'
+                      : 'hover:scale-105 opacity-60 hover:opacity-100'
                   }`}
                 >
-                  <div className="aspect-square overflow-hidden bg-[hsl(var(--vintage-cream))]">
+                  <div className="aspect-square overflow-hidden bg-[hsl(var(--luxury-slate))]">
                     <img
                       src={photo}
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover/thumb:scale-110"
                     />
                   </div>
-                  {selectedImage === index && (
-                    <div className="absolute inset-0 bg-[hsl(var(--vintage-gold))]/20 border-2 border-[hsl(var(--vintage-gold))]"></div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/60 to-transparent opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300"></div>
                 </button>
               ))}
             </div>
 
-            <div className="vintage-divider"></div>
+            <div className="luxury-divider" />
           </section>
         )}
 
-        {/* Lightbox Modal */}
+        {/* Lightbox */}
         {lightboxOpen && product.galleryPhotos && (
           <div
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] bg-[hsl(var(--luxury-dark))]/98 backdrop-blur-2xl flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
-            {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+              className="absolute top-6 right-6 p-4 rounded-full bg-[hsl(var(--luxury-gold))]/10 hover:bg-[hsl(var(--luxury-gold))]/20 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-gold))] transition-all duration-500 hover:scale-110 z-10"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6" />
             </button>
 
-            {/* Navigation Arrows */}
             {product.galleryPhotos.length > 1 && (
               <>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute left-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+                  onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                  className="absolute left-6 p-4 rounded-full bg-[hsl(var(--luxury-gold))]/10 hover:bg-[hsl(var(--luxury-gold))]/20 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-gold))] transition-all duration-500 hover:scale-110 z-10"
                 >
-                  <ChevronLeft className="w-8 h-8" />
+                  <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute right-6 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 hover:scale-110 z-10"
+                  onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                  className="absolute right-6 p-4 rounded-full bg-[hsl(var(--luxury-gold))]/10 hover:bg-[hsl(var(--luxury-gold))]/20 border border-[hsl(var(--luxury-gold))]/30 text-[hsl(var(--luxury-gold))] transition-all duration-500 hover:scale-110 z-10"
                 >
-                  <ChevronRight className="w-8 h-8" />
+                  <ChevronRight className="w-6 h-6" />
                 </button>
               </>
             )}
 
-            {/* Main Image */}
             <div className="relative max-w-7xl max-h-[90vh] w-full" onClick={(e) => e.stopPropagation()}>
               <img
                 src={product.galleryPhotos[selectedImage]}
                 alt={`Gallery ${selectedImage + 1}`}
-                className="w-full h-full object-contain rounded-2xl shadow-2xl"
+                className="w-full h-full object-contain rounded-2xl"
               />
-
-              {/* Image Info */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-8 py-4 rounded-full bg-white/10 backdrop-blur-xl text-white shadow-2xl">
-                <p className="font-serif text-lg">
-                  {selectedImage + 1} / {product.galleryPhotos.length}
-                </p>
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-8 py-4 rounded-full bg-[hsl(var(--luxury-dark))]/80 backdrop-blur-xl border border-[hsl(var(--luxury-gold))]/30">
+                <p className="luxury-heading text-lg">{selectedImage + 1} / {product.galleryPhotos.length}</p>
               </div>
             </div>
           </div>
         )}
 
+        {/* Traditional Methods */}
         {product.traditionalMethods && (
-          <section className="space-y-6 animate-fadeInUp">
+          <section className="space-y-8">
             <div className="text-center">
-              <div className="vintage-ornament mb-4">◈</div>
-              <div className="flex items-center justify-center gap-4 mb-2">
+              <div className="flex items-center justify-center gap-4 mb-4">
                 <span className="text-4xl">🏺</span>
-                <h2 className="vintage-heading text-4xl">Traditional Methods</h2>
+                <h2 className="luxury-heading text-4xl md:text-5xl">Traditional Methods</h2>
               </div>
-              <div className="vintage-ornament">✦</div>
+              <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
             </div>
-            <div className="vintage-card p-8">
-              <p className="vintage-text text-lg leading-relaxed text-center">{product.traditionalMethods}</p>
+            <div className="luxury-card p-10">
+              <p className="luxury-text text-xl leading-relaxed text-center">{product.traditionalMethods}</p>
             </div>
-            <div className="vintage-divider"></div>
+            <div className="luxury-divider" />
           </section>
         )}
 
-        {/* Visit Us - Vintage Styling */}
-        <section className="space-y-6 animate-fadeInUp">
+        {/* Contact Section */}
+        <section className="space-y-8">
           <div className="text-center">
-            <div className="vintage-ornament mb-4">◈</div>
-            <h2 className="vintage-heading text-4xl">Visit Us</h2>
-            <div className="vintage-ornament mt-4">✦</div>
+            <h2 className="luxury-heading text-4xl md:text-5xl mb-4">Visit Us</h2>
+            <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
           </div>
-          <div className="vintage-card vintage-card-hover p-8 space-y-6">
-            <div className="text-center">
-              <h3 className="vintage-heading text-2xl mb-3">{product.companyName}</h3>
-              <p className="vintage-text text-lg">{product.address}</p>
+          <div className="luxury-card luxury-card-hover p-10 space-y-8 text-center">
+            <div>
+              <h3 className="luxury-heading text-3xl mb-3">{product.companyName}</h3>
+              <p className="luxury-text text-lg">{product.address}</p>
             </div>
 
-            <div className="vintage-divider"></div>
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))]/30 to-transparent" />
 
-            <div className="space-y-4">
-              <a href={`tel:${product.phone}`} className="flex items-center justify-center gap-3 vintage-text text-lg hover:text-[hsl(var(--vintage-gold))] transition-all duration-300 group">
-                <Phone className="h-5 w-5 group-hover:scale-110 transition-transform" />
+            <div className="flex flex-col md:flex-row gap-6 justify-center">
+              <a href={`tel:${product.phone}`} className="flex items-center justify-center gap-3 luxury-text text-lg hover:text-[hsl(var(--luxury-gold))] transition-all duration-500 group">
+                <Phone className="h-5 w-5 text-[hsl(var(--luxury-gold))] group-hover:animate-float" />
                 {product.phone}
               </a>
-              <a href={`mailto:${product.email}`} className="flex items-center justify-center gap-3 vintage-text text-lg hover:text-[hsl(var(--vintage-gold))] transition-all duration-300 group">
-                <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              <a href={`mailto:${product.email}`} className="flex items-center justify-center gap-3 luxury-text text-lg hover:text-[hsl(var(--luxury-gold))] transition-all duration-500 group">
+                <Mail className="h-5 w-5 text-[hsl(var(--luxury-gold))] group-hover:animate-float" />
                 {product.email}
               </a>
-              <a href={product.website} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 vintage-text text-lg hover:text-[hsl(var(--vintage-gold))] transition-all duration-300 group">
-                <Globe className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                Visit Website
+              <a href={product.website} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 luxury-text text-lg hover:text-[hsl(var(--luxury-gold))] transition-all duration-500 group">
+                <Globe className="h-5 w-5 text-[hsl(var(--luxury-gold))] group-hover:animate-float" />
+                Website
                 <ExternalLink className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
-          <div className="vintage-divider"></div>
+          <div className="luxury-divider" />
         </section>
 
-        {/* Verification CTA - Vintage Styling */}
-        <section className="animate-fadeInUp">
-          <div className="vintage-card p-8 bg-gradient-to-br from-[hsl(var(--vintage-cream))] to-white border-2 border-[hsl(var(--vintage-gold))]/30">
-            <div className="flex flex-col md:flex-row items-start gap-6">
-              <div className="p-4 rounded-full bg-gradient-to-br from-[hsl(var(--vintage-gold))]/20 to-[hsl(var(--vintage-bronze))]/10 border-2 border-[hsl(var(--vintage-gold))]/30">
-                <CheckCircle2 className="h-8 w-8 text-[hsl(var(--vintage-gold))]" />
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="vintage-heading text-2xl mb-3">Verify Authenticity</h3>
-                <p className="vintage-text text-lg mb-5">
-                  Want to confirm this product is authentic? Open the bottle and scan the QR code hidden under the seal.
-                </p>
-                <Button
-                  variant="outline"
-                  className="border-2 border-[hsl(var(--vintage-gold))]/40 text-[hsl(var(--vintage-bronze))] hover:bg-[hsl(var(--vintage-gold))]/10 font-serif text-base px-6 py-3"
-                >
-                  How to find it? →
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Reviews - Vintage Styling */}
-        <section className="space-y-8 animate-fadeInUp">
-          <div className="vintage-divider"></div>
+        {/* Reviews Section */}
+        <section className="space-y-8">
           <div className="text-center">
-            <div className="vintage-ornament mb-4">◈</div>
-            <h2 className="vintage-heading text-4xl">Customer Reviews</h2>
-            <div className="vintage-ornament mt-4">✦</div>
+            <h2 className="luxury-heading text-4xl md:text-5xl mb-4">Customer Reviews</h2>
+            <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
           </div>
           <div className="space-y-4">
-            {mockReviews.map((review) => (
-              <div key={review.id} className="vintage-card p-6 vintage-card-hover">
-                <div className="flex flex-col sm:flex-row items-start justify-between gap-3 mb-4">
+            {mockReviews.map((review, index) => (
+              <div 
+                key={review.id} 
+                className="luxury-card luxury-card-hover p-6"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
                   <div>
-                    <p className="vintage-heading text-lg">{review.author}</p>
+                    <p className="luxury-heading text-lg">{review.author}</p>
                     <div className="flex items-center gap-1 mt-2">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-4 w-4 ${i < review.rating ? 'fill-[hsl(var(--vintage-gold))] text-[hsl(var(--vintage-gold))]' : 'text-muted-foreground'}`}
+                          className={`h-4 w-4 ${i < review.rating ? 'fill-[hsl(var(--luxury-gold))] text-[hsl(var(--luxury-gold))]' : 'text-[hsl(var(--luxury-champagne))]/20'}`}
                         />
                       ))}
                     </div>
                   </div>
-                  <span className="vintage-text text-sm">
-                    {new Date(review.date).toLocaleDateString()}
-                  </span>
+                  <span className="luxury-text text-sm opacity-60">{new Date(review.date).toLocaleDateString()}</span>
                 </div>
-                <p className="vintage-text text-base leading-relaxed">{review.comment}</p>
+                <p className="luxury-text text-base leading-relaxed">{review.comment}</p>
               </div>
             ))}
           </div>
-          <div className="vintage-divider"></div>
+          <div className="luxury-divider" />
         </section>
 
-        {/* Similar Products - Vintage Styling */}
+        {/* Similar Products */}
         {mockSimilarProducts.length > 0 && (
-          <section className="space-y-8 animate-fadeInUp">
+          <section className="space-y-8">
             <div className="text-center">
-              <div className="vintage-ornament mb-4">◈</div>
-              <h2 className="vintage-heading text-4xl">More from {product.companyName}</h2>
-              <div className="vintage-ornament mt-4">✦</div>
+              <h2 className="luxury-heading text-4xl md:text-5xl mb-4">More from {product.companyName}</h2>
+              <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {mockSimilarProducts.map((similar) => (
-                <div key={similar.id} className="vintage-card overflow-hidden cursor-pointer vintage-card-hover group">
+              {mockSimilarProducts.map((similar, index) => (
+                <div 
+                  key={similar.id} 
+                  className="luxury-card overflow-hidden cursor-pointer luxury-card-hover group"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
                   <div className="relative overflow-hidden">
                     <img
                       src={similar.thumbnail}
                       alt={similar.name}
-                      className="w-full h-48 object-cover transform transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-48 object-cover transform transition-transform duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--vintage-charcoal))]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--luxury-dark))] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   </div>
-                  <div className="p-5 bg-[hsl(var(--vintage-cream))]">
-                    <p className="vintage-heading text-base mb-1">{similar.name}</p>
-                    <p className="vintage-text text-sm">{similar.vintageYear}</p>
+                  <div className="p-5 bg-[hsl(var(--luxury-charcoal))]">
+                    <p className="luxury-heading text-base mb-1">{similar.name}</p>
+                    <p className="luxury-text text-sm opacity-60">{similar.vintageYear}</p>
                   </div>
                 </div>
               ))}
@@ -612,14 +629,14 @@ export default function ProductStoryPage() {
         )}
       </div>
 
-      {/* Footer - Vintage Styling */}
-      <footer className="border-t-2 border-[hsl(var(--vintage-gold))]/20 mt-16 bg-[hsl(var(--vintage-cream))]">
-        <div className="container mx-auto px-4 py-10 text-center">
-          <div className="vintage-ornament mb-4">◈ ✦ ◈</div>
-          <p className="vintage-text text-base">
-            Protected by <span className="vintage-heading font-bold text-lg">AuthIt</span>
+      {/* Footer */}
+      <footer className="border-t border-[hsl(var(--luxury-gold))]/10 mt-20 bg-[hsl(var(--luxury-dark))]">
+        <div className="container mx-auto px-4 py-12 text-center">
+          <div className="w-12 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto mb-6" />
+          <p className="luxury-text text-base">
+            Protected by <span className="luxury-heading text-lg animate-shimmer-gold">AuthIt</span>
           </p>
-          <div className="vintage-ornament mt-4">✦</div>
+          <div className="w-12 h-[2px] bg-gradient-to-r from-transparent via-[hsl(var(--luxury-gold))] to-transparent mx-auto mt-6" />
         </div>
       </footer>
 

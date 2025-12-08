@@ -81,6 +81,15 @@ All colors MUST be HSL.
     --vintage-cream: 43 33% 94%;
     --vintage-charcoal: 0 0% 25%;
     --vintage-shadow: 0 0% 0%;
+
+    /* Modern Luxury Colors */
+    --luxury-dark: 220 25% 8%;
+    --luxury-charcoal: 220 20% 12%;
+    --luxury-slate: 220 15% 18%;
+    --luxury-gold: 45 80% 55%;
+    --luxury-gold-dim: 45 60% 40%;
+    --luxury-champagne: 45 40% 85%;
+    --luxury-pearl: 45 20% 95%;
   }
 
   .dark {
@@ -328,6 +337,154 @@ All colors MUST be HSL.
       0 20px 50px -12px rgba(0, 0, 0, 0.15),
       0 10px 20px -8px rgba(0, 0, 0, 0.1),
       0 0 0 1px rgba(251, 191, 36, 0.08);
+  }
+
+  /* Modern Luxury Dark Theme Styles */
+  .luxury-dark-theme {
+    background: linear-gradient(180deg, hsl(var(--luxury-dark)) 0%, hsl(var(--luxury-charcoal)) 100%);
+  }
+
+  .luxury-card {
+    @apply rounded-2xl border backdrop-blur-xl;
+    background: linear-gradient(135deg, hsl(var(--luxury-slate)/0.6) 0%, hsl(var(--luxury-charcoal)/0.8) 100%);
+    border-color: hsl(var(--luxury-gold) / 0.15);
+    box-shadow:
+      0 25px 60px -15px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.1);
+  }
+
+  .luxury-card-hover {
+    @apply transition-all duration-700 ease-out;
+  }
+
+  .luxury-card-hover:hover {
+    border-color: hsl(var(--luxury-gold) / 0.3);
+    box-shadow:
+      0 35px 80px -20px rgba(0, 0, 0, 0.6),
+      0 0 60px -15px hsl(var(--luxury-gold) / 0.15),
+      inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.2);
+  }
+
+  .luxury-heading {
+    font-family: 'Playfair Display', serif;
+    @apply text-[hsl(var(--luxury-pearl))];
+    letter-spacing: 0.04em;
+  }
+
+  .luxury-text {
+    font-family: 'Cormorant Garamond', serif;
+    @apply text-[hsl(var(--luxury-champagne))]/80;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
+  }
+
+  .luxury-gold-text {
+    background: linear-gradient(135deg, hsl(var(--luxury-gold)) 0%, hsl(var(--luxury-champagne)) 50%, hsl(var(--luxury-gold)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .luxury-divider {
+    @apply h-px my-12;
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--luxury-gold)/0.4) 50%, transparent 100%);
+  }
+
+  .luxury-glow {
+    box-shadow: 0 0 80px -20px hsl(var(--luxury-gold) / 0.3);
+  }
+
+  /* Pulse animations for luxury elements */
+  @keyframes luxuryPulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes luxuryGlow {
+    0%, 100% {
+      box-shadow: 0 0 40px -10px hsl(var(--luxury-gold) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 80px -10px hsl(var(--luxury-gold) / 0.4);
+    }
+  }
+
+  @keyframes shimmerGold {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes floatUp {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes borderGlow {
+    0%, 100% {
+      border-color: hsl(var(--luxury-gold) / 0.2);
+    }
+    50% {
+      border-color: hsl(var(--luxury-gold) / 0.5);
+    }
+  }
+
+  .animate-luxury-pulse {
+    animation: luxuryPulse 4s ease-in-out infinite;
+  }
+
+  .animate-luxury-glow {
+    animation: luxuryGlow 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer-gold {
+    background: linear-gradient(90deg, hsl(var(--luxury-gold-dim)) 0%, hsl(var(--luxury-gold)) 50%, hsl(var(--luxury-gold-dim)) 100%);
+    background-size: 200% auto;
+    animation: shimmerGold 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .animate-float {
+    animation: floatUp 6s ease-in-out infinite;
+  }
+
+  .animate-border-glow {
+    animation: borderGlow 2s ease-in-out infinite;
+  }
+
+  /* Particles background effect */
+  .luxury-particles {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .luxury-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, hsl(var(--luxury-gold) / 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, hsl(var(--luxury-gold) / 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, hsl(var(--luxury-gold) / 0.04) 0%, transparent 30%);
+    pointer-events: none;
   }
 
   /* Scroll-triggered animations */
