@@ -104,29 +104,29 @@ All colors MUST be HSL.
     --popover: 215 20% 14%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary: Lighter blue-gray for dark mode */
-    --primary: 215 16% 65%;
+    /* Primary: Vibrant sky-blue for dark mode (matching light mode brand) */
+    --primary: 200 85% 55%;
     --primary-foreground: 215 25% 10%;
 
-    --primary-hover: 215 16% 70%;
+    --primary-hover: 200 85% 60%;
 
     /* Secondary: Muted slate */
-    --secondary: 215 16% 50%;
+    --secondary: 215 20% 35%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 215 20% 18%;
     --muted-foreground: 215 16% 65%;
 
     /* Accent: Subtle slate for dark mode */
-    --accent: 215 20% 18%;
-    --accent-foreground: 215 16% 75%;
+    --accent: 215 20% 20%;
+    --accent-foreground: 200 85% 65%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 215 20% 22%;
     --input: 215 20% 22%;
-    --ring: 215 16% 65%;
+    --ring: 200 85% 55%;
 
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
@@ -135,16 +135,21 @@ All colors MUST be HSL.
     --warning-foreground: 0 0% 100%;
 
     --info-bg: 215 20% 18%;
-    --info-foreground: 215 16% 75%;
+    --info-foreground: 200 85% 65%;
 
     --sidebar-background: 215 25% 10%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 215 16% 65%;
+    --sidebar-primary: 200 85% 55%;
     --sidebar-primary-foreground: 215 25% 10%;
     --sidebar-accent: 215 20% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 215 20% 22%;
-    --sidebar-ring: 215 16% 65%;
+    --sidebar-ring: 200 85% 55%;
+
+    /* Dark mode luxury colors - adjust for product pages */
+    --luxury-dark: 220 25% 8%;
+    --luxury-charcoal: 220 20% 12%;
+    --luxury-slate: 220 15% 18%;
   }
 }
 
@@ -339,15 +344,25 @@ All colors MUST be HSL.
       0 0 0 1px rgba(251, 191, 36, 0.08);
   }
 
-  /* Modern Luxury Dark Theme Styles */
-  .luxury-dark-theme {
-    background: linear-gradient(180deg, hsl(var(--luxury-dark)) 0%, hsl(var(--luxury-charcoal)) 100%);
+  /* Modern Luxury Theme Styles - Theme Aware */
+  .luxury-theme {
+    @apply bg-background;
+  }
+
+  .luxury-theme-overlay {
+    @apply bg-gradient-to-b from-background via-background to-muted/50;
   }
 
   .luxury-card {
-    @apply rounded-2xl border backdrop-blur-xl;
-    background: linear-gradient(135deg, hsl(var(--luxury-slate)/0.6) 0%, hsl(var(--luxury-charcoal)/0.8) 100%);
+    @apply rounded-2xl border backdrop-blur-xl bg-card/80;
     border-color: hsl(var(--luxury-gold) / 0.15);
+    box-shadow:
+      0 25px 60px -15px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.1);
+  }
+
+  .dark .luxury-card {
+    background: linear-gradient(135deg, hsl(var(--luxury-slate)/0.6) 0%, hsl(var(--luxury-charcoal)/0.8) 100%);
     box-shadow:
       0 25px 60px -15px rgba(0, 0, 0, 0.5),
       inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.1);
@@ -360,6 +375,13 @@ All colors MUST be HSL.
   .luxury-card-hover:hover {
     border-color: hsl(var(--luxury-gold) / 0.3);
     box-shadow:
+      0 35px 80px -20px rgba(0, 0, 0, 0.2),
+      0 0 60px -15px hsl(var(--luxury-gold) / 0.1),
+      inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.2);
+  }
+
+  .dark .luxury-card-hover:hover {
+    box-shadow:
       0 35px 80px -20px rgba(0, 0, 0, 0.6),
       0 0 60px -15px hsl(var(--luxury-gold) / 0.15),
       inset 0 1px 0 0 hsl(var(--luxury-gold) / 0.2);
@@ -367,13 +389,13 @@ All colors MUST be HSL.
 
   .luxury-heading {
     font-family: 'Playfair Display', serif;
-    @apply text-[hsl(var(--luxury-pearl))];
+    @apply text-foreground;
     letter-spacing: 0.04em;
   }
 
   .luxury-text {
     font-family: 'Cormorant Garamond', serif;
-    @apply text-[hsl(var(--luxury-champagne))]/80;
+    @apply text-muted-foreground;
     letter-spacing: 0.02em;
     line-height: 1.8;
   }
@@ -392,6 +414,11 @@ All colors MUST be HSL.
 
   .luxury-glow {
     box-shadow: 0 0 80px -20px hsl(var(--luxury-gold) / 0.3);
+  }
+
+  /* Legacy dark theme support for product pages that need forced dark */
+  .luxury-dark-theme {
+    background: linear-gradient(180deg, hsl(var(--luxury-dark)) 0%, hsl(var(--luxury-charcoal)) 100%);
   }
 
   /* Pulse animations for luxury elements */

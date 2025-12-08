@@ -6,6 +6,7 @@ import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Radio, Plus, File
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { Separator } from '@/components/ui/separator';
 import { BatchStatistics } from '@/components/dashboard/BatchStatistics';
 import { AnalyticsOverview } from '@/components/dashboard/AnalyticsOverview';
@@ -44,6 +45,7 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-center gap-2">
               <LanguageSelector />
+              <ThemeSwitcher />
               {!isMobile && (
                 <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/settings')}>
                   <Settings className="w-4 h-4 mr-2" />

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Shield } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -26,7 +27,10 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => {
                 </p>
               </div>
             </div>
-            <LanguageSelector />
+            <div className="flex items-center gap-2">
+              <LanguageSelector />
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       </header>

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Clock, Facebook, Instagram, Linkedin } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 
 const ContactPage = () => {
@@ -64,6 +65,7 @@ const ContactPage = () => {
               </Link>
             ))}
             <LanguageSelector />
+            <ThemeSwitcher />
           </div>
           <div className="flex items-center gap-3">
             <Link to="/login">
