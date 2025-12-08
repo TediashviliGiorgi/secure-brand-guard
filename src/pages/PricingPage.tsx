@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Check, X, Calculator } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CostBreakdownModal } from "@/components/pricing/CostBreakdownModal";
 
 
@@ -53,6 +54,7 @@ const PricingPage = () => {
               </Link>
             ))}
             <LanguageSelector />
+            <ThemeSwitcher />
           </div>
           <div className="flex items-center gap-3">
             <Link to="/login">

@@ -6,6 +6,7 @@ import { SEO } from '@/components/ui/seo';
 import { useTranslation } from 'react-i18next';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import HeroVisualization from '@/components/HeroVisualization';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -78,7 +79,7 @@ const Index = () => {
               <span className="text-xl font-semibold">AuthIt</span>
             </div>
             
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-6">
         {navLinks.map(link => (
           <Link 
             key={link.href}
@@ -88,7 +89,10 @@ const Index = () => {
             {link.label}
           </Link>
         ))}
-        <LanguageSelector />
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          <ThemeSwitcher />
+        </div>
         <Link to="/login">
           <Button variant="outline" size="sm">{t('nav.signIn')}</Button>
         </Link>

@@ -11,6 +11,7 @@ import { mockBatch, mockReviews, mockSimilarProducts } from '@/lib/mockBatchData
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { AISommelierChat } from '@/components/product/AISommelierChat';
 
 export default function ProductStoryPage() {
@@ -55,21 +56,21 @@ export default function ProductStoryPage() {
   };
 
   return (
-    <div className="min-h-screen luxury-dark-theme luxury-particles">
+    <div className="min-h-screen bg-background luxury-particles">
       {/* Ambient Glow Effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[hsl(var(--luxury-gold))] opacity-[0.03] blur-[150px] animate-luxury-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(var(--luxury-gold))] opacity-[0.02] blur-[120px] animate-luxury-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-primary opacity-[0.03] blur-[150px] animate-luxury-pulse dark:bg-[hsl(var(--luxury-gold))]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-primary opacity-[0.02] blur-[120px] animate-luxury-pulse dark:bg-[hsl(var(--luxury-gold))]" style={{ animationDelay: '2s' }} />
       </div>
 
       {/* Premium Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-2xl border-b border-[hsl(var(--luxury-gold))]/10 bg-[hsl(var(--luxury-dark))]/80">
+      <header className="sticky top-0 z-50 backdrop-blur-2xl border-b border-border/50 bg-background/80 dark:border-[hsl(var(--luxury-gold))]/10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => window.history.back()}
-            className="text-[hsl(var(--luxury-champagne))] hover:text-[hsl(var(--luxury-gold))] hover:bg-[hsl(var(--luxury-gold))]/10 transition-all duration-500"
+            className="text-muted-foreground hover:text-primary transition-all duration-500 dark:text-[hsl(var(--luxury-champagne))] dark:hover:text-[hsl(var(--luxury-gold))]"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span className="font-serif tracking-wide">{t('common.back')}</span>
@@ -77,10 +78,11 @@ export default function ProductStoryPage() {
 
           <div className="flex gap-3">
             <LanguageSelector />
+            <ThemeSwitcher />
             <Button
               variant="ghost"
               size="icon"
-              className="text-[hsl(var(--luxury-gold))] hover:bg-[hsl(var(--luxury-gold))]/10 transition-all duration-500 animate-luxury-glow rounded-full"
+              className="text-primary hover:bg-primary/10 transition-all duration-500 rounded-full dark:text-[hsl(var(--luxury-gold))] dark:hover:bg-[hsl(var(--luxury-gold))]/10"
             >
               <Share2 className="h-4 w-4" />
             </Button>

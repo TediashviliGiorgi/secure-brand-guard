@@ -7,6 +7,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -32,14 +33,15 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <DynamicBreadcrumb />
-          <div className="pb-20">
-            <Routes>
+    <ThemeProvider defaultTheme="system" storageKey="authit-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <DynamicBreadcrumb />
+            <div className="pb-20">
+              <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -117,12 +119,13 @@ const App = () => (
           {/* Organization profile removed - redirects handled in navigation */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-          <BottomNav />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+              </Routes>
+            </div>
+            <BottomNav />
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </ErrorBoundary>
 );
 

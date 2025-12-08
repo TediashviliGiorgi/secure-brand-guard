@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { PasswordStrengthIndicator } from "@/components/auth/PasswordStrengthIndicator";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GEORGIAN_REGIONS, INDUSTRIES } from "@/lib/validators";
 
 const SettingsPage = () => {
@@ -93,7 +94,10 @@ const SettingsPage = () => {
                 <p className="text-sm text-muted-foreground">Manage your company and preferences</p>
               </div>
             </div>
-            <LanguageSelector />
+            <div className="flex items-center gap-2">
+              <LanguageSelector />
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       </div>
