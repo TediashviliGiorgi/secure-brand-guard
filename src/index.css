@@ -249,28 +249,64 @@ All colors MUST be HSL.
     @apply border-t border-border/30 my-12;
   }
 
-  /* Glassmorphism effects */
+  /* Glassmorphism effects - Theme-aware */
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
+    @apply bg-background/70 backdrop-blur-xl border border-border/20 shadow-lg;
+  }
+
+  :root .glass {
+    @apply bg-white/70;
+  }
+
+  .dark .glass {
+    @apply bg-slate-900/70 border-slate-700/30;
   }
 
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-primary/10 rounded-2xl shadow-xl;
+    @apply bg-card backdrop-blur-md border border-border rounded-2xl shadow-xl;
     @apply transition-all duration-300;
   }
 
+  :root .glass-card {
+    @apply bg-white/80 border-primary/10;
+  }
+
+  .dark .glass-card {
+    @apply bg-slate-800/90 border-slate-700/50;
+  }
+
   .glass-card:hover {
-    @apply bg-white/90 border-primary/20 shadow-2xl;
+    @apply border-primary/20 shadow-2xl;
     transform: translateY(-2px);
   }
 
+  :root .glass-card:hover {
+    @apply bg-white/90;
+  }
+
+  .dark .glass-card:hover {
+    @apply bg-slate-800 border-primary/30;
+  }
+
   .glass-header {
-    @apply bg-white/60 backdrop-blur-lg border-b border-primary/10;
+    @apply bg-background/60 backdrop-blur-lg border-b border-border;
+  }
+
+  :root .glass-header {
+    @apply bg-white/60 border-primary/10;
+  }
+
+  .dark .glass-header {
+    @apply bg-slate-900/80 border-slate-700/50;
   }
 
   .glass-button {
     @apply bg-primary/10 backdrop-blur-sm hover:bg-primary/20;
     @apply border border-primary/20 transition-all duration-200;
+  }
+
+  .dark .glass-button {
+    @apply bg-primary/15 border-primary/30 hover:bg-primary/25;
   }
 
   /* Icon accent colors */
