@@ -13,11 +13,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { CountryPhoneInput } from '@/components/ui/country-phone-input';
+import { CountryRegionSelect } from '@/components/ui/country-region-select';
 import { useAuth } from '@/hooks/useAuth';
+import { Country } from '@/lib/countries';
 import { 
   registerStep1Schema, 
   registerStep2Schema,
-  GEORGIAN_REGIONS,
   INDUSTRIES,
 } from '@/lib/validators';
 import { 
@@ -29,18 +31,28 @@ export default function RegisterPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [selectedCountryCode, setSelectedCountryCode] = useState('GE');
   const { register: registerUser, loading } = useAuth();
   const { t } = useTranslation();
 
   // Step 1 Form - Company Information
   const step1Form = useForm<RegisterStep1>({
     resolver: zodResolver(registerStep1Schema),
+    defaultValues: {
+      country: 'GE',
+    },
   });
 
   // Step 2 Form - Personal/Admin Info
   const step2Form = useForm<RegisterStep2>({
     resolver: zodResolver(registerStep2Schema),
   });
+
+  const handleCountryChange = (country: Country) => {
+    setSelectedCountryCode(country.code);
+    step1Form.setValue('country', country.code);
+    step1Form.setValue('region', ''); // Reset region when country changes
+  };
 
   const handleStep1Submit = async () => {
     const isValid = await step1Form.trigger();
@@ -116,33 +128,27 @@ export default function RegisterPage() {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">{t('auth.phone')}</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder={t('auth.phonePlaceholder')}
-                    {...step1Form.register('phone')}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="region">{t('auth.region')}</Label>
-                  <Select onValueChange={(value) => step1Form.setValue('region', value)}>
-                    <SelectTrigger id="region">
-                      <SelectValue placeholder={t('auth.selectRegion')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {GEORGIAN_REGIONS.map((region) => (
-                        <SelectItem key={region} value={region}>
-                          {region}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">{t('auth.phone')}</Label>
+                <CountryPhoneInput
+                  value={step1Form.watch('phone') || ''}
+                  countryCode={selectedCountryCode}
+                  onValueChange={(phone) => step1Form.setValue('phone', phone)}
+                  onCountryChange={handleCountryChange}
+                  placeholder={t('auth.phonePlaceholder')}
+                />
               </div>
+
+              <CountryRegionSelect
+                countryCode={selectedCountryCode}
+                region={step1Form.watch('region') || ''}
+                onCountryChange={handleCountryChange}
+                onRegionChange={(region) => step1Form.setValue('region', region)}
+                countryLabel={t('auth.country')}
+                regionLabel={t('auth.region')}
+                countryPlaceholder={t('auth.selectCountry')}
+                regionPlaceholder={t('auth.selectRegion')}
+              />
 
               <div className="space-y-2">
                 <Label htmlFor="industry">{t('auth.industry')}</Label>
