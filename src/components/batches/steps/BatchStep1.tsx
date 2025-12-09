@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { GEORGIAN_REGIONS } from '@/lib/validators';
+import { CountryRegionSelect } from '@/components/ui/country-region-select';
+import { Country, COUNTRIES } from '@/lib/countries';
 
 const CATEGORIES = ['Wine', 'Spirits', 'Cheese', 'Olive Oil', 'Honey', 'Other'];
 const GRAPE_VARIETIES = [
@@ -26,6 +28,13 @@ interface Step1Props {
 
 export const BatchStep1 = ({ form }: Step1Props) => {
   const selectedCategory = form.watch('category');
+  const [selectedCountryCode, setSelectedCountryCode] = useState(form.watch('country') || 'GE');
+
+  const handleCountryChange = (country: Country) => {
+    setSelectedCountryCode(country.code);
+    form.setValue('country', country.code);
+    form.setValue('region', ''); // Reset region when country changes
+  };
 
   return (
     <div className="space-y-6">
@@ -147,22 +156,17 @@ export const BatchStep1 = ({ form }: Step1Props) => {
           control={form.control}
           name="region"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Region *</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select region" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {GEORGIAN_REGIONS.map((region) => (
-                    <SelectItem key={region} value={region}>
-                      {region}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="col-span-2">
+              <CountryRegionSelect
+                countryCode={selectedCountryCode}
+                region={field.value || ''}
+                onCountryChange={handleCountryChange}
+                onRegionChange={field.onChange}
+                countryLabel="Country *"
+                regionLabel="Region *"
+                countryPlaceholder="Select country"
+                regionPlaceholder="Select region"
+              />
               <FormMessage />
             </FormItem>
           )}

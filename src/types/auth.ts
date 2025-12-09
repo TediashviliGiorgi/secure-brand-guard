@@ -4,6 +4,7 @@ export interface User {
   id: string;
   email: string;
   companyName: string;
+  country?: string;
   region?: string;
   industry?: string;
   phone?: string;
@@ -22,6 +23,7 @@ export interface RegisterStep1 {
   companyName: string;
   email: string;
   phone?: string;
+  country?: string;
   address?: string;
   website?: string;
   instagram?: string;

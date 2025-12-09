@@ -63,6 +63,9 @@ export const registerStep1Schema = z.object({
   phone: z
     .string()
     .optional(),
+  country: z
+    .string()
+    .optional(),
   address: z
     .string()
     .optional(),
