@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Shield, QrCode, Lock, BarChart3, Globe, DollarSign, ArrowRight, Play, CheckCircle2, Users, Mail, Phone, MapPin } from 'lucide-react';
+import { Shield, QrCode, BarChart3, Globe, DollarSign, ArrowRight, Play, CheckCircle2, Users, Mail, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { SEO } from '@/components/ui/seo';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { MobileNav } from '@/components/ui/mobile-nav';
 import HeroVisualization from '@/components/HeroVisualization';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -73,33 +74,48 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
+              {/* Mobile burger menu */}
+              <MobileNav links={navLinks}>
+                <div className="flex items-center gap-2">
+                  <LanguageSelector />
+                  <ThemeSwitcher />
+                </div>
+                <Link to="/login" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full">{t('nav.signIn')}</Button>
+                </Link>
+                <Link to="/register" className="w-full">
+                  <Button size="sm" className="w-full">{t('nav.getStarted')}</Button>
+                </Link>
+              </MobileNav>
+              
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
                 <Shield className="w-6 h-6 text-primary-foreground" />
               </div>
               <span className="text-xl font-semibold">AuthIt</span>
             </div>
             
-      <div className="flex items-center gap-6">
-        {navLinks.map(link => (
-          <Link 
-            key={link.href}
-            to={link.href} 
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {link.label}
-          </Link>
-        ))}
-        <div className="flex items-center gap-2">
-          <LanguageSelector />
-          <ThemeSwitcher />
-        </div>
-        <Link to="/login">
-          <Button variant="outline" size="sm">{t('nav.signIn')}</Button>
-        </Link>
-        <Link to="/register">
-          <Button size="sm">{t('nav.getStarted')}</Button>
-        </Link>
-      </div>
+            {/* Desktop navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              {navLinks.map(link => (
+                <Link 
+                  key={link.href}
+                  to={link.href} 
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="flex items-center gap-2">
+                <LanguageSelector />
+                <ThemeSwitcher />
+              </div>
+              <Link to="/login">
+                <Button variant="outline" size="sm">{t('nav.signIn')}</Button>
+              </Link>
+              <Link to="/register">
+                <Button size="sm">{t('nav.getStarted')}</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </nav>

@@ -5,6 +5,7 @@ import { Target, Lightbulb, Handshake, Award } from "lucide-react";
 import { SEO } from "@/components/ui/seo";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { MobileNav } from "@/components/ui/mobile-nav";
 
 
 const AboutPage = () => {
@@ -26,7 +27,21 @@ const AboutPage = () => {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
+          <div className="flex items-center gap-3">
+            <MobileNav links={navLinks}>
+              <div className="flex items-center gap-2">
+                <LanguageSelector />
+                <ThemeSwitcher />
+              </div>
+              <Link to="/login" className="w-full">
+                <Button variant="outline" size="sm" className="w-full">Sign In</Button>
+              </Link>
+              <Link to="/register" className="w-full">
+                <Button size="sm" className="w-full">Get Started</Button>
+              </Link>
+            </MobileNav>
+            <Link to="/" className="text-xl font-bold text-primary">AuthIt</Link>
+          </div>
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map(link => (
               <Link key={link.href} to={link.href} className="text-sm font-medium hover:text-primary">
@@ -36,7 +51,7 @@ const AboutPage = () => {
             <LanguageSelector />
             <ThemeSwitcher />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
             <Link to="/login">
               <Button variant="outline" size="sm">Sign In</Button>
             </Link>
