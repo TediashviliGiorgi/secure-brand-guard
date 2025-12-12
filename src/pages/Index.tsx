@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
-import { MobileNav } from '@/components/ui/mobile-nav';
 import HeroVisualization from '@/components/HeroVisualization';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -74,20 +73,6 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              {/* Mobile burger menu */}
-              <MobileNav links={navLinks}>
-                <div className="flex items-center gap-2">
-                  <LanguageSelector />
-                  <ThemeSwitcher />
-                </div>
-                <Link to="/login" className="w-full">
-                  <Button variant="outline" size="sm" className="w-full">{t('nav.signIn')}</Button>
-                </Link>
-                <Link to="/register" className="w-full">
-                  <Button size="sm" className="w-full">{t('nav.getStarted')}</Button>
-                </Link>
-              </MobileNav>
-              
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary">
                 <Shield className="w-6 h-6 text-primary-foreground" />
               </div>
@@ -115,6 +100,12 @@ const Index = () => {
               <Link to="/register">
                 <Button size="sm">{t('nav.getStarted')}</Button>
               </Link>
+            </div>
+
+            {/* Mobile: only logo and theme controls */}
+            <div className="flex md:hidden items-center gap-2">
+              <LanguageSelector />
+              <ThemeSwitcher />
             </div>
           </div>
         </div>

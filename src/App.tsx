@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { PublicBottomNav } from "@/components/layout/PublicBottomNav";
 import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
@@ -122,6 +123,7 @@ const App = () => (
               </Routes>
             </div>
             <BottomNav />
+            <PublicBottomNav />
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
