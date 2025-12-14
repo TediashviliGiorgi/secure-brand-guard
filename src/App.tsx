@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { PublicBottomNav } from "@/components/layout/PublicBottomNav";
 import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import LoginPage from "./pages/auth/LoginPage";
@@ -40,6 +41,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             <DynamicBreadcrumb />
             <div className="pb-20">
               <Routes>
