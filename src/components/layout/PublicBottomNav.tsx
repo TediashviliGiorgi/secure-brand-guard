@@ -52,16 +52,33 @@ export const PublicBottomNav = () => {
         <div className="flex items-center justify-around h-16">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
+            const isGetStarted = item.path === "/register";
             
             return (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className="flex flex-col items-center justify-center gap-1 px-2 py-2 rounded-lg transition-colors hover:bg-muted/50 min-w-[50px]"
-                activeClassName="text-primary font-medium"
+                className={`flex flex-col items-center justify-center gap-1 px-2 py-2 rounded-lg transition-colors min-w-[50px] ${
+                  isGetStarted 
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                    : "hover:bg-muted/50"
+                }`}
+                activeClassName={isGetStarted ? "" : "text-primary font-medium"}
               >
-                <item.icon className={`w-5 h-5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
-                <span className={`text-[10px] ${isActive ? "text-primary font-medium" : "text-muted-foreground"}`}>
+                <item.icon className={`w-5 h-5 ${
+                  isGetStarted 
+                    ? "text-primary-foreground" 
+                    : isActive 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                }`} />
+                <span className={`text-[10px] ${
+                  isGetStarted 
+                    ? "text-primary-foreground font-medium" 
+                    : isActive 
+                      ? "text-primary font-medium" 
+                      : "text-muted-foreground"
+                }`}>
                   {t(item.labelKey)}
                 </span>
               </NavLink>
