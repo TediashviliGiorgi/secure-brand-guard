@@ -1,5 +1,5 @@
 import { NavLink } from "@/components/NavLink";
-import { Home, Sparkles, DollarSign, Info, UserPlus } from "lucide-react";
+import { Home, Sparkles, DollarSign, Mail, LogIn, UserPlus } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -20,9 +20,14 @@ const navItems = [
     path: "/pricing",
   },
   {
-    labelKey: "nav.about",
-    icon: Info,
-    path: "/about",
+    labelKey: "nav.contact",
+    icon: Mail,
+    path: "/contact",
+  },
+  {
+    labelKey: "nav.signIn",
+    icon: LogIn,
+    path: "/login",
   },
   {
     labelKey: "nav.getStarted",
