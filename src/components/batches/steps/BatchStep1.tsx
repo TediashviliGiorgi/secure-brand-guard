@@ -131,47 +131,45 @@ export const BatchStep1 = ({ form }: Step1Props) => {
         />
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
-          control={form.control}
-          name="numberOfUnits"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Number of Units *</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  min="100"
-                  placeholder="Minimum 100"
-                  {...field}
-                  onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="region"
-          render={({ field }) => (
-            <FormItem className="col-span-2">
-              <CountryRegionSelect
-                countryCode={selectedCountryCode}
-                region={field.value || ''}
-                onCountryChange={handleCountryChange}
-                onRegionChange={field.onChange}
-                countryLabel="Country *"
-                regionLabel="Region *"
-                countryPlaceholder="Select country"
-                regionPlaceholder="Select region"
+      <FormField
+        control={form.control}
+        name="numberOfUnits"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Number of Units *</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                min="100"
+                placeholder="Minimum 100"
+                {...field}
+                onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
               />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="region"
+        render={({ field }) => (
+          <FormItem>
+            <CountryRegionSelect
+              countryCode={selectedCountryCode}
+              region={field.value || ''}
+              onCountryChange={handleCountryChange}
+              onRegionChange={field.onChange}
+              countryLabel="Country *"
+              regionLabel="Region *"
+              countryPlaceholder="Select country"
+              regionPlaceholder="Select region"
+            />
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
       <FormField
         control={form.control}

@@ -8,34 +8,36 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicatorProps) => {
   return (
-    <div className="flex items-center justify-center gap-2 mb-8">
-      {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
-        const isCompleted = step < currentStep;
-        const isCurrent = step === currentStep;
-        
-        return (
-          <div key={step} className="flex items-center">
-            <div
-              className={cn(
-                'flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium transition-colors',
-                isCompleted && 'bg-success text-success-foreground',
-                isCurrent && 'bg-primary text-primary-foreground',
-                !isCompleted && !isCurrent && 'bg-muted text-muted-foreground'
-              )}
-            >
-              {isCompleted ? <Check className="w-4 h-4" /> : step}
-            </div>
-            {step < totalSteps && (
+    <div className="flex items-center justify-center mb-8 w-full overflow-x-auto px-2">
+      <div className="flex items-center gap-1 sm:gap-2 min-w-fit">
+        {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
+          const isCompleted = step < currentStep;
+          const isCurrent = step === currentStep;
+          
+          return (
+            <div key={step} className="flex items-center">
               <div
                 className={cn(
-                  'w-8 h-0.5 mx-1',
-                  step < currentStep ? 'bg-success' : 'bg-muted'
+                  'flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium transition-colors flex-shrink-0',
+                  isCompleted && 'bg-success text-success-foreground',
+                  isCurrent && 'bg-primary text-primary-foreground',
+                  !isCompleted && !isCurrent && 'bg-muted text-muted-foreground'
                 )}
-              />
-            )}
-          </div>
-        );
-      })}
+              >
+                {isCompleted ? <Check className="w-3 h-3 sm:w-4 sm:h-4" /> : step}
+              </div>
+              {step < totalSteps && (
+                <div
+                  className={cn(
+                    'w-4 sm:w-8 h-0.5 mx-0.5 sm:mx-1 flex-shrink-0',
+                    step < currentStep ? 'bg-success' : 'bg-muted'
+                  )}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

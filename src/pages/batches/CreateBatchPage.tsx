@@ -186,13 +186,14 @@ export default function CreateBatchPage() {
           {currentStep === 6 && <BatchStep6 form={form} />}
           {currentStep === 7 && <BatchStep7 form={form} formData={formData} />}
 
-                <div className="flex items-center justify-between mt-8 pt-6 border-t">
-                  <div>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mt-8 pt-6 border-t">
+                  <div className="order-2 sm:order-1">
                     {currentStep > 1 && (
                       <Button
                         type="button"
                         variant="outline"
                         onClick={handleBack}
+                        className="w-full sm:w-auto"
                       >
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back
@@ -200,21 +201,22 @@ export default function CreateBatchPage() {
                     )}
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-3 order-1 sm:order-2">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={handleSaveDraft}
+                      className="w-full sm:w-auto"
                     >
                       Save as Draft
                     </Button>
 
                     {currentStep < TOTAL_STEPS ? (
-                      <Button type="button" onClick={handleNext}>
+                      <Button type="button" onClick={handleNext} className="w-full sm:w-auto">
                         Next: {stepTitles[currentStep]}
                       </Button>
                     ) : (
-                      <Button type="submit">
+                      <Button type="submit" className="w-full sm:w-auto">
                         Create Batch
                       </Button>
                     )}
