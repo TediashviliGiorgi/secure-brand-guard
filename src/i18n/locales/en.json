@@ -77,12 +77,14 @@
     "signingIn": "Signing in..."
   },
   "nav": {
+    "home": "Home",
     "features": "Features",
     "pricing": "Pricing",
     "about": "About",
     "contact": "Contact",
     "signIn": "Sign In",
     "getStarted": "Get Started",
+    "more": "More",
     "dashboard": "Dashboard",
     "batches": "Batches",
     "analytics": "Analytics",
