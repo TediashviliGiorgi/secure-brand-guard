@@ -51,7 +51,7 @@ export const BatchStep4 = ({ form }: BatchStep4Props) => {
                 {filteredPairings.map((category) => (
                   <div key={category.category}>
                     <h4 className="font-medium text-sm mb-2">{category.category}</h4>
-                    <div className="grid grid-cols-2 gap-3 ml-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ml-4">
                       {category.items.map((item) => (
                         <FormField
                           key={item}

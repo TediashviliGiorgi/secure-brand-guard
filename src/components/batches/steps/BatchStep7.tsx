@@ -43,7 +43,7 @@ export const BatchStep7 = ({ form, formData }: BatchStep7Props) => {
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
           <CollapsibleContent className="p-4 pt-0 space-y-2">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-muted-foreground">Product Name:</span>
                 <p className="font-medium">{formData.productName}</p>
@@ -82,7 +82,7 @@ export const BatchStep7 = ({ form, formData }: BatchStep7Props) => {
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
           <CollapsibleContent className="p-4 pt-0 space-y-2">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-muted-foreground">Production Date:</span>
                 <p className="font-medium">

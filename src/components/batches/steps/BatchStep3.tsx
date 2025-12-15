@@ -108,7 +108,7 @@ export const BatchStep3 = ({ form }: BatchStep3Props) => {
 
       <div className="space-y-4">
         <FormLabel>Aging Potential (Years)</FormLabel>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <FormField
             control={form.control}
             name="agingPotentialMin"
