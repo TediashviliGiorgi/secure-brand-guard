@@ -1,30 +1,31 @@
 import { NavLink } from "@/components/NavLink";
 import { Home, Package, BarChart3, Shield, Settings } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const navItems = [
   {
-    label: "Dashboard",
+    labelKey: "nav.dashboard",
     icon: Home,
     path: "/dashboard",
   },
   {
-    label: "Batches",
+    labelKey: "nav.batches",
     icon: Package,
     path: "/dashboard/batches",
   },
   {
-    label: "Analytics",
+    labelKey: "nav.analytics",
     icon: BarChart3,
     path: "/dashboard/analytics",
   },
   {
-    label: "Security",
+    labelKey: "nav.security",
     icon: Shield,
     path: "/dashboard/security",
   },
   {
-    label: "Settings",
+    labelKey: "nav.settings",
     icon: Settings,
     path: "/settings",
   },
@@ -32,6 +33,7 @@ const navItems = [
 
 export const BottomNav = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   // Only show on dashboard-related routes
   const showBottomNav = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/settings");
@@ -55,7 +57,7 @@ export const BottomNav = () => {
               >
                 <item.icon className={`w-5 h-5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
                 <span className={`text-xs ${isActive ? "text-primary font-medium" : "text-muted-foreground"}`}>
-                  {item.label}
+                  {t(item.labelKey)}
                 </span>
               </NavLink>
             );

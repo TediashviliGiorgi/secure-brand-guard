@@ -70,15 +70,21 @@
     "recoveryLinkSent": "Nous avons envoyé un lien de récupération de mot de passe à",
     "checkInbox": "Veuillez vérifier votre boîte de réception et suivre les instructions pour réinitialiser votre mot de passe.",
     "didntReceive": "Vous n'avez pas reçu l'email?",
-    "resendLink": "Renvoyer"
+    "resendLink": "Renvoyer",
+    "enterPassword": "Entrez votre mot de passe",
+    "signingIn": "Connexion en cours...",
+    "country": "Pays",
+    "selectCountry": "Sélectionner le pays"
   },
   "nav": {
+    "home": "Accueil",
     "features": "Fonctionnalités",
     "pricing": "Tarifs",
     "about": "À propos",
     "contact": "Contact",
     "signIn": "Se connecter",
     "getStarted": "Commencer",
+    "more": "Plus",
     "dashboard": "Tableau de bord",
     "batches": "Lots",
     "analytics": "Analyses",
@@ -169,5 +175,92 @@
     "exportData": "Exporter les données",
     "deactivateAccount": "Désactiver le compte",
     "deleteAccount": "Supprimer le compte"
+  },
+  "landing": {
+    "hero": {
+      "title": "Protégez votre marque contre la",
+      "titleHighlight": "Contrefaçon",
+      "subtitle": "Plateforme d'authentification digitale et de marketing avec codes QR et tags NFC. Créez la confiance, engagez les clients et éliminez les produits contrefaits.",
+      "startTrial": "Essai gratuit",
+      "watchDemo": "Voir la démo"
+    },
+    "problem": {
+      "stat": "Les marques mondiales perdent 2,3 milliards € par an à cause de la contrefaçon",
+      "cta": "Ne laissez pas cela arriver à votre entreprise"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "subtitle": "Un système simple en trois étapes pour protéger et promouvoir votre marque",
+      "qr1Title": "QR #1 : Marketing",
+      "qr1Description": "Partagez l'histoire de votre marque avec de belles pages produit engageantes que les clients adorent explorer",
+      "qr2Title": "QR #2 : Sécurité",
+      "qr2Description": "Vérification unique cachée sous le sceau qui empêche la contrefaçon et crée la confiance",
+      "dashboardTitle": "Tableau de bord",
+      "dashboardDescription": "Analyses en temps réel montrant où les produits sont scannés, vérifiés et la fraude potentielle détectée"
+    },
+    "features": {
+      "title": "Fonctionnalités puissantes",
+      "subtitle": "Tout ce dont vous avez besoin pour protéger et promouvoir votre marque sur une seule plateforme",
+      "qrNFC": "Protection QR & NFC",
+      "qrNFCDesc": "Double authentification avec codes QR et tags NFC pour une sécurité maximale",
+      "analytics": "Analyses en temps réel",
+      "analyticsDesc": "Suivez les scans, vérifiez l'authenticité et comprenez l'engagement client instantanément",
+      "security": "Surveillance de sécurité",
+      "securityDesc": "Détection avancée de fraude vous alertant des tentatives de contrefaçon potentielles",
+      "multilang": "Multilingue",
+      "multilangDesc": "Support pour le français, l'anglais et le russe pour atteindre les marchés mondiaux",
+      "oneTime": "Vérification unique",
+      "oneTimeDesc": "Chaque code de sécurité fonctionne une seule fois - impossible à dupliquer ou contrefaire",
+      "costEffective": "Économique",
+      "costEffectiveDesc": "Prix abordable par unité sans frais d'installation ni minimum mensuel"
+    },
+    "pricing": {
+      "title": "Tarification simple et transparente",
+      "subtitle": "Payez uniquement ce que vous utilisez. Sans frais d'installation ni minimum mensuel.",
+      "starter": "Starter",
+      "starterDesc": "Parfait pour les petits producteurs",
+      "perMonth": "/mois",
+      "perUnit": "par unité générée",
+      "dualQR": "Système double QR",
+      "productPages": "Pages histoire produit",
+      "basicAnalytics": "Analyses de base",
+      "professional": "Professionnel",
+      "professionalDesc": "Pour les marques en croissance",
+      "mostPopular": "Le plus populaire",
+      "everythingStarter": "Tout dans Starter",
+      "advancedAnalytics": "Analyses avancées",
+      "securityMonitoring": "Surveillance de sécurité",
+      "prioritySupport": "Support prioritaire",
+      "enterprise": "Entreprise",
+      "enterpriseDesc": "Pour les grandes opérations",
+      "everythingPro": "Tout dans Professionnel",
+      "customBranding": "Branding personnalisé",
+      "apiAccess": "Accès API",
+      "accountManager": "Gestionnaire de compte dédié",
+      "viewFullPricing": "Voir tous les tarifs →"
+    },
+    "social": {
+      "trusted": "Approuvé par des marques du monde entier"
+    },
+    "cta": {
+      "title": "Prêt à protéger votre marque ?",
+      "subtitle": "Commencez votre essai gratuit aujourd'hui. Aucune carte de crédit requise.",
+      "getStarted": "Commencer maintenant"
+    },
+    "footer": {
+      "company": "Entreprise",
+      "about": "À propos",
+      "contact": "Contact",
+      "product": "Produit",
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "resources": "Ressources",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "legal": "Légal",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation",
+      "rights": "Tous droits réservés."
+    }
   }
 }
