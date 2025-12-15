@@ -126,7 +126,7 @@ export const BatchStep5 = ({ form }: BatchStep5Props) => {
                 />
                 <FormDescription>Upload up to 10 additional photos</FormDescription>
                 {galleryPreviews.length > 0 && (
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                     {galleryPreviews.map((preview, index) => (
                       <div key={index} className="relative">
                         <img

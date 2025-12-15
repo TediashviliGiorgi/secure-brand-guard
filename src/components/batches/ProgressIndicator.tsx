@@ -8,8 +8,8 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicatorProps) => {
   return (
-    <div className="flex items-center justify-center mb-8 w-full overflow-x-auto px-2">
-      <div className="flex items-center gap-1 sm:gap-2 min-w-fit">
+    <div className="flex items-center justify-center mb-8 w-full">
+      <div className="flex items-center justify-center w-full">
         {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
           const isCompleted = step < currentStep;
           const isCurrent = step === currentStep;
@@ -18,7 +18,7 @@ export const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicator
             <div key={step} className="flex items-center">
               <div
                 className={cn(
-                  'flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium transition-colors flex-shrink-0',
+                  'flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full text-xs sm:text-sm font-medium transition-colors flex-shrink-0',
                   isCompleted && 'bg-success text-success-foreground',
                   isCurrent && 'bg-primary text-primary-foreground',
                   !isCompleted && !isCurrent && 'bg-muted text-muted-foreground'
@@ -29,7 +29,7 @@ export const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicator
               {step < totalSteps && (
                 <div
                   className={cn(
-                    'w-4 sm:w-8 h-0.5 mx-0.5 sm:mx-1 flex-shrink-0',
+                    'w-3 sm:w-6 h-0.5 flex-shrink-0',
                     step < currentStep ? 'bg-success' : 'bg-muted'
                   )}
                 />
