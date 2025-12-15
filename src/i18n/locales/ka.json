@@ -31,6 +31,8 @@
     "emailPlaceholder": "company@example.com",
     "phone": "ტელეფონი",
     "phonePlaceholder": "+995 xxx xxx xxx",
+    "country": "ქვეყანა",
+    "selectCountry": "აირჩიეთ ქვეყანა",
     "region": "რეგიონი",
     "selectRegion": "აირჩიეთ რეგიონი",
     "industry": "ინდუსტრია",
@@ -75,12 +77,14 @@
     "signingIn": "შესვლა..."
   },
   "nav": {
+    "home": "მთავარი",
     "features": "ფუნქციები",
     "pricing": "ფასები",
     "about": "ჩვენ შესახებ",
     "contact": "კონტაქტი",
     "signIn": "შესვლა",
     "getStarted": "დაწყება",
+    "more": "მეტი",
     "dashboard": "პანელი",
     "batches": "პარტიები",
     "analytics": "ანალიტიკა",
