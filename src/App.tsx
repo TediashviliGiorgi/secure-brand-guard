@@ -28,6 +28,7 @@ import PricingPage from "./pages/PricingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
+import AdminPanelPage from "./pages/admin/AdminPanelPage";
 import NotFound from "./pages/NotFound";
 import './i18n/config';
 
@@ -119,7 +120,16 @@ const App = () => (
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/dashboard/admin" 
+            element={
+              <ProtectedRoute>
+                <AdminPanelPage />
+              </ProtectedRoute>
+            } 
+          />
           {/* Organization profile removed - redirects handled in navigation */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
               </Routes>
