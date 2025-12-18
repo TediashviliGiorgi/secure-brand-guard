@@ -262,5 +262,9 @@
       "terms": "Termini di servizio",
       "rights": "Tutti i diritti riservati."
     }
+  },
+  "admin": {
+    "title": "Pannello di amministrazione",
+    "description": "Gestisci piani tariffari, politiche di costo e configurazione di sistema"
   }
 }

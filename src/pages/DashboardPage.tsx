@@ -2,7 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Radio, Plus, FileText, Menu, X } from 'lucide-react';
+import { Shield, LogOut, QrCode, Package, BarChart3, Settings, Radio, Plus, FileText, Menu, X, Crown } from 'lucide-react';
 import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -136,6 +136,17 @@ export default function DashboardPage() {
               >
                 <Settings className="w-4 h-4 mr-3 icon-primary" />
                 Settings
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start glass-button"
+                onClick={() => {
+                  navigate('/dashboard/admin');
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Crown className="w-4 h-4 mr-3 icon-primary" />
+                Admin Panel
               </Button>
               <Separator className="my-2" />
               <Button

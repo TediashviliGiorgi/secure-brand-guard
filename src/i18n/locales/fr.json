@@ -262,5 +262,9 @@
       "terms": "Conditions d'utilisation",
       "rights": "Tous droits réservés."
     }
+  },
+  "admin": {
+    "title": "Panneau d'administration",
+    "description": "Gérer les plans tarifaires, les politiques de coûts et la configuration système"
   }
 }
