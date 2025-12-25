@@ -9,8 +9,6 @@ import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 import { MetricCardSkeleton } from '@/components/ui/metric-card-skeleton';
-import { useDashboardTemplate } from '@/contexts/DashboardTemplateContext';
-import { LegacyPageWrapper } from '@/components/dashboard/LegacyPageWrapper';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 type MethodFilter = 'all' | 'qr';
@@ -68,7 +66,6 @@ const generateMetrics = (range: TimeRange, method: MethodFilter) => {
 };
 
 const DashboardAnalyticsPage = () => {
-  const { template } = useDashboardTemplate();
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');
   const [methodFilter, setMethodFilter] = useState<MethodFilter>('all');
   const [isLoading, setIsLoading] = useState(true);
@@ -140,10 +137,10 @@ const DashboardAnalyticsPage = () => {
     return `hsl(var(--primary) / ${0.1 + intensity * 0.9})`;
   };
 
-  const analyticsContent = (
-    <div className={template === 'legacy' ? '' : 'container mx-auto px-4 py-8'}>
-      {/* Header - only show for modern template */}
-      {template === 'modern' && (
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
           <div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
@@ -163,147 +160,146 @@ const DashboardAnalyticsPage = () => {
             </Button>
           </div>
         </div>
-      )}
 
-      {/* Filters Section */}
-      <Card className="p-6 mb-8 bg-card border-2">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-          {/* Time Range Selector */}
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Time Range</span>
-            </div>
-            <div className="flex gap-2">
-              {(['24h', '7d', '30d', '90d'] as TimeRange[]).map((range) => (
-                <Button
-                  key={range}
-                  variant={timeRange === range ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setTimeRange(range)}
-                  className="min-w-[70px]"
-                >
-                  {range}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Method Filter - Removed since only QR */}
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3">
-              <Filter className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Dual QR System</span>
-            </div>
-            <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
-              <div className="flex items-center gap-2">
-                <QrCode className="h-4 w-4 text-primary" />
-                <span className="text-sm font-semibold">All batches use Dual QR authentication</span>
+        {/* Filters Section */}
+        <Card className="p-6 mb-8 bg-card border-2">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            {/* Time Range Selector */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">Time Range</span>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Visible QR (marketing) + Hidden QR (security)
-              </p>
+              <div className="flex gap-2">
+                {(['24h', '7d', '30d', '90d'] as TimeRange[]).map((range) => (
+                  <Button
+                    key={range}
+                    variant={timeRange === range ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setTimeRange(range)}
+                    className="min-w-[70px]"
+                  >
+                    {range}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Method Filter - Removed since only QR */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <Filter className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">Dual QR System</span>
+              </div>
+              <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                <div className="flex items-center gap-2">
+                  <QrCode className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold">All batches use Dual QR authentication</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Visible QR (marketing) + Hidden QR (security)
+                </p>
+              </div>
+            </div>
+
+            {/* Active Filters Display */}
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="gap-1">
+                <Activity className="h-3 w-3" />
+                {getTimeRangeLabel()}
+              </Badge>
+              <Badge variant="secondary" className="gap-1">
+                Dual QR System
+              </Badge>
             </div>
           </div>
+        </Card>
 
-          {/* Active Filters Display */}
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="gap-1">
-              <Activity className="h-3 w-3" />
-              {getTimeRangeLabel()}
-            </Badge>
-            <Badge variant="secondary" className="gap-1">
-              Dual QR System
-            </Badge>
-          </div>
+        {/* Key Metrics */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {isLoading ? (
+            <>
+              {[...Array(4)].map((_, i) => (
+                <MetricCardSkeleton key={i} />
+              ))}
+            </>
+          ) : (
+            <>
+          <Card className="relative overflow-hidden border-2">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardDescription>Total Scans</CardDescription>
+                <Eye className="h-5 w-5 text-primary" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.totalScans.toLocaleString()}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.scansChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="relative overflow-hidden border-2">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-full -mr-12 -mt-12" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardDescription>Verifications</CardDescription>
+                <Zap className="h-5 w-5 text-success" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.totalVerifications.toLocaleString()}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.verificationsChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="relative overflow-hidden border-2">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -mr-12 -mt-12" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardDescription>Conversion Rate</CardDescription>
+                <TrendingUp className="h-5 w-5 text-secondary" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.conversionRate.toFixed(1)}%</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.conversionChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="relative overflow-hidden border-2">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -mr-12 -mt-12" />
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardDescription>Engagement Time</CardDescription>
+                <Clock className="h-5 w-5 text-accent" />
+              </div>
+              <CardTitle className="text-3xl font-bold">{metrics.avgTime}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                {renderTrendBadge(metrics.timeChange)}
+                <span className="text-xs text-muted-foreground">vs previous period</span>
+              </div>
+              </CardContent>
+            </Card>
+            </>
+          )}
         </div>
-      </Card>
 
-      {/* Key Metrics */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Scans Over Time */}
         {isLoading ? (
-          <>
-            {[...Array(4)].map((_, i) => (
-              <MetricCardSkeleton key={i} />
-            ))}
-          </>
+          <ChartSkeleton />
         ) : (
-          <>
-            <Card className="relative overflow-hidden border-2">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12" />
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardDescription>Total Scans</CardDescription>
-                  <Eye className="h-5 w-5 text-primary" />
-                </div>
-                <CardTitle className="text-3xl font-bold">{metrics.totalScans.toLocaleString()}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  {renderTrendBadge(metrics.scansChange)}
-                  <span className="text-xs text-muted-foreground">vs previous period</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden border-2">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-full -mr-12 -mt-12" />
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardDescription>Verifications</CardDescription>
-                  <Zap className="h-5 w-5 text-success" />
-                </div>
-                <CardTitle className="text-3xl font-bold">{metrics.totalVerifications.toLocaleString()}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  {renderTrendBadge(metrics.verificationsChange)}
-                  <span className="text-xs text-muted-foreground">vs previous period</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden border-2">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -mr-12 -mt-12" />
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardDescription>Conversion Rate</CardDescription>
-                  <TrendingUp className="h-5 w-5 text-secondary" />
-                </div>
-                <CardTitle className="text-3xl font-bold">{metrics.conversionRate.toFixed(1)}%</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  {renderTrendBadge(metrics.conversionChange)}
-                  <span className="text-xs text-muted-foreground">vs previous period</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden border-2">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -mr-12 -mt-12" />
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardDescription>Engagement Time</CardDescription>
-                  <Clock className="h-5 w-5 text-accent" />
-                </div>
-                <CardTitle className="text-3xl font-bold">{metrics.avgTime}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  {renderTrendBadge(metrics.timeChange)}
-                  <span className="text-xs text-muted-foreground">vs previous period</span>
-                </div>
-              </CardContent>
-            </Card>
-          </>
-        )}
-      </div>
-
-      {/* Scans Over Time */}
-      {isLoading ? (
-        <ChartSkeleton />
-      ) : (
         <Card className="mb-8 border-2">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -374,21 +370,201 @@ const DashboardAnalyticsPage = () => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-      )}
-    </div>
-  );
+        )}
 
-  if (template === 'legacy') {
-    return (
-      <LegacyPageWrapper title="Analytics" subtitle="Comprehensive insights into product verification">
-        {analyticsContent}
-      </LegacyPageWrapper>
-    );
-  }
+        {/* Device & Browser + Top Products */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Device & Browser Breakdown */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Device & OS Distribution</CardTitle>
+              <CardDescription>How consumers access your products</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-sm font-medium mb-4 text-center">Device Type</h4>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie
+                        data={deviceData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={50}
+                        outerRadius={80}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {deviceData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="space-y-2 mt-4">
+                    {deviceData.map((item) => (
+                      <div key={item.name} className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                          <span>{item.name}</span>
+                        </div>
+                        <span className="font-medium">{item.value}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-  return (
-    <div className="min-h-screen bg-background">
-      {analyticsContent}
+                <div>
+                  <h4 className="text-sm font-medium mb-4 text-center">Operating System</h4>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie
+                        data={osData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={50}
+                        outerRadius={80}
+                        paddingAngle={2}
+                        dataKey="value"
+                      >
+                        {osData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="space-y-2 mt-4">
+                    {osData.map((item) => (
+                      <div key={item.name} className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                          <span>{item.name}</span>
+                        </div>
+                        <span className="font-medium">{item.value}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Top Products Leaderboard */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Top Products</CardTitle>
+              <CardDescription>Best performing products by scans</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-12 gap-2 text-xs font-medium text-muted-foreground pb-2 border-b">
+                  <div className="col-span-1">#</div>
+                  <div className="col-span-5">Product</div>
+                  <div className="col-span-2 text-right">QR1</div>
+                  <div className="col-span-2 text-right">QR2</div>
+                  <div className="col-span-2 text-right">CVR</div>
+                </div>
+                
+                {topProducts.map((product) => (
+                  <div key={product.rank} className="grid grid-cols-12 gap-2 text-sm items-center">
+                    <div className="col-span-1 font-bold text-primary">{product.rank}</div>
+                    <div className="col-span-5">
+                      <div className="font-medium">{product.name}</div>
+                      <div className="text-xs text-muted-foreground">{product.category}</div>
+                    </div>
+                    <div className="col-span-2 text-right">{product.qr1.toLocaleString()}</div>
+                    <div className="col-span-2 text-right">{product.qr2.toLocaleString()}</div>
+                    <div className="col-span-2 text-right font-medium">{product.cvr}%</div>
+                  </div>
+                ))}
+              </div>
+              
+              <Button variant="link" className="w-full mt-4">View All Products →</Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Peak Hours Heatmap */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Peak Hours Heatmap</CardTitle>
+            <CardDescription>Scan activity by day and hour</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <div className="inline-block min-w-full">
+                <div className="flex gap-1 mb-2">
+                  <div className="w-12"></div>
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <div key={i} className="w-8 text-xs text-center text-muted-foreground">
+                      {i}
+                    </div>
+                  ))}
+                </div>
+                
+                {peakHoursData.map((row) => (
+                  <div key={row.day} className="flex gap-1 mb-1">
+                    <div className="w-12 text-xs text-muted-foreground flex items-center">
+                      {row.day}
+                    </div>
+                    {row.hours.map((value, i) => (
+                      <div
+                        key={i}
+                        className="w-8 h-8 rounded"
+                        style={{ backgroundColor: getHeatColor(value) }}
+                        title={`${row.day} ${i}:00 - ${value} scans`}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Consumer Engagement Metrics */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Consumer Engagement Metrics</CardTitle>
+            <CardDescription>How consumers interact with product pages</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+              <div className="flex flex-col items-center text-center p-4 border rounded-lg">
+                <Clock className="w-8 h-8 text-primary mb-2" />
+                <div className="text-2xl font-bold">2m 35s</div>
+                <div className="text-sm text-muted-foreground">Avg Page Time</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-4 border rounded-lg">
+                <Users className="w-8 h-8 text-primary mb-2" />
+                <div className="text-2xl font-bold">35%</div>
+                <div className="text-sm text-muted-foreground">Bounce Rate</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-4 border rounded-lg">
+                <MousePointerClick className="w-8 h-8 text-primary mb-2" />
+                <div className="text-2xl font-bold">42%</div>
+                <div className="text-sm text-muted-foreground">Video Play Rate</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-4 border rounded-lg">
+                <Eye className="w-8 h-8 text-primary mb-2" />
+                <div className="text-2xl font-bold">68%</div>
+                <div className="text-sm text-muted-foreground">Gallery Views</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center p-4 border rounded-lg">
+                <TrendingUp className="w-8 h-8 text-primary mb-2" />
+                <div className="text-2xl font-bold">12%</div>
+                <div className="text-sm text-muted-foreground">Share Rate</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

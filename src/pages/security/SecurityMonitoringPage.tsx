@@ -17,8 +17,6 @@ import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { SecurityWidgetSkeleton, SecurityListSkeleton } from '@/components/ui/security-widget-skeleton';
 import { ChartSkeleton } from '@/components/ui/chart-skeleton';
-import { useDashboardTemplate } from '@/contexts/DashboardTemplateContext';
-import { LegacyPageWrapper } from '@/components/dashboard/LegacyPageWrapper';
 
 type TimeRange = '24h' | '7d' | '30d' | '90d';
 type MethodFilter = 'all' | 'qr';
@@ -144,7 +142,6 @@ const generateMetrics = (range: TimeRange, method: MethodFilter) => {
 };
 
 export default function SecurityMonitoringPage() {
-  const { template } = useDashboardTemplate();
   const [showSettings, setShowSettings] = useState(false);
   const [emailAlerts, setEmailAlerts] = useState('immediate');
   const [smsAlerts, setSmsAlerts] = useState(true);
@@ -234,11 +231,11 @@ export default function SecurityMonitoringPage() {
     }
   };
 
-  const securityContent = (
-    <div className={template === 'legacy' ? '' : 'container mx-auto px-4 py-8 space-y-8'}>
-      {/* Header - only for modern template */}
-      {template === 'modern' && (
-        <div className="border-b bg-background sticky top-0 z-10 backdrop-blur-sm bg-background/95 -mx-4 -mt-8 px-4 pt-8 pb-6 mb-8">
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b bg-background sticky top-0 z-10 backdrop-blur-sm bg-background/95">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
@@ -255,7 +252,9 @@ export default function SecurityMonitoringPage() {
             </div>
           </div>
         </div>
-      )}
+      </div>
+
+      <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Filters Section */}
         <Card className="p-6 bg-card border-2">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
@@ -660,20 +659,7 @@ export default function SecurityMonitoringPage() {
             </div>
           )}
         </Card>
-    </div>
-  );
-
-  if (template === 'legacy') {
-    return (
-      <LegacyPageWrapper title="Security" subtitle="Real-time threat detection and verification tracking">
-        {securityContent}
-      </LegacyPageWrapper>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-background">
-      {securityContent}
+      </div>
     </div>
   );
 }
