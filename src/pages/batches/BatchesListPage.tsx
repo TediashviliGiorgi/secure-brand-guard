@@ -20,6 +20,8 @@ import {
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { BatchCardSkeleton } from '@/components/ui/batch-card-skeleton';
 import { DataTableSkeleton } from '@/components/ui/data-table-skeleton';
+import { useDashboardTemplate } from '@/contexts/DashboardTemplateContext';
+import { LegacyPageWrapper } from '@/components/dashboard/LegacyPageWrapper';
 
 interface BatchItem {
   id: string;
@@ -79,6 +81,7 @@ const mockBatches: BatchItem[] = [
 ];
 
 export default function BatchesListPage() {
+  const { template } = useDashboardTemplate();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
