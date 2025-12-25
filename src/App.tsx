@@ -10,6 +10,7 @@ import { PublicBottomNav } from "@/components/layout/PublicBottomNav";
 import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { DashboardTemplateProvider } from "@/contexts/DashboardTemplateContext";
 import Index from "./pages/Index";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -37,14 +38,15 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <ThemeProvider defaultTheme="system" storageKey="authit-theme">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <DynamicBreadcrumb />
-            <div className="pb-20">
+      <DashboardTemplateProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <DynamicBreadcrumb />
+              <div className="pb-20">
               <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginPage />} />
@@ -132,13 +134,14 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-            <BottomNav />
-            <PublicBottomNav />
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
+                </Routes>
+              </div>
+              <BottomNav />
+              <PublicBottomNav />
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </DashboardTemplateProvider>
     </ThemeProvider>
   </ErrorBoundary>
 );

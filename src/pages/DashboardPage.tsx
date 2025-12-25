@@ -11,6 +11,9 @@ import { Separator } from '@/components/ui/separator';
 import { BatchStatistics } from '@/components/dashboard/BatchStatistics';
 import { AnalyticsOverview } from '@/components/dashboard/AnalyticsOverview';
 import { SecurityOverview } from '@/components/dashboard/SecurityOverview';
+import { TemplateSwitcher } from '@/components/dashboard/TemplateSwitcher';
+import { LegacyDashboard } from '@/components/dashboard/LegacyDashboard';
+import { useDashboardTemplate } from '@/contexts/DashboardTemplateContext';
 import { useState } from 'react';
 
 export default function DashboardPage() {
@@ -18,6 +21,20 @@ export default function DashboardPage() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { template } = useDashboardTemplate();
+
+  // Render Legacy Dashboard if template is 'legacy'
+  if (template === 'legacy') {
+    return (
+      <>
+        <SEO 
+          title="Dashboard - AuthIt"
+          description="Manage your brand authentication and product verification"
+        />
+        <LegacyDashboard />
+      </>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,6 +61,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <TemplateSwitcher />
               <LanguageSelector />
               <ThemeSwitcher />
               {!isMobile && (
