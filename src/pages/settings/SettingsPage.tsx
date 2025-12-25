@@ -22,8 +22,11 @@ import { PasswordStrengthIndicator } from "@/components/auth/PasswordStrengthInd
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GEORGIAN_REGIONS, INDUSTRIES } from "@/lib/validators";
+import { useDashboardTemplate } from '@/contexts/DashboardTemplateContext';
+import { LegacyPageWrapper } from '@/components/dashboard/LegacyPageWrapper';
 
 const SettingsPage = () => {
+  const { template } = useDashboardTemplate();
   const { t } = useTranslation();
   const { toast } = useToast();
   const navigate = useNavigate();
