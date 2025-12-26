@@ -7,6 +7,7 @@ import { AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, BarChart, Bar, X
 import { Download, FileText, TrendingUp, TrendingDown, Users, Eye, MousePointerClick, Clock, Calendar, Activity, QrCode, Radio, Zap, Globe, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { TemplateSwitcher } from '@/components/TemplateSwitcher';
 import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 import { MetricCardSkeleton } from '@/components/ui/metric-card-skeleton';
 
@@ -153,6 +154,7 @@ const DashboardAnalyticsPage = () => {
           </div>
           
           <div className="flex flex-wrap items-center gap-3">
+            <TemplateSwitcher />
             <LanguageSelector />
             <Button variant="outline" size="sm">
               <Download className="w-4 h-4 mr-2" />

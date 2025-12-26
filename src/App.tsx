@@ -10,6 +10,7 @@ import { PublicBottomNav } from "@/components/layout/PublicBottomNav";
 import { DynamicBreadcrumb } from "@/components/layout/DynamicBreadcrumb";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { TemplateProvider } from "@/components/TemplateProvider";
 import Index from "./pages/Index";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
@@ -37,9 +38,10 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <ThemeProvider defaultTheme="system" storageKey="authit-theme">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
+      <TemplateProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
           <Sonner />
           <BrowserRouter>
             <ScrollToTop />
@@ -137,8 +139,9 @@ const App = () => (
             <BottomNav />
             <PublicBottomNav />
           </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </TemplateProvider>
     </ThemeProvider>
   </ErrorBoundary>
 );
