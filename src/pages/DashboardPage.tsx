@@ -7,6 +7,7 @@ import { SEO } from '@/components/ui/seo';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { TemplateSwitcher } from '@/components/TemplateSwitcher';
 import { Separator } from '@/components/ui/separator';
 import { BatchStatistics } from '@/components/dashboard/BatchStatistics';
 import { AnalyticsOverview } from '@/components/dashboard/AnalyticsOverview';
@@ -44,6 +45,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <TemplateSwitcher />
               <LanguageSelector />
               <ThemeSwitcher />
               {!isMobile && (

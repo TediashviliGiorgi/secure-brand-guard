@@ -659,3 +659,282 @@ All colors MUST be HSL.
     transform: translateX(100%);
   }
 }
+
+/* ========================================
+   ENTERPRISE TEMPLATE STYLES
+   Microsoft Azure / Legacy Enterprise Look
+   ======================================== */
+
+/* Enterprise Template - Dense, Functional, Small Elements */
+.template-enterprise {
+  /* Tighter spacing */
+  --radius: 0.25rem;
+  
+  /* Enterprise color overrides - more muted, corporate */
+  --primary: 210 80% 45%;
+  --primary-hover: 210 80% 38%;
+  --accent: 210 40% 94%;
+  --accent-foreground: 210 80% 45%;
+}
+
+.template-enterprise.dark {
+  --primary: 210 70% 55%;
+  --primary-hover: 210 70% 60%;
+  --accent: 210 30% 20%;
+  --accent-foreground: 210 70% 65%;
+}
+
+/* Enterprise base styles */
+.template-enterprise body {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.template-enterprise h1 {
+  @apply text-xl lg:text-2xl font-semibold;
+  letter-spacing: 0;
+}
+
+.template-enterprise h2 {
+  @apply text-lg lg:text-xl font-semibold;
+  letter-spacing: 0;
+}
+
+.template-enterprise h3 {
+  @apply text-base lg:text-lg font-medium;
+  letter-spacing: 0;
+}
+
+/* Enterprise cards - flat, dense, minimal shadows */
+.template-enterprise .glass-card,
+.template-enterprise .card-institutional,
+.template-enterprise .card-institutional-elevated {
+  @apply rounded-sm shadow-sm border;
+  background: hsl(var(--card));
+  backdrop-filter: none;
+}
+
+.template-enterprise .glass-card:hover {
+  @apply shadow-md;
+  transform: none;
+}
+
+/* Enterprise header - compact and functional */
+.template-enterprise .glass-header {
+  @apply bg-card border-b py-2;
+  backdrop-filter: none;
+}
+
+/* Enterprise buttons - smaller and compact */
+.template-enterprise button,
+.template-enterprise .btn-institutional,
+.template-enterprise .btn-institutional-outline {
+  @apply text-xs px-3 py-1.5 rounded-sm font-normal;
+}
+
+/* Enterprise badges - compact */
+.template-enterprise [class*="badge"],
+.template-enterprise .Badge {
+  @apply text-[10px] px-1.5 py-0.5 rounded-sm font-normal;
+}
+
+/* Enterprise inputs - compact */
+.template-enterprise input,
+.template-enterprise select,
+.template-enterprise textarea {
+  @apply text-xs py-1.5 px-2 rounded-sm;
+}
+
+/* Enterprise tables - dense rows */
+.template-enterprise table {
+  @apply text-xs;
+}
+
+.template-enterprise th,
+.template-enterprise td {
+  @apply py-1.5 px-2;
+}
+
+/* Enterprise cards - reduced padding */
+.template-enterprise [class*="CardHeader"] {
+  @apply p-3;
+}
+
+.template-enterprise [class*="CardContent"] {
+  @apply p-3 pt-0;
+}
+
+.template-enterprise [class*="CardTitle"] {
+  @apply text-sm font-medium;
+}
+
+.template-enterprise [class*="CardDescription"] {
+  @apply text-[11px];
+}
+
+/* Enterprise containers - tighter */
+.template-enterprise .container {
+  @apply px-3;
+}
+
+/* Enterprise grids - tighter gaps */
+.template-enterprise .grid {
+  @apply gap-3;
+}
+
+/* Enterprise spacing - use direct values to avoid circular @apply */
+.template-enterprise .space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.template-enterprise .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.template-enterprise .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.template-enterprise .mb-8 {
+  margin-bottom: 1rem;
+}
+
+.template-enterprise .mb-6 {
+  margin-bottom: 0.75rem;
+}
+
+.template-enterprise .py-8 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.template-enterprise .py-6 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Enterprise icons - smaller */
+.template-enterprise svg {
+  @apply w-4 h-4;
+}
+
+.template-enterprise .w-12.h-12,
+.template-enterprise .w-10.h-10 {
+  @apply w-8 h-8;
+}
+
+/* Enterprise charts - compact */
+.template-enterprise .recharts-wrapper {
+  font-size: 10px;
+}
+
+/* Disable fancy animations in enterprise mode */
+.template-enterprise .hover-lift,
+.template-enterprise .hover-scale {
+  transform: none !important;
+}
+
+.template-enterprise .hover-lift:hover,
+.template-enterprise .hover-scale:hover {
+  transform: none !important;
+}
+
+.template-enterprise .stagger-fade-in {
+  animation: none;
+  opacity: 1;
+}
+
+.template-enterprise .glass {
+  backdrop-filter: none;
+  background: hsl(var(--card));
+}
+
+/* Enterprise tabs - compact */
+.template-enterprise [role="tablist"] {
+  @apply gap-0;
+}
+
+.template-enterprise [role="tab"] {
+  @apply text-xs px-3 py-1.5 rounded-none border-b-2 border-transparent;
+}
+
+.template-enterprise [role="tab"][data-state="active"] {
+  @apply border-b-primary bg-transparent;
+}
+
+/* Enterprise separators */
+.template-enterprise hr,
+.template-enterprise [class*="separator"] {
+  @apply my-3;
+}
+
+/* Enterprise metric cards - ultra compact - use direct font sizes */
+.template-enterprise .text-3xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.template-enterprise .text-4xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.template-enterprise .text-5xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.template-enterprise .text-6xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+/* Enterprise dropdown menus */
+.template-enterprise [role="menu"] {
+  @apply rounded-sm text-xs;
+}
+
+.template-enterprise [role="menuitem"] {
+  @apply text-xs py-1 px-2;
+}
+
+/* Enterprise dialogs - compact */
+.template-enterprise [role="dialog"] {
+  @apply rounded-sm;
+}
+
+/* Enterprise progress bars */
+.template-enterprise [role="progressbar"] {
+  @apply h-1 rounded-none;
+}
+
+/* Enterprise popovers */
+.template-enterprise [data-radix-popper-content-wrapper] {
+  @apply text-xs;
+}
+
+/* Enterprise scrollbars - thin */
+.template-enterprise ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.template-enterprise ::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+.template-enterprise ::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 0;
+}
+
+/* Enterprise tooltips */
+.template-enterprise [role="tooltip"] {
+  @apply text-[10px] px-1.5 py-0.5 rounded-none;
+}
