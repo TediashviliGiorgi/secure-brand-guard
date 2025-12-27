@@ -30,6 +30,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import AdminPanelPage from "./pages/admin/AdminPanelPage";
+import TraceabilityDashboard from "./pages/traceability/TraceabilityDashboard";
 import NotFound from "./pages/NotFound";
 import './i18n/config';
 
@@ -127,6 +128,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <AdminPanelPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard/traceability" 
+            element={
+              <ProtectedRoute>
+                <TraceabilityDashboard />
               </ProtectedRoute>
             } 
           />
