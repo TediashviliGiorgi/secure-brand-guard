@@ -15,7 +15,6 @@ import { useState, useEffect } from 'react';
 import { LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
-import { TemplateSwitcher } from '@/components/TemplateSwitcher';
 import { SecurityWidgetSkeleton, SecurityListSkeleton } from '@/components/ui/security-widget-skeleton';
 import { ChartSkeleton } from '@/components/ui/chart-skeleton';
 
@@ -249,7 +248,6 @@ export default function SecurityMonitoringPage() {
             </div>
             <div className="flex items-center gap-3">
               {getStatusBadge()}
-              <TemplateSwitcher />
               <LanguageSelector />
             </div>
           </div>
